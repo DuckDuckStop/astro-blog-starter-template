@@ -8,10 +8,11 @@ export const SITE_DESCRIPTION =
 export const HOME_EYEBROW = "Austin Pixel Beacon";
 export const HOME_HEADLINE = "COMING SOON";
 export const HOME_BULLETS = [
-	"ATXPIXEL is a creative LED production and systems service provider.",
-	"We service Austin, TX and surrounding areas.",
-	"We design, program, and install dynamic lighting systems from custom builds to full-scale visual installations.",
-	"Every project is approached as both art and engineering, built to demonstrate creative range, technical execution, and production discipline.",
-	"The site is currently evolving with new case studies, builds, and interactive demos in development.",
-	"Check back soon - the next wave is loading.",
+	"ATXPIXEL - LED production and systems studio.",
+	"Serving Austin, TX and surrounding areas.",
+	"Custom design, programming, and installation.",
+	"From single builds to full-scale visual environments.",
+	"Art and engineering. Precision in every detail.",
+	"Site in progress. New work and demos coming soon.",
+	"Check back shortly.",
 ];
