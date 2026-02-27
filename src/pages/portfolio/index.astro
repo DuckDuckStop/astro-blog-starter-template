@@ -1,0 +1,62 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="Portfolio | ATXPIXEL.COM"
+			description="ATXPIXEL project beacon showcasing photography, video, and multidisciplinary demonstrations."
+		/>
+		<style>
+			.portfolio {
+				display: grid;
+				gap: 1rem;
+			}
+			.panel {
+				padding: 1.2rem;
+				border-radius: 12px;
+				border: 1px solid rgba(0, 255, 240, 0.3);
+				background: rgba(5, 10, 26, 0.65);
+			}
+			.panel h1 {
+				font-family: "Orbitron", "Bahnschrift", "Atkinson", sans-serif;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+			}
+			.links {
+				display: flex;
+				gap: 0.8rem;
+				flex-wrap: wrap;
+			}
+			.links a {
+				display: inline-block;
+				padding: 0.55rem 0.9rem;
+				border-radius: 999px;
+				text-decoration: none;
+				border: 1px solid rgba(255, 45, 158, 0.45);
+				background: rgba(255, 45, 158, 0.08);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="portfolio">
+			<section class="panel">
+				<h1>Portfolio Hub</h1>
+				<p>
+					This beacon tracks active and completed work across ATXPIXEL projects. Start by placing
+					media files in <code>public/media/photos</code> and <code>public/media/videos</code>.
+				</p>
+				<div class="links">
+					<a href="/portfolio/photos/">Open Photo Index</a>
+					<a href="/portfolio/videos/">Open Video Index</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
