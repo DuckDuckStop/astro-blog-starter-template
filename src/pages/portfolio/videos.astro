@@ -2,45 +2,6 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import manualReelsData from '../../data/instagram-fallback.json';
-import {
-	getLatestInstagramReels,
-	toInstagramEmbedUrl,
-	type InstagramReel,
-} from '../../lib/instagram';
-
-export const prerender = false;
-
-const instagramProfileUrl = 'https://instagram.com/atxpixel';
-const userId = import.meta.env.INSTAGRAM_USER_ID;
-const accessToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
-const limit = Number(import.meta.env.INSTAGRAM_REELS_LIMIT ?? 6);
-const hasConfig = Boolean(userId && accessToken);
-
-const { reels, error } = await getLatestInstagramReels({
-	userId,
-	accessToken,
-	limit,
-});
-
-const fallbackReels: InstagramReel[] = (manualReelsData.reels ?? [])
-	.filter((item) => typeof item?.permalink === 'string' && item.permalink.includes('/reel/'))
-	.map((item, index) => {
-		const permalink = item.permalink.trim();
-		return {
-			id: item.id?.trim() || `manual-${index}`,
-			caption: item.caption?.trim() || 'Manual Instagram reel',
-			permalink,
-			timestamp: item.timestamp?.trim() || '',
-			embedUrl: toInstagramEmbedUrl(permalink),
-		};
-	});
-
-const displayReels = reels.length > 0 ? reels : fallbackReels;
-const usingFallback = reels.length === 0 && fallbackReels.length > 0;
-const fallbackReason = !hasConfig
-	? 'Instagram API credentials are not configured.'
-	: error || 'Instagram API returned no reels.';
 ---
 
 <!doctype html>
@@ -48,10 +9,10 @@ const fallbackReason = !hasConfig
 	<head>
 		<BaseHead
 			title="Video Index | ATXPIXEL.COM"
-			description="Latest Instagram reels from ATXPIXEL.COM"
+			description="Video collection placeholder for ATXPIXEL.COM"
 		/>
 		<style>
-			.reels-wrap {
+			.video-wrap {
 				display: grid;
 				gap: 1rem;
 			}
@@ -66,107 +27,31 @@ const fallbackReason = !hasConfig
 				letter-spacing: 0.08em;
 				text-transform: uppercase;
 			}
-			.status {
+			.panel {
 				padding: 1rem;
 				border-radius: 10px;
 				background: rgba(255, 45, 158, 0.1);
 				border: 1px solid rgba(255, 45, 158, 0.4);
 			}
-			.reel-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 1rem;
-			}
-			.reel-card {
-				padding: 0.8rem;
-				border-radius: 12px;
-				background: rgba(6, 10, 24, 0.78);
-				border: 1px solid rgba(0, 255, 240, 0.2);
-			}
-			.embed-frame {
-				width: 100%;
-				height: 520px;
-				border: none;
-				border-radius: 10px;
-				background: #0a0f22;
-			}
-			.reel-meta {
-				margin-top: 0.7rem;
-				font-size: 0.9rem;
-			}
-			.reel-meta p {
-				margin: 0 0 0.5rem;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-				overflow: hidden;
-			}
-			.reel-meta a {
-				font-size: 0.85rem;
-			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main class="reels-wrap">
+		<main class="video-wrap">
 			<section class="header-card">
-				<h1>Latest Reels</h1>
+				<h1>Video Index</h1>
 				<p>
-					Live embeds pulled from <a href={instagramProfileUrl} target="_blank" rel="noopener noreferrer"
-						>@atxpixel</a
-					>.
+					This route has been simplified to local-first video management to keep load behavior
+					predictable and avoid third-party dependency overhead.
 				</p>
 			</section>
 
-			{usingFallback && (
-				<section class="status">
-					<p>
-						Showing manual fallback reels from <code>src/data/instagram-fallback.json</code> because
-						{` ${fallbackReason}`}
-					</p>
-				</section>
-			)}
-
-			{!usingFallback && !hasConfig && (
-				<section class="status">
-					<p>
-						Set <code>INSTAGRAM_USER_ID</code> and <code>INSTAGRAM_ACCESS_TOKEN</code> to enable
-						automatic reel loading, or add fallback entries in
-						<code>src/data/instagram-fallback.json</code>.
-					</p>
-				</section>
-			)}
-
-			{displayReels.length === 0 && (
-				<section class="status">
-					<p>No reels available yet. Add reel links to <code>src/data/instagram-fallback.json</code>.</p>
-				</section>
-			)}
-
-			{displayReels.length > 0 && (
-				<section class="reel-grid">
-					{
-						displayReels.map((reel) => (
-							<article class="reel-card">
-								<iframe
-									title={reel.caption}
-									class="embed-frame"
-									src={reel.embedUrl}
-									loading="lazy"
-									allow="encrypted-media; picture-in-picture"
-									allowfullscreen
-								></iframe>
-								<div class="reel-meta">
-									<p>{reel.caption}</p>
-									<a href={reel.permalink} target="_blank" rel="noopener noreferrer">
-										Open on Instagram
-									</a>
-								</div>
-							</article>
-						))
-					}
-				</section>
-			)}
+			<section class="panel">
+				<p>
+					Drop video assets into <code>public/media/videos</code>. This route is ready to be
+					upgraded into a local gallery page.
+				</p>
+			</section>
 		</main>
 		<Footer />
 	</body>

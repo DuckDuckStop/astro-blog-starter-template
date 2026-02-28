@@ -1,11 +1,24 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_LOGO_PRIMARY, SITE_LOGO_FALLBACK } from '../consts';
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2>
+			<a class="brand" href="/">
+				<img
+					src={SITE_LOGO_PRIMARY}
+					alt="ATXPIXEL logo"
+					width="60"
+					height="60"
+					loading="eager"
+					decoding="async"
+					onerror={`this.onerror=null;this.src='${SITE_LOGO_FALLBACK}';`}
+				/>
+				<span>{SITE_TITLE}</span>
+			</a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Welcome</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
@@ -16,15 +29,34 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: rgba(6, 8, 22, 0.9);
-		border-bottom: 1px solid rgba(0, 255, 240, 0.35);
-		backdrop-filter: blur(6px);
+		background: #0a0a0a;
+		border-bottom: 1px solid #1c1c1c;
 	}
 	h2 {
 		margin: 0;
 		font-size: 1em;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+	.brand img {
+		display: block;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		border: 1px solid rgba(237, 237, 237, 0.28);
+		background: #0a0a0a;
+	}
+	.brand span {
+		font-family: "Roboto Flex", "Atkinson", "Segoe UI", sans-serif;
+		font-variation-settings: "wght" 760, "wdth" 88, "GRAD" 35, "opsz" 120;
+		font-weight: 760;
+		letter-spacing: 0.09em;
+		color: #ededed;
 	}
 
 	h2 a,
@@ -39,14 +71,14 @@ import { SITE_TITLE } from '../consts';
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: rgb(var(--gray-light));
+		color: #9a9a9a;
 		border-bottom: 3px solid transparent;
 		text-decoration: none;
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
-		color: #00fff0;
+		border-bottom-color: var(--accent-violet);
+		color: #ededed;
 	}
 	.internal-links {
 		display: flex;

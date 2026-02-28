@@ -3,16 +3,16 @@
  */
 
 :root {
-	--accent: #00fff0;
-	--accent-dark: #00b3ad;
-	--black: 4, 8, 20;
-	--gray: 150, 166, 210;
-	--gray-light: 213, 226, 255;
-	--gray-dark: 232, 238, 255;
-	--gray-gradient: rgba(7, 10, 28, 0.9), rgba(16, 11, 40, 0.85);
-	--box-shadow:
-		0 0 12px rgba(0, 255, 240, 0.28),
-		0 0 28px rgba(255, 45, 158, 0.22);
+	--accent-magenta: #ff2e9f;
+	--accent-violet: #9a4dff;
+	--accent-cyan: #00f0ff;
+	--accent: var(--accent-cyan);
+	--accent-dark: #0ecbde;
+	--black: 10, 10, 10;
+	--gray: 154, 154, 154;
+	--gray-light: 220, 220, 220;
+	--gray-dark: 237, 237, 237;
+	--box-shadow: none;
 }
 @font-face {
 	font-family: "Atkinson";
@@ -29,15 +29,11 @@
 	font-display: swap;
 }
 body {
-	font-family: "Atkinson", "Segoe UI", sans-serif;
+	font-family: "Roboto Flex", "Atkinson", "Segoe UI", sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background:
-		radial-gradient(circle at 15% 20%, rgba(0, 255, 240, 0.12), transparent 34%),
-		radial-gradient(circle at 80% 0%, rgba(255, 45, 158, 0.18), transparent 35%),
-		linear-gradient(var(--gray-gradient)) no-repeat;
-	background-color: rgb(var(--black));
+	background: #0a0a0a;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
@@ -80,10 +76,10 @@ b {
 	font-weight: 700;
 }
 a {
-	color: var(--accent);
+	color: var(--accent-violet);
 }
 a:hover {
-	color: #6ff9f6;
+	color: var(--accent-cyan);
 }
 p {
 	margin-bottom: 1em;
@@ -108,7 +104,7 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgba(0, 255, 240, 0.14);
+	background-color: rgba(154, 77, 255, 0.18);
 	border-radius: 2px;
 }
 pre {
@@ -119,7 +115,7 @@ pre > code {
 	all: unset;
 }
 blockquote {
-	border-left: 4px solid var(--accent);
+	border-left: 4px solid var(--accent-magenta);
 	padding: 0 0 0 20px;
 	margin: 0;
 	font-size: 1.15em;
