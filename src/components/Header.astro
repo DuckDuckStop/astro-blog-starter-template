@@ -1,21 +1,14 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE, SITE_LOGO_PRIMARY, SITE_LOGO_FALLBACK } from '../consts';
+import AnimatedLogo from './AnimatedLogo.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
 <header>
 	<nav>
 		<h2>
 			<a class="brand" href="/">
-				<img
-					src={SITE_LOGO_PRIMARY}
-					alt="ATXPIXEL logo"
-					width="60"
-					height="60"
-					loading="eager"
-					decoding="async"
-					onerror={`this.onerror=null;this.src='${SITE_LOGO_FALLBACK}';`}
-				/>
+				<AnimatedLogo />
 				<span>{SITE_TITLE}</span>
 			</a>
 		</h2>
@@ -43,13 +36,8 @@ import { SITE_TITLE, SITE_LOGO_PRIMARY, SITE_LOGO_FALLBACK } from '../consts';
 		align-items: center;
 		gap: 0.25rem;
 	}
-	.brand img {
-		display: block;
-		width: 60px;
-		height: 60px;
-		border-radius: 50%;
-		border: 1px solid rgba(237, 237, 237, 0.28);
-		background: #0a0a0a;
+	.brand :global(.animated-logo) {
+		flex: 0 0 auto;
 	}
 	.brand span {
 		font-family: "Roboto Flex", "Atkinson", "Segoe UI", sans-serif;

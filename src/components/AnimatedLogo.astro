@@ -1,0 +1,150 @@
+---
+const LOGO_SRC = "/branding/logo/atxpixel-logo.png";
+---
+
+<div class="animated-logo" data-animated-logo>
+	<canvas class="logo-canvas" aria-label="ATXPIXEL logo" role="img"></canvas>
+</div>
+
+<script define:vars={{ LOGO_SRC }}>
+	const initAnimatedLogos = () => {
+		const roots = document.querySelectorAll("[data-animated-logo]");
+		for (const root of roots) {
+			if (!(root instanceof HTMLElement) || root.dataset.animatedReady === "true") {
+				continue;
+			}
+			root.dataset.animatedReady = "true";
+
+			const canvas = root.querySelector(".logo-canvas");
+			if (!(canvas instanceof HTMLCanvasElement)) {
+				continue;
+			}
+
+			const ctx = canvas.getContext("2d", { willReadFrequently: true });
+			if (!ctx) {
+				continue;
+			}
+
+			const img = new Image();
+			img.src = LOGO_SRC;
+			img.crossOrigin = "anonymous";
+
+			img.onload = () => {
+				canvas.width = img.width;
+				canvas.height = img.height;
+
+				const gridSize = img.width / 36;
+				const safeStarOuterRadius = img.width * 0.315;
+				const centerX = canvas.width / 2;
+				const centerY = canvas.height / 2;
+				const validCells = [];
+				ctx.drawImage(img, 0, 0);
+
+				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+				const isColorfulStarPixel = (px, py) => {
+					const x = Math.max(0, Math.min(canvas.width - 1, Math.floor(px)));
+					const y = Math.max(0, Math.min(canvas.height - 1, Math.floor(py)));
+					const dx = x - centerX;
+					const dy = y - centerY;
+					const radiusSq = dx * dx + dy * dy;
+					if (radiusSq > safeStarOuterRadius * safeStarOuterRadius) {
+						return false;
+					}
+
+					const index = (y * canvas.width + x) * 4;
+					const r = imageData[index];
+					const g = imageData[index + 1];
+					const b = imageData[index + 2];
+					const a = imageData[index + 3];
+					const max = Math.max(r, g, b);
+					const min = Math.min(r, g, b);
+					return a > 200 && max > 58 && (max - min) > 28;
+				};
+
+				for (let y = 0; y < canvas.height; y += gridSize) {
+					for (let x = 0; x < canvas.width; x += gridSize) {
+						if (x + gridSize > canvas.width || y + gridSize > canvas.height) {
+							continue;
+						}
+
+						const checkpoints = [
+							[x + gridSize * 0.5, y + gridSize * 0.5],
+							[x + gridSize * 0.25, y + gridSize * 0.25],
+							[x + gridSize * 0.75, y + gridSize * 0.25],
+							[x + gridSize * 0.25, y + gridSize * 0.75],
+							[x + gridSize * 0.75, y + gridSize * 0.75]
+						];
+						const isSolidStarCell = checkpoints.every(([px, py]) => isColorfulStarPixel(px, py));
+
+						if (isSolidStarCell) {
+							validCells.push({ x, y, w: gridSize, h: gridSize });
+						}
+					}
+				}
+
+				const waveFrequency = 0.06;
+				const waveSpeed = 0.0024;
+				const maxDimAlpha = 0.58;
+				const sparkleNoiseScale = 0.85;
+				const waveExponent = 2.2;
+
+				const waveCells = validCells.map((cell) => {
+					const seed = ((Math.floor(cell.x) * 73856093) ^ (Math.floor(cell.y) * 19349663)) >>> 0;
+					const jitter = (seed % 1000) / 1000;
+					return {
+						...cell,
+						proj: cell.x - cell.y,
+						jitter
+					};
+				});
+
+				function animate(now) {
+					ctx.drawImage(img, 0, 0);
+					const t = now * waveSpeed;
+
+					for (const cell of waveCells) {
+						const phase = t - cell.proj * waveFrequency + cell.jitter * sparkleNoiseScale;
+						const base = Math.sin(phase);
+						if (base <= 0) {
+							continue;
+						}
+
+						const twinkle = Math.pow(base, waveExponent);
+						const alpha = twinkle * maxDimAlpha;
+						ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+						ctx.fillRect(cell.x, cell.y, cell.w, cell.h);
+					}
+
+					requestAnimationFrame(animate);
+				}
+
+				animate();
+			};
+		}
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initAnimatedLogos, { once: true });
+	} else {
+		initAnimatedLogos();
+	}
+
+	document.addEventListener("astro:page-load", initAnimatedLogos);
+</script>
+
+<style>
+	.animated-logo {
+		display: inline-block;
+		width: 100px;
+		height: 100px;
+		max-width: 100%;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	.logo-canvas {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+</style>
