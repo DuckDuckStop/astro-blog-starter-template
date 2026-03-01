@@ -8,60 +8,68 @@ import { extname, resolve } from 'node:path';
 const photosDir = resolve(process.cwd(), 'public', 'media', 'photos');
 const allowedExt = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
 
-let photoFiles: string[] = [];
+let subjects: Array<{ slug: string; label: string; count: number }> = [];
 try {
-	photoFiles = (await readdir(photosDir, { withFileTypes: true }))
-		.filter((entry) => entry.isFile())
+	const directories = (await readdir(photosDir, { withFileTypes: true }))
+		.filter((entry) => entry.isDirectory())
 		.map((entry) => entry.name)
-		.filter((name) => allowedExt.has(extname(name).toLowerCase()))
 		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-} catch {
-	photoFiles = [];
-}
 
-const toCaption = (filename: string) =>
-	filename
-		.replace(/\.[^/.]+$/, '')
-		.replace(/[-_]+/g, ' ')
-		.trim();
+	const subjectRows = await Promise.all(
+		directories.map(async (dir) => {
+			const files = await readdir(resolve(photosDir, dir), { withFileTypes: true });
+			const count = files
+				.filter((entry) => entry.isFile())
+				.map((entry) => entry.name)
+				.filter((name) => allowedExt.has(extname(name).toLowerCase())).length;
+
+			return {
+				slug: dir,
+				label: dir.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+				count
+			};
+		})
+	);
+
+	subjects = subjectRows.filter((row) => row.count > 0);
+} catch {
+	subjects = [];
+}
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead
-			title="Photo Index | ATXPIXEL.COM"
-			description="Photo collection placeholder for ATXPIXEL.COM"
+			title="Portfolio Categories | ATXPIXEL.COM"
+			description="Browse photo portfolios by subject."
 		/>
 		<style>
-			.photo-grid {
+			.subject-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 				gap: 0.9rem;
 				padding: 0;
 				list-style: none;
 			}
-			.photo-grid li {
+			.subject-grid li {
 				margin: 0;
 			}
-			.photo-grid figure {
-				margin: 0;
+			.subject-grid a {
+				display: block;
 				border: 1px solid rgba(255, 255, 255, 0.08);
 				border-radius: 10px;
-				overflow: hidden;
+				padding: 0.95rem 1rem;
 				background: rgba(10, 10, 10, 0.85);
+				text-decoration: none;
 			}
-			.photo-grid img {
-				display: block;
-				width: 100%;
-				height: 100%;
-				aspect-ratio: 4 / 3;
-				object-fit: cover;
-				border-radius: 0;
+			.subject-grid h2 {
+				margin: 0;
+				font-size: 1.1rem;
 			}
-			.photo-grid figcaption {
-				padding: 0.55rem 0.7rem;
-				font-size: 0.78rem;
+			.subject-grid p {
+				margin: 0.25rem 0 0;
+				font-size: 0.84rem;
 				color: rgb(var(--gray));
 			}
 		</style>
@@ -69,24 +77,25 @@ const toCaption = (filename: string) =>
 	<body>
 		<Header />
 		<main>
-			<h1>Landscaping</h1>
+			<h1>Portfolio</h1>
 			{
-				photoFiles.length > 0 ? (
-					<ul class="photo-grid">
+				subjects.length > 0 ? (
+					<ul class="subject-grid">
 						{
-							photoFiles.map((name) => (
+							subjects.map((subject) => (
 								<li>
-									<figure>
-										<img src={`/media/photos/${encodeURIComponent(name)}`} alt={toCaption(name)} loading="lazy" />
-										<figcaption>{toCaption(name)}</figcaption>
-									</figure>
+									<a href={`/portfolio/photos/${encodeURIComponent(subject.slug)}/`}>
+										<h2>{subject.label}</h2>
+										<p>{subject.count} photos</p>
+									</a>
 								</li>
 							))
 						}
 					</ul>
 				) : (
 					<p>
-						No images found yet. Add image files to <code>public/media/photos</code> and refresh.
+						No subject folders with images found yet. Add images under
+						<code>public/media/photos/&lt;subject&gt;</code> and refresh.
 					</p>
 				)
 			}

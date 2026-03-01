@@ -1,0 +1,117 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { readdir } from 'node:fs/promises';
+import { extname, resolve } from 'node:path';
+
+const toLabel = (value: string) => value.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const toCaption = (filename: string) =>
+	filename
+		.replace(/\.[^/.]+$/, '')
+		.replace(/[-_]+/g, ' ')
+		.trim();
+
+export async function getStaticPaths() {
+	const photosDir = resolve(process.cwd(), 'public', 'media', 'photos');
+	const allowedExt = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
+
+	const directories = (await readdir(photosDir, { withFileTypes: true }))
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => entry.name)
+		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+
+	const entries = await Promise.all(
+		directories.map(async (dir) => {
+			const files = (await readdir(resolve(photosDir, dir), { withFileTypes: true }))
+				.filter((entry) => entry.isFile())
+				.map((entry) => entry.name)
+				.filter((name) => allowedExt.has(extname(name).toLowerCase()))
+				.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+			return { dir, files };
+		})
+	);
+
+	return entries
+		.filter((entry) => entry.files.length > 0)
+		.map((entry) => ({
+			params: { subject: entry.dir },
+			props: { subject: entry.dir, files: entry.files }
+		}));
+}
+
+const { subject, files } = Astro.props as { subject: string; files: string[] };
+const subjectLabel = toLabel(subject);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`${subjectLabel} | ATXPIXEL.COM`}
+			description={`Browse ${subjectLabel.toLowerCase()} portfolio photos.`}
+		/>
+		<style>
+			.photo-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				gap: 0.9rem;
+				padding: 0;
+				list-style: none;
+			}
+			.photo-grid li {
+				margin: 0;
+			}
+			.photo-grid figure {
+				margin: 0;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				border-radius: 10px;
+				overflow: hidden;
+				background: rgba(10, 10, 10, 0.85);
+			}
+			.photo-grid img {
+				display: block;
+				width: 100%;
+				height: auto;
+				aspect-ratio: auto;
+				object-fit: contain;
+				border-radius: 0;
+			}
+			.photo-grid figcaption {
+				padding: 0.55rem 0.7rem;
+				font-size: 0.78rem;
+				color: rgb(var(--gray));
+			}
+			.back-link {
+				display: inline-block;
+				margin-bottom: 0.7rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<a class="back-link" href="/portfolio/photos/">Back to all portfolios</a>
+			<h1>{subjectLabel}</h1>
+			<ul class="photo-grid">
+				{
+					files.map((name) => (
+						<li>
+							<figure>
+								<a href={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}`} target="_blank" rel="noopener noreferrer">
+									<img
+										src={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}`}
+										alt={toCaption(name)}
+										loading="lazy"
+									/>
+								</a>
+								<figcaption>{toCaption(name)}</figcaption>
+							</figure>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
