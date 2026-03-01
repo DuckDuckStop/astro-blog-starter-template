@@ -9,7 +9,7 @@ import { SITE_TITLE } from '../consts';
 		<h2>
 			<a class="brand" href="/">
 				<AnimatedLogo />
-				<span>{SITE_TITLE}</span>
+				<span class="brand-text">{SITE_TITLE}</span>
 			</a>
 		</h2>
 		<div class="internal-links">
@@ -28,7 +28,7 @@ import { SITE_TITLE } from '../consts';
 	h2 {
 		margin: 0;
 		font-size: 1em;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.05em;
 		text-transform: uppercase;
 	}
 	.brand {
@@ -39,11 +39,13 @@ import { SITE_TITLE } from '../consts';
 	.brand :global(.animated-logo) {
 		flex: 0 0 auto;
 	}
-	.brand span {
-		font-family: "Roboto Flex", "Atkinson", "Segoe UI", sans-serif;
-		font-variation-settings: "wght" 760, "wdth" 88, "GRAD" 35, "opsz" 120;
-		font-weight: 760;
-		letter-spacing: 0.09em;
+	.brand .brand-text {
+		font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+		font-variation-settings: "wght" 600, "wdth" 105, "opsz" 32;
+		font-weight: 600;
+		font-optical-sizing: auto;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
 		color: #ededed;
 	}
 
@@ -62,6 +64,9 @@ import { SITE_TITLE } from '../consts';
 		color: #9a9a9a;
 		border-bottom: 3px solid transparent;
 		text-decoration: none;
+		font-variation-settings: "wght" 500, "wdth" 95, "opsz" 12, "GRAD" 40;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 	}
 	nav a.active {
 		text-decoration: none;

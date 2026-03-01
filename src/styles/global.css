@@ -29,7 +29,8 @@
 	font-display: swap;
 }
 body {
-	font-family: "Roboto Flex", "Atkinson", "Segoe UI", sans-serif;
+	font-family: inherit;
+	font-variation-settings: inherit;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -38,7 +39,12 @@ body {
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
-	line-height: 1.7;
+	line-height: 1.6;
+}
+html {
+	font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+	font-variation-settings: "wght" 400, "wdth" 100, "opsz" 14, "GRAD" 0;
+	line-height: 1.6;
 }
 main {
 	width: 980px;
@@ -55,6 +61,15 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--gray-dark));
 	line-height: 1.2;
+	font-family: inherit;
+}
+main h1,
+main h2,
+main h3,
+main h4 {
+	font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+	letter-spacing: normal;
+	line-height: 1.15;
 }
 h1 {
 	font-size: clamp(2.2rem, 8vw, 4.1rem);
@@ -84,8 +99,23 @@ a:hover {
 p {
 	margin-bottom: 1em;
 }
+p,
+li,
+blockquote {
+	font-family: inherit;
+	font-variation-settings: "wght" 400, "wdth" 100, "opsz" 14, "GRAD" 0;
+}
 .prose p {
 	margin-bottom: 2em;
+}
+.eyebrow,
+.tagline-list,
+.tagline-list li,
+.date,
+header nav a,
+footer {
+	font-variation-settings: "wght" 500, "wdth" 95, "opsz" 12, "GRAD" 40;
+	letter-spacing: 0.04em;
 }
 textarea {
 	width: 100%;
