@@ -51,6 +51,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.hero {
+				position: relative;
+				overflow: hidden;
 				display: grid;
 				grid-template-columns: minmax(0, 1.05fr) minmax(220px, 0.75fr);
 				gap: clamp(1.4rem, 3vw, 3rem);
@@ -129,26 +131,30 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				background: rgba(255, 255, 255, 0.04);
 			}
 			.hero-motif {
-				position: relative;
-				width: min(100%, 320px);
-				aspect-ratio: 1 / 1;
-				justify-self: end;
+				position: absolute;
+				inset: 0;
+				width: auto;
+				height: auto;
+				z-index: 0;
+				pointer-events: none;
 				isolation: isolate;
 			}
 			.hero-motif-2 {
 				position: absolute;
-				inset: -50%;
+				inset: -120%;
 				z-index: 2;
-				transform: rotate(-22.5deg);
+				transform: translate(-10%, -2%) rotate(-22.5deg) scale(4);
+				transform-origin: center;
 				opacity: 0.45;
 				pointer-events: none;
 				animation: pulseRedMotif 7.2s ease-in-out infinite;
 			}
 			.hero-motif-3 {
 				position: absolute;
-				inset: -50%;
+				inset: -120%;
 				z-index: 2;
-				transform: rotate(22.5deg);
+				transform: translate(-10%, -2%) rotate(22.5deg) scale(4);
+				transform-origin: center;
 				opacity: 0.45;
 				pointer-events: none;
 				animation: pulseBlueMotif 7.2s ease-in-out 2.1s infinite;
@@ -202,7 +208,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				position: absolute;
 				inset: 14%;
 				background:
-					radial-gradient(circle, rgba(180, 180, 180, 0.24) 1.5px, transparent 2px) 0 0 / 32px 32px,
 					linear-gradient(rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
 					linear-gradient(90deg, rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px;
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
@@ -217,15 +222,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				.hero h1 {
 					max-width: none;
 				}
-				.hero-motif {
-					justify-self: start;
-					width: min(100%, 280px);
-				}
 				.hero-motif-2 {
-					inset: -42%;
+					inset: -140%;
 				}
 				.hero-motif-3 {
-					inset: -42%;
+					inset: -140%;
 				}
 			}
 		</style>
@@ -234,7 +235,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<Header />
 		<main class="welcome-wrap">
 			<section class="hero">
-				<div>
+				<div style="position: relative; z-index: 3;">
 					<p class="eyebrow">DESIGNED FOR ANYONE</p>
 					<h1>Engineered LED Systems Built to Expand</h1>
 					<p class="subline">
