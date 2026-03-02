@@ -15,10 +15,36 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				gap: 1rem;
 			}
 			.contact-panel {
+				position: relative;
+				overflow: hidden;
 				border: 1px solid #1c1c1c;
 				border-radius: 18px;
 				padding: clamp(1.2rem, 4vw, 2rem);
 				background: #0a0a0a;
+				isolation: isolate;
+			}
+			.contact-panel::before {
+				content: "";
+				position: absolute;
+				inset: -42%;
+				background: url("/blog-placeholder-about.jpg") 72% center / 50% auto no-repeat;
+				transform: rotate(-16deg);
+				opacity: 0.38;
+				pointer-events: none;
+				z-index: -2;
+			}
+			.contact-panel::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(10, 10, 10, 0.78) 0%,
+					rgba(10, 10, 10, 0.62) 45%,
+					rgba(10, 10, 10, 0.82) 100%
+				);
+				pointer-events: none;
+				z-index: -1;
 			}
 			.instagram-note {
 				max-width: 56ch;

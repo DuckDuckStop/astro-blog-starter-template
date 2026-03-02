@@ -17,10 +17,44 @@ import Footer from '../../components/Footer.astro';
 				gap: 1rem;
 			}
 			.panel {
+				position: relative;
+				overflow: hidden;
 				padding: 1.2rem;
 				border-radius: 12px;
 				border: 1px solid rgba(0, 255, 240, 0.3);
 				background: rgba(5, 10, 26, 0.65);
+				isolation: isolate;
+			}
+			.panel::before {
+				content: "";
+				position: absolute;
+				right: clamp(-3.2rem, -8vw, -5rem);
+				top: 50%;
+				width: clamp(320px, 42vw, 500px);
+				aspect-ratio: 1 / 1;
+				border: 3px solid rgba(190, 190, 190, 0.82);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				transform: translateY(-50%);
+				opacity: 0.2;
+				pointer-events: none;
+				z-index: -1;
+			}
+			.panel::after {
+				content: "";
+				position: absolute;
+				right: clamp(-3.35rem, -8vw, -5.2rem);
+				top: 50%;
+				width: clamp(320px, 42vw, 500px);
+				aspect-ratio: 1 / 1;
+				background:
+					radial-gradient(circle, rgba(200, 200, 200, 0.78) 2px, transparent 2.5px) 0 0 / 28px 28px,
+					linear-gradient(rgba(190, 190, 190, 0.32) 2px, transparent 2px) 0 0 / 28px 28px,
+					linear-gradient(90deg, rgba(190, 190, 190, 0.32) 2px, transparent 2px) 0 0 / 28px 28px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				transform: translateY(-50%);
+				opacity: 0.16;
+				pointer-events: none;
+				z-index: -1;
 			}
 			.links {
 				display: flex;
@@ -34,6 +68,13 @@ import Footer from '../../components/Footer.astro';
 				text-decoration: none;
 				border: 1px solid rgba(255, 45, 158, 0.45);
 				background: rgba(255, 45, 158, 0.08);
+			}
+			@media (max-width: 900px) {
+				.panel::before,
+				.panel::after {
+					right: -6rem;
+					width: min(80vw, 420px);
+				}
 			}
 		</style>
 	</head>

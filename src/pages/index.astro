@@ -97,24 +97,76 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				width: min(100%, 320px);
 				aspect-ratio: 1 / 1;
 				justify-self: end;
-				opacity: 0.5;
+				isolation: isolate;
+			}
+			.hero-motif-2 {
+				position: absolute;
+				inset: -50%;
+				z-index: 2;
+				transform: rotate(-22.5deg);
+				opacity: 0.45;
+				pointer-events: none;
+			}
+			.hero-motif-3 {
+				position: absolute;
+				inset: -50%;
+				z-index: 2;
+				transform: rotate(22.5deg);
+				opacity: 0.45;
+				pointer-events: none;
+			}
+			.hero-motif-2::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 3px solid rgba(218, 74, 74, 0.38);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			.hero-motif-2::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				background:
+					radial-gradient(circle, rgba(235, 110, 110, 0.42) 2px, transparent 2.5px) 0 0 / 32px 32px,
+					linear-gradient(rgba(218, 86, 86, 0.2) 3px, transparent 3px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(218, 86, 86, 0.2) 3px, transparent 3px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			.hero-motif-3::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 3px solid rgba(88, 144, 235, 0.38);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			.hero-motif-3::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				background:
+					radial-gradient(circle, rgba(132, 180, 248, 0.42) 2px, transparent 2.5px) 0 0 / 32px 32px,
+					linear-gradient(rgba(104, 156, 236, 0.2) 3px, transparent 3px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(104, 156, 236, 0.2) 3px, transparent 3px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 			}
 			.hero-motif::before {
 				content: "";
 				position: absolute;
 				inset: 14%;
-				border: 1px solid rgba(190, 190, 190, 0.26);
+				border: 1px solid rgba(190, 190, 190, 0.14);
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				z-index: 1;
 			}
 			.hero-motif::after {
 				content: "";
 				position: absolute;
 				inset: 14%;
 				background:
-					radial-gradient(circle, rgba(180, 180, 180, 0.45) 1.5px, transparent 2px) 0 0 / 32px 32px,
-					linear-gradient(rgba(180, 180, 180, 0.08) 1px, transparent 1px) 0 0 / 32px 32px,
-					linear-gradient(90deg, rgba(180, 180, 180, 0.08) 1px, transparent 1px) 0 0 / 32px 32px;
+					radial-gradient(circle, rgba(180, 180, 180, 0.24) 1.5px, transparent 2px) 0 0 / 32px 32px,
+					linear-gradient(rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px;
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				z-index: 1;
 			}
 			@media (max-width: 920px) {
 				.hero {
@@ -126,7 +178,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				.hero-motif {
 					justify-self: start;
 					width: min(100%, 280px);
-					opacity: 0.42;
+				}
+				.hero-motif-2 {
+					inset: -42%;
+				}
+				.hero-motif-3 {
+					inset: -42%;
 				}
 			}
 		</style>
@@ -147,7 +204,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 						<a class="cta cta-ghost" href="/portfolio">View Capabilities &#8594;</a>
 					</div>
 				</div>
-				<div class="hero-motif" aria-hidden="true"></div>
+				<div class="hero-motif" aria-hidden="true">
+					<div class="hero-motif-2"></div>
+					<div class="hero-motif-3"></div>
+				</div>
 			</section>
 		</main>
 		<Footer />
