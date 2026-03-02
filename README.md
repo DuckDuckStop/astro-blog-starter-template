@@ -55,6 +55,28 @@ All commands are run from the root of the project, from a terminal:
 | `npm run build && npm run deploy` | Deploy your production site to Cloudflare        |
 | `npm wrangler tail`               | View real-time logs for all Workers              |
 
+## Social Preview Verification
+
+After deploy, verify crawlers can read the Open Graph image:
+
+```powershell
+curl.exe -L -A "facebookexternalhit/1.1" https://atxpixel.com/ | findstr /i "og:image"
+```
+
+Expected output should include:
+
+```text
+https://atxpixel.com/og/atxpixel-og.jpg
+```
+
+Verify the OG image is publicly reachable for Twitter/X:
+
+```powershell
+curl.exe -I -A "Twitterbot/1.0" https://atxpixel.com/og/atxpixel-og.jpg
+```
+
+Expected response headers include `HTTP/1.1 200` and `Content-Type: image/jpeg`.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
