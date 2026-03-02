@@ -70,10 +70,17 @@ import Footer from '../components/Footer.astro';
 				line-height: 1.15;
 				color: #f2f2f2;
 			}
-			.about-section h2 {
+			.about-section .section-heading {
 				margin: 0;
 				font-size: 1.5rem;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+				letter-spacing: normal;
+				line-height: 1.15;
 				color: #ececec;
+			}
+			.about-section .summary-heading {
+				margin-top: 2.4rem;
 			}
 			.about-section p {
 				margin: 0;
@@ -85,10 +92,8 @@ import Footer from '../components/Footer.astro';
 			.about-section p + p {
 				margin-top: 1.65rem;
 			}
-			.infra-emphasis {
-				font-variation-settings: "wght" 580, "wdth" 101, "opsz" 18;
-				color: #a5b9bc;
-				letter-spacing: 0.008em;
+			.about-section.intro p + p {
+				margin-top: 0.65rem;
 			}
 			.pillars {
 				list-style: none;
@@ -118,7 +123,7 @@ import Footer from '../components/Footer.astro';
 				transform: translateY(-50%);
 			}
 			.signature {
-				margin-top: 3rem;
+				margin-top: 0.45rem;
 				display: grid;
 				gap: 0.75rem;
 			}
@@ -147,22 +152,17 @@ import Footer from '../components/Footer.astro';
 		<Header />
 		<main class="about-main">
 			<section class="about-shell">
-				<section class="about-section">
+				<section class="about-section intro">
 					<h1>About ATXPIXEL</h1>
 					<p>ATXPIXEL designs and installs custom programmable LED lighting systems.</p>
 					<p>
-						Based in Austin, we build lighting that works reliably, performs well, and lasts across
-						residential and commercial environments.
-					</p>
-					<p>
-						We approach <span class="infra-emphasis">lighting as infrastructure.</span> Every system is
-						engineered for clean power, stable control, and integration pathways that can evolve without
-						rebuilding the core.
+						We build lighting systems to last - with stable control, and space to grow without starting
+						over.
 					</p>
 				</section>
 
 				<section class="about-section">
-					<h2>Our Process</h2>
+					<h2 class="section-heading">Our Process</h2>
 					<ul class="pillars">
 						<li>Planning electrical loads and power requirements before hardware selection.</li>
 						<li>Choosing and configuring controllers for stable, scalable behavior.</li>
@@ -173,11 +173,12 @@ import Footer from '../components/Footer.astro';
 				</section>
 
 				<section class="about-section">
-					<h2>What We Build For</h2>
+					<h2 class="section-heading">What We Build For</h2>
 					<p>
 						Structured lighting systems that remain precise under load, reliable in daily use, and ready
 						for future upgrades.
 					</p>
+					<h2 class="section-heading summary-heading">In Summary</h2>
 					<div class="signature" aria-label="ATXPIXEL signature statement">
 						<span>Precise.</span>
 						<span>Reliable.</span>
