@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, HOME_EYEBROW, HOME_HEADLINE, HOME_BULLETS } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
@@ -11,42 +11,127 @@ import { SITE_TITLE, SITE_DESCRIPTION, HOME_EYEBROW, HOME_HEADLINE, HOME_BULLETS
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			.welcome-wrap {
-				display: grid;
-				gap: 1.4rem;
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.hero {
-				border: 1px solid #1c1c1c;
+				display: grid;
+				grid-template-columns: minmax(0, 1.05fr) minmax(220px, 0.75fr);
+				gap: clamp(1.4rem, 3vw, 3rem);
+				align-items: center;
+				border: 1px solid #202020;
 				border-radius: 18px;
-				padding: clamp(1.2rem, 4vw, 2.8rem);
+				padding: clamp(1.5rem, 4vw, 3.6rem);
 				background: #0a0a0a;
 			}
 			.eyebrow {
-				font-size: 0.9rem;
-				letter-spacing: 0.09em;
+				font-size: 0.82rem;
+				letter-spacing: 0.17em;
 				text-transform: uppercase;
-				color: #9a9a9a;
-				margin-bottom: 0.6rem;
+				color: #8a8a8a;
+				margin-bottom: 0.95rem;
 			}
 			.hero h1 {
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 720, "wdth" 115, "opsz" 96, "GRAD" 20;
-				letter-spacing: -0.02em;
-				line-height: 1.1;
+				letter-spacing: -0.018em;
+				line-height: 1.06;
 				color: #ededed;
+				max-width: 14ch;
+				margin-bottom: 1rem;
 			}
-			.tagline-list {
-				max-width: 58ch;
+			.subline {
+				max-width: 60ch;
 				font-size: 1.05rem;
 				color: #9a9a9a;
-				padding-left: 0;
-				list-style: none;
+				margin-bottom: 1.8rem;
 			}
-			.tagline-list li {
-				line-height: 1.6;
-				margin-bottom: 0;
+			.audience-signal {
+				color: #cecece;
+				font-size: 0.95rem;
+				line-height: 1.8;
+				letter-spacing: 0.045em;
+				text-transform: uppercase;
+				margin-bottom: 2rem;
 			}
-			.tagline-list li:last-child {
-				margin-bottom: 0;
+			.audience-signal .amp {
+				color: #8a8a8a;
+				padding: 0 0.2rem;
+			}
+			.cta-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.9rem;
+			}
+			.cta {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				text-decoration: none;
+				font-size: 0.9rem;
+				font-weight: 600;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				border-radius: 999px;
+				padding: 0.75rem 1.15rem;
+				transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+			}
+			.cta-primary {
+				color: #0a0a0a;
+				background: #e8e8e8;
+				border: 1px solid #e8e8e8;
+			}
+			.cta-primary:hover {
+				background: #ffffff;
+				border-color: #ffffff;
+				color: #0a0a0a;
+			}
+			.cta-ghost {
+				color: #d8d8d8;
+				border: 1px solid #3a3a3a;
+				background: transparent;
+			}
+			.cta-ghost:hover {
+				color: #f0f0f0;
+				border-color: #626262;
+				background: rgba(255, 255, 255, 0.04);
+			}
+			.hero-motif {
+				position: relative;
+				width: min(100%, 320px);
+				aspect-ratio: 1 / 1;
+				justify-self: end;
+				opacity: 0.5;
+			}
+			.hero-motif::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 1px solid rgba(190, 190, 190, 0.26);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			.hero-motif::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				background:
+					radial-gradient(circle, rgba(180, 180, 180, 0.45) 1.5px, transparent 2px) 0 0 / 32px 32px,
+					linear-gradient(rgba(180, 180, 180, 0.08) 1px, transparent 1px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(180, 180, 180, 0.08) 1px, transparent 1px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			@media (max-width: 920px) {
+				.hero {
+					grid-template-columns: 1fr;
+				}
+				.hero h1 {
+					max-width: none;
+				}
+				.hero-motif {
+					justify-self: start;
+					width: min(100%, 280px);
+					opacity: 0.42;
+				}
 			}
 		</style>
 	</head>
@@ -54,11 +139,23 @@ import { SITE_TITLE, SITE_DESCRIPTION, HOME_EYEBROW, HOME_HEADLINE, HOME_BULLETS
 		<Header />
 		<main class="welcome-wrap">
 			<section class="hero">
-				<p class="eyebrow">{HOME_EYEBROW}</p>
-				<h1>{HOME_HEADLINE}</h1>
-				<ul class="tagline-list">
-					{HOME_BULLETS.map((line) => <li>{line}</li>)}
-				</ul>
+				<div>
+					<p class="eyebrow">DESIGNED FOR ANYONE WHO VALUES QUALITY &amp; RANGE</p>
+					<h1>Engineered LED Systems Built to Expand</h1>
+					<p class="subline">
+						Programmable lighting infrastructure designed for scalable integration, clean power
+						distribution, and long-term evolution.
+					</p>
+					<p class="audience-signal">
+						Demanded by : Expansion-Minded Installers <span class="amp">&amp;</span> Longevity-Focused
+						Homeowners
+					</p>
+					<div class="cta-row">
+						<a class="cta cta-primary" href="/contact">Start Your System &#8594;</a>
+						<a class="cta cta-ghost" href="/portfolio">View Capabilities &#8594;</a>
+					</div>
+				</div>
+				<div class="hero-motif" aria-hidden="true"></div>
 			</section>
 		</main>
 		<Footer />

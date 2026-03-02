@@ -1,30 +1,194 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout
-	title="About ATXPIXEL"
-	description="Programmable lighting studio specializing in custom LED system architecture."
-	pubDate={new Date('February 27 2026')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>ATXPIXEL designs and installs custom programmable LED lighting systems.</p>
-	<p>
-		Based in Austin, we build lighting that works reliably, performs well, and lasts.
-	</p>
-	<p>
-		We treat lighting as a system - powered correctly, easy to control, and cleanly installed -
-		whether it&apos;s architectural, ambient, or purely decorative. Our goal is simple: do it right and
-		make it shine.
-	</p>
-	<p>Our process integrates:</p>
-	<ul>
-		<li>Planning electrical loads and power needs</li>
-		<li>Choosing and configuring the right controllers</li>
-		<li>Designing clean, organized power distribution</li>
-		<li>Fabricating and hiding components neatly</li>
-		<li>Managing heat and environmental factors</li>
-	</ul>
-	<p>We design structured lighting systems that are:</p>
-	<p>Precise.<br />Reliable.<br />Built to adapt over time.</p>
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="About ATXPIXEL"
+			description="Programmable lighting studio specializing in custom LED system architecture."
+		/>
+		<style>
+			.about-main {
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.8rem, 7vw, 5.5rem);
+			}
+			.about-shell {
+				position: relative;
+				max-width: 800px;
+				margin: 0;
+				padding: clamp(1.2rem, 2vw, 1.8rem) clamp(0.1rem, 1vw, 0.2rem);
+				display: grid;
+				gap: 2.75rem;
+				color: #f2f2f2;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				text-align: left;
+				isolation: isolate;
+			}
+			.about-shell::before {
+				content: "";
+				position: absolute;
+				right: clamp(-2rem, -6vw, -4.2rem);
+				top: 0.4rem;
+				width: clamp(180px, 28vw, 280px);
+				aspect-ratio: 1 / 1;
+				border: 1px solid rgba(120, 163, 168, 0.24);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				opacity: 0.035;
+				pointer-events: none;
+				z-index: -1;
+			}
+			.about-shell::after {
+				content: "";
+				position: absolute;
+				right: clamp(-2.2rem, -6vw, -4.5rem);
+				top: 0.2rem;
+				width: clamp(180px, 28vw, 280px);
+				aspect-ratio: 1 / 1;
+				background:
+					radial-gradient(circle, rgba(120, 163, 168, 0.6) 1px, transparent 1.5px) 0 0 / 22px 22px,
+					linear-gradient(rgba(120, 163, 168, 0.25) 1px, transparent 1px) 0 0 / 22px 22px,
+					linear-gradient(90deg, rgba(120, 163, 168, 0.25) 1px, transparent 1px) 0 0 / 22px 22px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				opacity: 0.028;
+				pointer-events: none;
+				z-index: -1;
+			}
+			.about-section {
+				display: grid;
+				gap: 1.7rem;
+			}
+			.about-section h1 {
+				margin: 0;
+				font-size: 2.75rem;
+				font-variation-settings: "wght" 650, "wdth" 106, "opsz" 52;
+				letter-spacing: -0.01em;
+				line-height: 1.15;
+				color: #f2f2f2;
+			}
+			.about-section h2 {
+				margin: 0;
+				font-size: 1.5rem;
+				font-variation-settings: "wght" 600, "wdth" 104, "opsz" 34;
+				color: #ececec;
+			}
+			.about-section p {
+				margin: 0;
+				font-size: 1.05rem;
+				line-height: 1.6;
+				font-variation-settings: "wght" 450, "wdth" 100, "opsz" 18;
+				color: #cfcfcf;
+			}
+			.about-section p + p {
+				margin-top: 1.65rem;
+			}
+			.infra-emphasis {
+				font-variation-settings: "wght" 580, "wdth" 101, "opsz" 18;
+				color: #a5b9bc;
+				letter-spacing: 0.008em;
+			}
+			.pillars {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				gap: 0.85rem;
+			}
+			.pillars li {
+				margin: 0;
+				padding: 0 0 0 0.9rem;
+				position: relative;
+				font-size: 0.95rem;
+				line-height: 1.6;
+				font-variation-settings: "wght" 450, "wdth" 100, "opsz" 16;
+				color: #d6d6d6;
+			}
+			.pillars li::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0.68em;
+				width: 2px;
+				height: 2px;
+				border-radius: 999px;
+				background: rgba(120, 163, 168, 0.56);
+				transform: translateY(-50%);
+			}
+			.signature {
+				margin-top: 3rem;
+				display: grid;
+				gap: 0.75rem;
+			}
+			.signature span {
+				display: block;
+				font-size: 1.4rem;
+				line-height: 1.3;
+				letter-spacing: 0.02em;
+				font-variation-settings: "wght" 600, "wdth" 103, "opsz" 30;
+				color: #ececec;
+			}
+			@media (max-width: 860px) {
+				.about-shell {
+					max-width: 100%;
+					gap: 2.5rem;
+				}
+				.about-shell::before,
+				.about-shell::after {
+					right: -1.5rem;
+					width: min(45vw, 220px);
+				}
+				.about-section h1 {
+					font-size: clamp(2rem, 7.8vw, 2.75rem);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="about-main">
+			<section class="about-shell">
+				<section class="about-section">
+					<h1>About ATXPIXEL</h1>
+					<p>ATXPIXEL designs and installs custom programmable LED lighting systems.</p>
+					<p>
+						Based in Austin, we build lighting that works reliably, performs well, and lasts across
+						residential and commercial environments.
+					</p>
+					<p>
+						We approach <span class="infra-emphasis">lighting as infrastructure.</span> Every system is
+						engineered for clean power, stable control, and integration pathways that can evolve without
+						rebuilding the core.
+					</p>
+				</section>
+
+				<section class="about-section">
+					<h2>Our Process</h2>
+					<ul class="pillars">
+						<li>Planning electrical loads and power requirements before hardware selection.</li>
+						<li>Choosing and configuring controllers for stable, scalable behavior.</li>
+						<li>Designing organized power distribution to simplify expansion and service.</li>
+						<li>Fabricating clean installations with concealed components and disciplined routing.</li>
+						<li>Managing heat and environment constraints for dependable long-term operation.</li>
+					</ul>
+				</section>
+
+				<section class="about-section">
+					<h2>What We Build For</h2>
+					<p>
+						Structured lighting systems that remain precise under load, reliable in daily use, and ready
+						for future upgrades.
+					</p>
+					<div class="signature" aria-label="ATXPIXEL signature statement">
+						<span>Precise.</span>
+						<span>Reliable.</span>
+						<span>Built to evolve.</span>
+					</div>
+				</section>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
