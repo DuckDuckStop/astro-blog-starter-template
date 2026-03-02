@@ -1,0 +1,164 @@
+---
+import BaseHead from '../../../../components/BaseHead.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import { readdir } from 'node:fs/promises';
+import { extname, resolve } from 'node:path';
+
+const toLabel = (value: string) => value.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const toCaption = (filename: string) =>
+	filename
+		.replace(/\.[^/.]+$/, '')
+		.replace(/[-_]+/g, ' ')
+		.trim();
+
+export async function getStaticPaths() {
+	const photosDir = resolve(process.cwd(), 'public', 'media', 'photos');
+	const allowedExt = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
+
+	const directories = (await readdir(photosDir, { withFileTypes: true }))
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => entry.name)
+		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+
+	const entries = await Promise.all(
+		directories.map(async (dir) => {
+			const files = (await readdir(resolve(photosDir, dir), { withFileTypes: true }))
+				.filter((entry) => entry.isFile())
+				.map((entry) => entry.name)
+				.filter((name) => allowedExt.has(extname(name).toLowerCase()))
+				.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+			return { dir, files };
+		})
+	);
+
+	return entries.flatMap((entry) =>
+		entry.files.map((photo) => ({
+			params: { subject: entry.dir, photo },
+			props: { subject: entry.dir, photo, files: entry.files }
+		}))
+	);
+}
+
+const { subject, photo, files } = Astro.props as { subject: string; photo: string; files: string[] };
+const subjectLabel = toLabel(subject);
+const caption = toCaption(photo);
+const currentIndex = files.indexOf(photo);
+const prevPhoto = currentIndex > 0 ? files[currentIndex - 1] : null;
+const nextPhoto = currentIndex >= 0 && currentIndex < files.length - 1 ? files[currentIndex + 1] : null;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`${caption} | ${subjectLabel} | ATXPIXEL.COM`}
+			description={`Viewing ${caption} in ${subjectLabel}.`}
+			image={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(photo)}`}
+		/>
+		<style>
+			.photo-view {
+				display: grid;
+				gap: 1rem;
+			}
+			.photo-header {
+				display: grid;
+				gap: 0.3rem;
+			}
+			.back-link {
+				display: inline-block;
+				margin-bottom: 0.3rem;
+			}
+			.photo-header p {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+			.photo-frame {
+				margin: 0;
+				border-radius: 12px;
+				overflow: hidden;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				background: rgba(10, 10, 10, 0.85);
+			}
+			.photo-frame img {
+				display: block;
+				width: 100%;
+				height: auto;
+				object-fit: contain;
+				border-radius: 0;
+			}
+			.photo-frame figcaption {
+				padding: 0.8rem 0.95rem;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			.photo-nav {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 0.8rem;
+			}
+			.nav-link {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.7rem 0.95rem;
+				border-radius: 999px;
+				text-decoration: none;
+				border: 1px solid rgba(255, 255, 255, 0.16);
+				background: rgba(10, 10, 10, 0.85);
+				color: #d9d9d9;
+				text-align: center;
+				font-size: 0.88rem;
+			}
+			.nav-link:focus-visible,
+			.nav-link:hover {
+				border-color: rgba(255, 255, 255, 0.34);
+				color: #f2f2f2;
+			}
+			.nav-link.disabled {
+				opacity: 0.46;
+				pointer-events: none;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="photo-view">
+			<section class="photo-header">
+				<a class="back-link" href={`/portfolio/photos/${encodeURIComponent(subject)}/`}>
+					Back to {subjectLabel}
+				</a>
+				<h1>{subjectLabel}</h1>
+				<p>{caption}</p>
+			</section>
+
+			<figure class="photo-frame">
+				<img
+					src={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(photo)}`}
+					alt={caption}
+				/>
+				<figcaption>{caption}</figcaption>
+			</figure>
+
+			<nav class="photo-nav" aria-label="Photo navigation">
+				<a
+					class:list={['nav-link', { disabled: !prevPhoto }]}
+					href={prevPhoto
+						? `/portfolio/photos/${encodeURIComponent(subject)}/${encodeURIComponent(prevPhoto)}/`
+						: '#'}
+				>
+					&larr; Previous Photo
+				</a>
+				<a
+					class:list={['nav-link', { disabled: !nextPhoto }]}
+					href={nextPhoto
+						? `/portfolio/photos/${encodeURIComponent(subject)}/${encodeURIComponent(nextPhoto)}/`
+						: '#'}
+				>
+					Next Photo &rarr;
+				</a>
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>

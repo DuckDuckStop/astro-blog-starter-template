@@ -82,6 +82,9 @@ const subjectLabel = toLabel(subject);
 				font-size: 0.78rem;
 				color: rgb(var(--gray));
 			}
+			.photo-link {
+				display: block;
+			}
 			.back-link {
 				display: inline-block;
 				margin-bottom: 0.7rem;
@@ -98,7 +101,10 @@ const subjectLabel = toLabel(subject);
 					files.map((name) => (
 						<li>
 							<figure>
-								<a href={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}`} target="_blank" rel="noopener noreferrer">
+								<a
+									class="photo-link"
+									href={`/portfolio/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}/`}
+								>
 									<img
 										src={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}`}
 										alt={toCaption(name)}
