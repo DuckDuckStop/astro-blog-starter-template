@@ -12,6 +12,24 @@ import Footer from '../../components/Footer.astro';
 			description="ATXPIXEL project beacon showcasing photography, video, and multidisciplinary demonstrations."
 		/>
 		<style>
+			@keyframes pulsePanelOutline {
+				0%,
+				100% {
+					opacity: 0.03;
+				}
+				50% {
+					opacity: 0.2;
+				}
+			}
+			@keyframes pulsePanelGrid {
+				0%,
+				100% {
+					opacity: 0.03;
+				}
+				50% {
+					opacity: 0.16;
+				}
+			}
 			.portfolio {
 				display: grid;
 				gap: 1rem;
@@ -38,6 +56,7 @@ import Footer from '../../components/Footer.astro';
 				opacity: 0.2;
 				pointer-events: none;
 				z-index: -1;
+				animation: pulsePanelOutline 8.4s ease-in-out infinite;
 			}
 			.panel::after {
 				content: "";
@@ -55,6 +74,7 @@ import Footer from '../../components/Footer.astro';
 				opacity: 0.16;
 				pointer-events: none;
 				z-index: -1;
+				animation: pulsePanelGrid 8.4s ease-in-out 2.2s infinite;
 			}
 			.links {
 				display: flex;

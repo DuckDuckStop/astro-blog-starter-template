@@ -10,6 +10,42 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			@keyframes pulseRedMotif {
+				0%,
+				100% {
+					opacity: 0.06;
+				}
+				50% {
+					opacity: 0.45;
+				}
+			}
+			@keyframes pulseBlueMotif {
+				0%,
+				100% {
+					opacity: 0.06;
+				}
+				50% {
+					opacity: 0.45;
+				}
+			}
+			@keyframes pulseBaseOutline {
+				0%,
+				100% {
+					opacity: 0.34;
+				}
+				50% {
+					opacity: 0.78;
+				}
+			}
+			@keyframes pulseBaseGrid {
+				0%,
+				100% {
+					opacity: 0.3;
+				}
+				50% {
+					opacity: 0.68;
+				}
+			}
 			.welcome-wrap {
 				padding-top: clamp(2.2rem, 7vw, 5rem);
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
@@ -106,6 +142,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				transform: rotate(-22.5deg);
 				opacity: 0.45;
 				pointer-events: none;
+				animation: pulseRedMotif 7.2s ease-in-out infinite;
 			}
 			.hero-motif-3 {
 				position: absolute;
@@ -114,6 +151,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				transform: rotate(22.5deg);
 				opacity: 0.45;
 				pointer-events: none;
+				animation: pulseBlueMotif 7.2s ease-in-out 2.1s infinite;
 			}
 			.hero-motif-2::before {
 				content: "";
@@ -156,6 +194,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				border: 1px solid rgba(190, 190, 190, 0.14);
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 				z-index: 1;
+				opacity: 0.78;
+				animation: pulseBaseOutline 8s ease-in-out infinite;
 			}
 			.hero-motif::after {
 				content: "";
@@ -167,6 +207,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					linear-gradient(90deg, rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px;
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 				z-index: 1;
+				opacity: 0.68;
+				animation: pulseBaseGrid 8s ease-in-out 1.6s infinite;
 			}
 			@media (max-width: 920px) {
 				.hero {
