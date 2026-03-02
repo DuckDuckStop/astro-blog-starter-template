@@ -9,5 +9,5 @@ export const SITE_LOGO_FALLBACK = "/branding/logo/atxpixel-logo.png";
 export const HOME_EYEBROW = "ATX PIXEL";
 export const HOME_HEADLINE = "Programmable Architectural Lighting Systems";
 export const HOME_BULLETS = [
-	"A Lighting Energy Design Studio Production Company",
+	"Lighting Engineered Designs",
 ];
