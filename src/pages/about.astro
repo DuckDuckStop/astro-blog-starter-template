@@ -31,9 +31,9 @@ import Footer from '../components/Footer.astro';
 			.about-shell::before {
 				content: "";
 				position: absolute;
-				right: clamp(-2rem, -6vw, -4.2rem);
+				right: clamp(-4rem, -12vw, -8.4rem);
 				top: 0.4rem;
-				width: clamp(180px, 28vw, 280px);
+				width: clamp(360px, 56vw, 560px);
 				aspect-ratio: 1 / 1;
 				border: 1px solid rgba(120, 163, 168, 0.24);
 				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
@@ -44,16 +44,13 @@ import Footer from '../components/Footer.astro';
 			.about-shell::after {
 				content: "";
 				position: absolute;
-				right: clamp(-2.2rem, -6vw, -4.5rem);
+				right: clamp(-4.4rem, -12vw, -9rem);
 				top: 0.2rem;
-				width: clamp(180px, 28vw, 280px);
+				width: clamp(360px, 56vw, 560px);
 				aspect-ratio: 1 / 1;
-				background:
-					radial-gradient(circle, rgba(120, 163, 168, 0.6) 1px, transparent 1.5px) 0 0 / 22px 22px,
-					linear-gradient(rgba(120, 163, 168, 0.25) 1px, transparent 1px) 0 0 / 22px 22px,
-					linear-gradient(90deg, rgba(120, 163, 168, 0.25) 1px, transparent 1px) 0 0 / 22px 22px;
-				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-				opacity: 0.028;
+				background: none;
+				clip-path: none;
+				opacity: 0;
 				pointer-events: none;
 				z-index: -1;
 			}
@@ -142,8 +139,8 @@ import Footer from '../components/Footer.astro';
 				}
 				.about-shell::before,
 				.about-shell::after {
-					right: -1.5rem;
-					width: min(45vw, 220px);
+					right: -3rem;
+					width: min(90vw, 440px);
 				}
 			}
 		</style>
