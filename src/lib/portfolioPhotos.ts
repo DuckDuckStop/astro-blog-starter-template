@@ -7,7 +7,7 @@ const subjectDisplayOverrides: Record<string, { label?: string; subheader?: stri
 	'Decorative & Safety': { label: 'Decorative & Safety' },
 	'Landscaping & Structural': {
 		subheader:
-			'Personalize your home with colors and lighting effects that can change with the seasons or celebrate the holidays. Expand the effects anytime to match special events or show your team spirit on game days. Or keep things simple with clean white lighting and subtle effects that improve visibility without being over the top. The choice is yours when you invest in ATXPIXEL solutions.'
+			'Personalize your space with colors and lighting effects that can change with the seasons or celebrate the holidays. Expand the effects anytime to match special events or show your team spirit on game days. Or keep things simple with clean white lighting and subtle effects that improve visibility without being over the top. The choice is yours when you invest in ATXPIXEL solutions.'
 	}
 };
 
@@ -42,7 +42,7 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Decorative & Safety/Sound Reactive LED Curtains.gif':
 		'Real-time sound reactive lighting with clean, flowing patterns. Tailored to the space and installed like curtains of light, creating an atmosphere that feels somewhere between architecture and starlight.',
 	'Decorative & Safety/Sound Reactive Safety lights for Bicycles.gif':
-		'Real-time sound reactive animations powered by high-density LED strips and a safe 5V battery system. Compatible with any 3-pin addressable LEDs (pixels) and adaptable to 5V or 12V setups, increasing rider visibility while turning night rides into a personalized light show. Modern, serviceable designs support USB-C 5V charging with optional 12V barrel plug compatibility.',
+		'Real-time sound reactive animations powered by high-density LED strips and a safe 5V battery system. Compatible with any 3-pin addressable LEDs (pixels) and adaptable to both 5V and 12V setups. It improves rider visibility while turning night rides into a personalized light show. Modern, serviceable designs support USB-C 5V charging with optional 12V barrel plug compatibility.',
 	'Landscaping & Structural/Christmas.png':
 		'Everyone has their own idea of the perfect Christmas colors. This display features red, blue, green, and white, with every color fully customizable within each lighting effect, including yellow, orange, and gold hues. More Christmas animations are on the way, so check back soon for additional seasonal samples.',
 	'Landscaping & Structural/Valentine Theme Static.jpg':
