@@ -2,36 +2,16 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { readdir } from 'node:fs/promises';
-import { extname, resolve } from 'node:path';
-
-const photosDir = resolve(process.cwd(), 'public', 'media', 'photos');
-const allowedExt = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
+import { readPortfolioPhotoSubjects } from '../../lib/portfolioPhotos';
 
 let subjects: Array<{ slug: string; label: string; count: number }> = [];
 try {
-	const directories = (await readdir(photosDir, { withFileTypes: true }))
-		.filter((entry) => entry.isDirectory())
-		.map((entry) => entry.name)
-		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
-	const subjectRows = await Promise.all(
-		directories.map(async (dir) => {
-			const files = await readdir(resolve(photosDir, dir), { withFileTypes: true });
-			const count = files
-				.filter((entry) => entry.isFile())
-				.map((entry) => entry.name)
-				.filter((name) => allowedExt.has(extname(name).toLowerCase())).length;
-
-			return {
-				slug: dir,
-				label: dir.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-				count
-			};
-		})
-	);
-
-	subjects = subjectRows.filter((row) => row.count > 0);
+	const loaded = await readPortfolioPhotoSubjects();
+	subjects = loaded.map((subject) => ({
+		slug: subject.slug,
+		label: subject.label,
+		count: subject.photos.length
+	}));
 } catch {
 	subjects = [];
 }
@@ -84,7 +64,7 @@ try {
 						{
 							subjects.map((subject) => (
 								<li>
-									<a href={`/portfolio/photos/${encodeURIComponent(subject.slug)}/`}>
+									<a href={`/portfolio/photos/${subject.slug}/`}>
 										<h2>{subject.label}</h2>
 										<p>{subject.count} photos</p>
 									</a>

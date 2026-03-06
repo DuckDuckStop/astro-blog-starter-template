@@ -2,92 +2,99 @@
 import BaseHead from '../../../components/BaseHead.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
-import { readdir } from 'node:fs/promises';
-import { extname, resolve } from 'node:path';
-
-const toLabel = (value: string) => value.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-const toCaption = (filename: string) =>
-	filename
-		.replace(/\.[^/.]+$/, '')
-		.replace(/[-_]+/g, ' ')
-		.trim();
+import {
+	getPortfolioPhotoUrl,
+	readPortfolioPhotoSubjects,
+	type PortfolioPhotoSubject
+} from '../../../lib/portfolioPhotos';
 
 export async function getStaticPaths() {
-	const photosDir = resolve(process.cwd(), 'public', 'media', 'photos');
-	const allowedExt = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
-
-	const directories = (await readdir(photosDir, { withFileTypes: true }))
-		.filter((entry) => entry.isDirectory())
-		.map((entry) => entry.name)
-		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
-	const entries = await Promise.all(
-		directories.map(async (dir) => {
-			const files = (await readdir(resolve(photosDir, dir), { withFileTypes: true }))
-				.filter((entry) => entry.isFile())
-				.map((entry) => entry.name)
-				.filter((name) => allowedExt.has(extname(name).toLowerCase()))
-				.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-			return { dir, files };
-		})
-	);
-
-	return entries
-		.filter((entry) => entry.files.length > 0)
-		.map((entry) => ({
-			params: { subject: entry.dir },
-			props: { subject: entry.dir, files: entry.files }
-		}));
+	const subjects = await readPortfolioPhotoSubjects();
+	return subjects.map((subject) => ({
+		params: { subject: subject.slug },
+		props: { subject }
+	}));
 }
 
-const { subject, files } = Astro.props as { subject: string; files: string[] };
-const subjectLabel = toLabel(subject);
+const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead
-			title={`${subjectLabel} | ATXPIXEL.COM`}
-			description={`Browse ${subjectLabel.toLowerCase()} portfolio photos.`}
+			title={`${subject.label} | ATXPIXEL.COM`}
+			description={`Browse ${subject.label.toLowerCase()} portfolio photos.`}
 		/>
 		<style>
-			.photo-grid {
+			.photo-list {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-				gap: 0.9rem;
+				gap: 1rem;
 				padding: 0;
 				list-style: none;
 			}
-			.photo-grid li {
+			.photo-list li {
 				margin: 0;
 			}
-			.photo-grid figure {
-				margin: 0;
+			.photo-block {
+				display: grid;
+				grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+				gap: 1rem;
+				align-items: start;
 				border: 1px solid rgba(255, 255, 255, 0.08);
-				border-radius: 10px;
-				overflow: hidden;
+				border-radius: 12px;
+				padding: 0.8rem;
 				background: rgba(10, 10, 10, 0.85);
 			}
-			.photo-grid img {
+			.photo-block.reverse .photo-media {
+				order: 2;
+			}
+			.photo-block.reverse .photo-copy {
+				order: 1;
+				text-align: left;
+			}
+			.photo-media {
+				margin: 0;
+				border-radius: 10px;
+				overflow: hidden;
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.photo-media img {
 				display: block;
 				width: 100%;
 				height: auto;
-				aspect-ratio: auto;
 				object-fit: contain;
-				border-radius: 0;
+				aspect-ratio: 16 / 9;
 			}
-			.photo-grid figcaption {
-				padding: 0.55rem 0.7rem;
-				font-size: 0.78rem;
+			.photo-copy {
+				display: grid;
+				align-content: center;
+				gap: 0.6rem;
+				padding: 0.25rem 0.2rem;
+			}
+			.photo-copy h2 {
+				margin: 0;
+				font-size: 1.1rem;
+			}
+			.photo-copy p {
+				margin: 0;
+				font-size: 0.9rem;
+				line-height: 1.65;
 				color: rgb(var(--gray));
 			}
 			.photo-link {
 				display: block;
+				text-decoration: none;
 			}
 			.back-link {
 				display: inline-block;
 				margin-bottom: 0.7rem;
+			}
+			.subject-subheader {
+				max-width: 78ch;
+				margin: 0.25rem 0 1rem;
+				color: rgb(var(--gray));
+				line-height: 1.6;
 			}
 		</style>
 	</head>
@@ -95,24 +102,27 @@ const subjectLabel = toLabel(subject);
 		<Header />
 		<main>
 			<a class="back-link" href="/portfolio/photos/">Back to all samples</a>
-			<h1>{subjectLabel}</h1>
-			<ul class="photo-grid">
+			<h1>{subject.label}</h1>
+			{subject.subheader ? <p class="subject-subheader">{subject.subheader}</p> : null}
+			<ul class="photo-list">
 				{
-					files.map((name) => (
+					subject.photos.map((photo, index) => (
 						<li>
-							<figure>
-								<a
-									class="photo-link"
-									href={`/portfolio/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}/`}
-								>
-									<img
-										src={`/media/photos/${encodeURIComponent(subject)}/${encodeURIComponent(name)}`}
-										alt={toCaption(name)}
-										loading="lazy"
-									/>
-								</a>
-								<figcaption>{toCaption(name)}</figcaption>
-							</figure>
+							<article class:list={['photo-block', { reverse: index % 2 === 1 }]}>
+								<figure class="photo-media">
+									<a class="photo-link" href={`/portfolio/photos/${subject.slug}/${photo.slug}/`}>
+										<img
+											src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)}
+											alt={photo.caption}
+											loading="lazy"
+										/>
+									</a>
+								</figure>
+								<div class="photo-copy">
+									<h2>{photo.caption}</h2>
+									<p>{photo.description}</p>
+								</div>
+							</article>
 						</li>
 					))
 				}
