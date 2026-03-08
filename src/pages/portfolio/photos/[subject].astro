@@ -96,6 +96,15 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				color: rgb(var(--gray));
 				line-height: 1.6;
 			}
+			@media (max-width: 720px) {
+				.photo-block {
+					grid-template-columns: 1fr;
+				}
+				.photo-block.reverse .photo-media,
+				.photo-block.reverse .photo-copy {
+					order: initial;
+				}
+			}
 		</style>
 	</head>
 	<body>
