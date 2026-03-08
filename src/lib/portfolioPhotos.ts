@@ -46,7 +46,7 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Landscaping & Structural/Christmas.png':
 		'Everyone has their own idea of the perfect Christmas colors. This display features red, blue, green, and white, with every color fully customizable within each lighting effect, including yellow, orange, and gold hues. More Christmas animations are on the way, so check back soon for additional seasonal samples.',
 	'Landscaping & Structural/Valentine Theme Static.jpg':
-		'A Valentine-themed scene built with classic red and pink hues. This static display creates a warm, festive atmosphere while keeping the lighting simple and refined. Sometimes less is more when it comes from the heart.',
+		'A Valentine-themed scene built with classic purple and pink hues. This static display creates a warm, festive atmosphere while keeping the lighting simple and refined. Sometimes less is more when it comes from the heart.',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
 		'A rhythmic heartbeat animation pulses through red and pink tones across the display, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit the occasion, with more animated examples including game day themes coming soon.'
 };
