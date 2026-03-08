@@ -41,8 +41,10 @@ const toCaption = (filename: string) =>
 const photoDescriptionOverrides: Record<string, string> = {
 	'Decorative & Safety/Sound Reactive LED Curtains.gif':
 		'Real-time sound reactive lighting with clean, flowing patterns. Tailored to the space and installed like curtains of light, creating an atmosphere that feels somewhere between architecture and starlight.',
+	'Decorative & Safety/Sound Reactive Safety LEDs for Bicycles.gif':
+		'Custom-designed safety LED systems for anything with wheels. Built to run from safe battery packs or integrate with existing power setups. Every installation is adaptable and designed to make each project uniquely yours.',
 	'Decorative & Safety/Sound Reactive Safety lights for Bicycles.gif':
-		'Real-time sound reactive animations powered by high-density LED strips and a safe 5V battery system. Compatible with any 3-pin addressable LEDs (pixels) and adaptable to both 5V and 12V setups. It improves rider visibility while turning night rides into a personalized light show. Modern, serviceable designs support USB-C 5V charging with optional 12V barrel plug compatibility.',
+		'Custom-designed safety LED systems for anything with wheels. Built to run from safe battery packs or integrate with existing power setups. Every installation is adaptable and designed to make each project uniquely yours.',
 	'Landscaping & Structural/Christmas.png':
 		'Everyone has their own idea of the perfect Christmas colors. This display features red, blue, green, and white, with every color fully customizable within each lighting effect, including yellow, orange, and gold hues. More Christmas animations are on the way, so check back soon for additional seasonal samples.',
 	'Landscaping & Structural/Valentine Theme Static.jpg':
