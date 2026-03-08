@@ -13,20 +13,58 @@ import Footer from '../components/Footer.astro';
 		/>
 		<style>
 			.about-main {
-				padding-top: clamp(2.2rem, 7vw, 5rem);
-				padding-bottom: clamp(2.8rem, 7vw, 5.5rem);
+				padding: 0;
 			}
 			.about-shell {
 				position: relative;
-				max-width: 800px;
+				width: 100%;
+				max-width: none;
 				margin: 0;
 				padding: clamp(1.2rem, 2vw, 1.8rem) clamp(0.1rem, 1vw, 0.2rem);
-				display: grid;
-				gap: 2.75rem;
+				overflow: hidden;
+				border-radius: 0;
 				color: #f2f2f2;
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				text-align: left;
 				isolation: isolate;
+				min-height: 100vh;
+			}
+			.about-content {
+				position: relative;
+				z-index: 1;
+				display: grid;
+				gap: 2.75rem;
+				align-content: center;
+				min-height: 100vh;
+				padding: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1rem, 4vw, 4rem);
+				max-width: 980px;
+			}
+			.about-bg {
+				position: absolute;
+				inset: 0;
+				z-index: -2;
+				pointer-events: none;
+				background: #070707;
+			}
+			.about-bg::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background:
+					linear-gradient(145deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.78) 100%),
+					radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.06), transparent 48%);
+			}
+			.about-bg-layer {
+				position: absolute;
+				inset: 0;
+				opacity: 0;
+				transition: opacity 1200ms ease;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.about-bg-layer.is-active {
+				opacity: 1;
 			}
 			.about-shell::before {
 				content: "";
@@ -133,9 +171,21 @@ import Footer from '../components/Footer.astro';
 				color: #ececec;
 			}
 			@media (max-width: 860px) {
+				.about-main {
+					padding-top: clamp(1.2rem, 5vw, 2rem);
+					padding-bottom: clamp(1.4rem, 6vw, 2.4rem);
+				}
 				.about-shell {
-					max-width: 100%;
+					min-height: auto;
+					border-radius: 16px;
+					padding: clamp(1rem, 3.8vw, 1.4rem);
+				}
+				.about-content {
 					gap: 2.5rem;
+					min-height: auto;
+					max-width: none;
+					padding: 0;
+					align-content: start;
 				}
 				.about-shell::before,
 				.about-shell::after {
@@ -148,42 +198,95 @@ import Footer from '../components/Footer.astro';
 	<body>
 		<Header />
 		<main class="about-main">
-			<section class="about-shell">
-				<section class="about-section intro">
-					<h1>About ATXPIXEL</h1>
-					<p>
-						ATXPIXEL designs and installs custom programmable LED lighting systems.
-						Engineered to last. Competitively priced.
-					</p>
-				</section>
+			<section class="about-shell" data-about-bg-path="/media/about/backgrounds/">
+				<div class="about-bg" aria-hidden="true">
+					<div class="about-bg-layer is-active"></div>
+					<div class="about-bg-layer"></div>
+				</div>
+				<div class="about-content">
+					<section class="about-section intro">
+						<h1>About ATXPIXEL</h1>
+						<p>
+							ATXPIXEL designs and installs custom programmable LED lighting systems.
+							Engineered to last. Competitively priced.
+						</p>
+					</section>
 
-				<section class="about-section">
-					<h2 class="section-heading">Our Process</h2>
-					<ul class="pillars">
-						<li>Electrical load planning.</li>
-						<li>Controller selection, for scalable configuration.</li>
-						<li>Precision fabrication and routing.</li>
-						<li>Thermal and environmental management.</li>
-					</ul>
-				</section>
+					<section class="about-section">
+						<h2 class="section-heading">Our Process</h2>
+						<ul class="pillars">
+							<li>Electrical load planning.</li>
+							<li>Controller selection, for scalable configuration.</li>
+							<li>Precision fabrication and routing.</li>
+							<li>Thermal and environmental management.</li>
+						</ul>
+					</section>
 
-				<section class="about-section">
-					<h2 class="section-heading">What we deliver</h2>
-					<ul class="pillars">
-						<li>Easy to use LED systems that adapt.</li>
-						<li>DIY control and automated remote management.</li>
-						<li>Concierge programming and annual updates.</li>
-						<li>Turnkey smart lighting solutions for any budget.</li>
-					</ul>
-					<h2 class="section-heading summary-heading">In Summary</h2>
-					<div class="signature" aria-label="ATXPIXEL signature statement">
-						<span>Precise.</span>
-						<span>Reliable.</span>
-						<span>Built to evolve.</span>
-					</div>
-				</section>
+					<section class="about-section">
+						<h2 class="section-heading">What we deliver</h2>
+						<ul class="pillars">
+							<li>Easy to use LED systems that adapt.</li>
+							<li>DIY control and automated remote management.</li>
+							<li>Concierge programming and maintenance.</li>
+							<li>Turnkey smart lighting solutions for any budget.</li>
+						</ul>
+						<h2 class="section-heading summary-heading">In Summary</h2>
+						<div class="signature" aria-label="ATXPIXEL signature statement">
+							<span>Precise.</span>
+							<span>Reliable.</span>
+							<span>Built to evolve.</span>
+						</div>
+					</section>
+				</div>
 			</section>
 		</main>
 		<Footer />
+		<script is:inline>
+			(() => {
+				const shell = document.querySelector('.about-shell[data-about-bg-path]');
+				if (!shell) return;
+				const basePath = shell.getAttribute('data-about-bg-path');
+				if (!basePath) return;
+				const layers = Array.from(shell.querySelectorAll('.about-bg-layer'));
+				if (layers.length < 2) return;
+
+				const stems = ['about-01', 'about-02', 'about-03', 'about-04', 'about-05', 'about-06'];
+				const extensions = ['jpg', 'jpeg', 'png', 'webp'];
+				const candidates = stems.flatMap((stem) =>
+					extensions.map((ext) => `${basePath}${stem}.${ext}`)
+				);
+
+				const canLoad = (url) =>
+					new Promise((resolve) => {
+						const img = new Image();
+						img.onload = () => resolve(url);
+						img.onerror = () => resolve(null);
+						img.src = url;
+					});
+
+				Promise.all(candidates.map((url) => canLoad(url))).then((result) => {
+					const available = result.filter(Boolean);
+					if (!available.length) return;
+
+					let imageIndex = 0;
+					let activeLayerIndex = 0;
+					layers[activeLayerIndex].style.backgroundImage = `url("${available[imageIndex]}")`;
+					layers[activeLayerIndex].classList.add('is-active');
+					if (available.length === 1) return;
+
+					window.setInterval(() => {
+						imageIndex = (imageIndex + 1) % available.length;
+						const nextLayerIndex = activeLayerIndex === 0 ? 1 : 0;
+						const activeLayer = layers[activeLayerIndex];
+						const nextLayer = layers[nextLayerIndex];
+
+						nextLayer.style.backgroundImage = `url("${available[imageIndex]}")`;
+						nextLayer.classList.add('is-active');
+						activeLayer.classList.remove('is-active');
+						activeLayerIndex = nextLayerIndex;
+					}, 6500);
+				});
+			})();
+		</script>
 	</body>
 </html>
