@@ -42,12 +42,12 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Decorative & Safety/Sound Reactive LED Curtains.gif':
 		'Real-time sound reactive lighting with clean, flowing patterns. Tailored to the space and installed like curtains of light, creating an atmosphere that feels somewhere between architecture and starlight.',
 	'Decorative & Safety/Sound Reactive Safety LEDs for Bicycles.gif':
-		'Custom-designed safety LED systems for anything with wheels. Built to run from safe battery packs or integrate with existing power setups. Every installation is adaptable and designed to make each project uniquely yours.',
+		'Custom-designed safety LED kits for anything with wheels. Built to run from battery banks or integrate with existing power systems. Flexible enough to adapt to nearly any platform and make every build unique.',
 	'Decorative & Safety/Sound Reactive Safety lights for Bicycles.gif':
-		'Custom-designed safety LED systems for anything with wheels. Built to run from safe battery packs or integrate with existing power setups. Every installation is adaptable and designed to make each project uniquely yours.',
-	'Landscaping & Structural/Christmas.png':
-		'Everyone has their own idea of the perfect Christmas colors. This display features red, blue, green, and white, with every color fully customizable within each lighting effect, including yellow, orange, and gold hues. More Christmas animations are on the way, so check back soon for additional seasonal samples.',
-	'Landscaping & Structural/Valentine Theme Static.jpg':
+		'Custom-designed safety LED kits for anything with wheels. Built to run from battery banks or integrate with existing power systems. Flexible enough to adapt to nearly any platform and make every build unique.',
+	'Landscaping & Structural/Christmas Theme.png':
+		'Everyone has their own idea of the perfect Christmas colors. This display highlights red, blue, green, and white, but every lighting effect can be customized to include additional hues like yellow, orange, and gold. With fully programmable color control, the palette can evolve throughout the season. More Christmas animations are on the way, so check back soon for additional seasonal samples.',
+	'Landscaping & Structural/Valentine Theme.jpg':
 		'A Valentine-themed scene built with classic purple and pink hues. This static display creates a warm, festive atmosphere while keeping the lighting simple and refined. Sometimes less is more when it comes from the heart.',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
 		'A rhythmic heartbeat animation pulses through red and pink tones across the display, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit the occasion, with more animated examples including game day themes coming soon.'
