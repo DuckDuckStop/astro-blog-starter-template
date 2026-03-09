@@ -50,7 +50,7 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Landscaping & Structural/Valentine Theme.jpg':
 		'A Valentine-themed scene built with classic purple and pink hues. This static display creates a warm, festive atmosphere while keeping the lighting simple and refined. Sometimes less is more when it comes from the heart.',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
-		'A rhythmic heartbeat animation pulses through red and pink tones across the display, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit the occasion, with more animated examples including game day themes coming soon.'
+		'A rhythmic heartbeat animation pulses through red and pink tones across the yard, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit the occasion, with more animated examples coming soon.'
 };
 
 const getPhotoDescription = (dirName: string, fileName: string, caption: string) => {
