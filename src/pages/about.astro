@@ -170,6 +170,15 @@ import Footer from '../components/Footer.astro';
 				font-variation-settings: "wght" 600, "wdth" 103, "opsz" 30;
 				color: #ececec;
 			}
+			.summary-word {
+				display: inline-block;
+				min-width: 7ch;
+				transition: opacity 180ms ease, transform 180ms ease;
+			}
+			.summary-word.is-swapping {
+				opacity: 0;
+				transform: translateY(0.2em);
+			}
 			@media (max-width: 860px) {
 				.about-main {
 					padding-top: clamp(1.2rem, 5vw, 2rem);
@@ -233,9 +242,9 @@ import Footer from '../components/Footer.astro';
 						</ul>
 						<h2 class="section-heading summary-heading">In Summary</h2>
 						<div class="signature" aria-label="ATXPIXEL signature statement">
-							<span>Precise.</span>
-							<span>Reliable.</span>
-							<span>Affordable.</span>
+							<span>
+								Engineered LED Systems Built to <span class="summary-word" data-summary-word>Perform</span>
+							</span>
 						</div>
 					</section>
 				</div>
@@ -287,6 +296,23 @@ import Footer from '../components/Footer.astro';
 						activeLayerIndex = nextLayerIndex;
 					}, 6500);
 				});
+			})();
+		</script>
+		<script is:inline>
+			(() => {
+				const wordEl = document.querySelector('[data-summary-word]');
+				if (!wordEl) return;
+				const words = ['Perform', 'Last', 'Impress'];
+				let index = 0;
+
+				window.setInterval(() => {
+					index = (index + 1) % words.length;
+					wordEl.classList.add('is-swapping');
+					window.setTimeout(() => {
+						wordEl.textContent = words[index];
+						wordEl.classList.remove('is-swapping');
+					}, 190);
+				}, 2600);
 			})();
 		</script>
 	</body>
