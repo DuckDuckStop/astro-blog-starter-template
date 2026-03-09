@@ -19,6 +19,114 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		</div>
 	</nav>
 </header>
+<script is:inline>
+	(() => {
+		if (!window.matchMedia('(pointer: coarse)').matches) return;
+
+		const normalizePath = (value) => {
+			if (!value) return '/';
+			const stripped = value.replace(/[?#].*$/, '').replace(/\/+$/, '');
+			return stripped || '/';
+		};
+
+		const toPathFromUrl = (value) => {
+			if (!value) return null;
+			try {
+				return normalizePath(new URL(value, window.location.origin).pathname);
+			} catch {
+				return null;
+			}
+		};
+
+		const goTo = (href) => {
+			const targetPath = toPathFromUrl(href);
+			if (!targetPath) return false;
+			if (targetPath === normalizePath(window.location.pathname)) return false;
+			window.location.href = targetPath;
+			return true;
+		};
+
+		const resolveTarget = (direction) => {
+			const path = normalizePath(window.location.pathname);
+			const topLevel = ['/', '/about', '/portfolio', '/contact'];
+
+			// /portfolio/photos/:subject/:photo
+			if (/^\/portfolio\/photos\/[^/]+\/[^/]+$/.test(path)) {
+				const prev = document.querySelector('.photo-nav .nav-link:first-child:not(.disabled)');
+				const next = document.querySelector('.photo-nav .nav-link:not(.disabled):last-child');
+				const back = document.querySelector('.photo-header .back-link');
+				if (direction === 'left') return next?.getAttribute('href') || back?.getAttribute('href');
+				return prev?.getAttribute('href') || back?.getAttribute('href');
+			}
+
+			// /portfolio/photos/:subject
+			if (/^\/portfolio\/photos\/[^/]+$/.test(path)) {
+				const firstPhoto = document.querySelector('.photo-list .photo-link');
+				const back = document.querySelector('.subject-header .back-link, .back-link');
+				if (direction === 'left') return firstPhoto?.getAttribute('href') || '/portfolio/photos/';
+				return back?.getAttribute('href') || '/portfolio/photos/';
+			}
+
+			// /portfolio/photos
+			if (path === '/portfolio/photos') {
+				const firstCategory = document.querySelector('.subject-grid a');
+				if (direction === 'left') return firstCategory?.getAttribute('href') || '/portfolio';
+				return '/portfolio';
+			}
+
+			// /portfolio
+			if (path === '/portfolio') {
+				if (direction === 'left') return '/portfolio/photos/';
+				return '/about';
+			}
+
+			const topIndex = topLevel.indexOf(path);
+			if (topIndex >= 0) {
+				if (direction === 'left') return topLevel[topIndex + 1] || null;
+				return topLevel[topIndex - 1] || null;
+			}
+
+			return null;
+		};
+
+		let startX = 0;
+		let startY = 0;
+		let tracking = false;
+
+		document.addEventListener(
+			'touchstart',
+			(event) => {
+				const target = event.target;
+				if (!(target instanceof Element)) return;
+				if (target.closest('input, textarea, select, [data-swipe-ignore="true"]')) return;
+				const touch = event.changedTouches[0];
+				if (!touch) return;
+				startX = touch.clientX;
+				startY = touch.clientY;
+				tracking = true;
+			},
+			{ passive: true }
+		);
+
+		document.addEventListener(
+			'touchend',
+			(event) => {
+				if (!tracking) return;
+				tracking = false;
+				const touch = event.changedTouches[0];
+				if (!touch) return;
+				const dx = touch.clientX - startX;
+				const dy = touch.clientY - startY;
+				if (Math.abs(dx) < 64) return;
+				if (Math.abs(dx) < Math.abs(dy) * 1.2) return;
+				const direction = dx < 0 ? 'left' : 'right';
+				const targetHref = resolveTarget(direction);
+				if (targetHref) goTo(targetHref);
+			},
+			{ passive: true }
+		);
+	})();
+</script>
 <style>
 	header {
 		margin: 0;
