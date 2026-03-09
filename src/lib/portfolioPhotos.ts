@@ -11,7 +11,7 @@ const subjectDisplayOverrides: Record<string, { label?: string; subheader?: stri
 	},
 	'Landscaping & Structural': {
 		subheader:
-			'Personalize your space with colors and lighting effects that can change with the seasons or celebrate the holidays. Expand the effects anytime to match special events or show your team spirit on game days. Or keep things simple with clean white lighting and subtle effects that improve visibility without being over the top. The choice is yours when you go with ATXPIXEL'
+			'Personalize your space with colors and lighting effects that can change with the seasons or celebrate the holidays. Expand the effects anytime to match special events or show your team spirit on game days. Or keep things simple with clean white lighting and subtle effects that improve visibility without being over the top. The choice is yours when you go with ATXPIXEL solutions.'
 	}
 };
 
