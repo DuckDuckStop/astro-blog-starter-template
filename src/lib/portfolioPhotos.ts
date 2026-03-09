@@ -50,7 +50,7 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Decorative & Safety/Sound Reactive Safety lights for Bicycles.gif':
 		'Custom-designed safety LED kits for anything with wheels. Built to run on battery banks or integrate with existing power systems. Flexible enough to adapt to nearly any platform and make every build unique. Sound reaction to make your ride a moving lightshow, synchronized with music for extra flare.',
 	'Landscaping & Structural/Christmas Theme.png':
-		'Everyone has their own expression for the Christmas spirit. This sample highlights red, blue, green, and white. Remember every lighting effect can be customized to also include hues like yellow, or gold. With fully programmable color control, the palette can evolve throughout the season. Daily or hourly you can invoke a different animation or color coordination. Check back soon for additional seasonal samples.',
+		'Everyone has their own expression for the Christmas spirit. This sample highlights red, blue, green, and white. Remember every lighting effect can be customized to also include hues like yellow, or gold. With fully programmable color control, the palette can evolve throughout the season. Daily or hourly you can produce different animation or color coordinations.',
 	'Landscaping & Structural/Valentine Theme.jpg':
 		'A Valentine-themed scene built with classic purple and pink hues. This static display creates a warm, festive atmosphere while keeping the lighting simple and refined. Sometimes less is more when it comes from the heart.',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
