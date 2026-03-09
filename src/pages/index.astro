@@ -74,6 +74,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				max-width: 14ch;
 				margin-bottom: 1rem;
 			}
+			.hero-word {
+				display: inline-block;
+				min-width: 7ch;
+				transition: opacity 180ms ease, transform 180ms ease;
+			}
+			.hero-word.is-swapping {
+				opacity: 0;
+				transform: translateY(0.2em);
+			}
 			.subline {
 				max-width: 60ch;
 				font-size: 1.05rem;
@@ -236,8 +245,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<main class="welcome-wrap">
 			<section class="hero">
 				<div style="position: relative; z-index: 3;">
-					<p class="eyebrow">DESIGNED FOR ANYONE</p>
-					<h1>Engineered LED Systems Built to Perform</h1>
+					<p class="eyebrow">CUSTOM BY DESIGN</p>
+					<h1>
+						Engineered LED Systems Built to <span class="hero-word" data-hero-word>Perform</span>
+					</h1>
 					<p class="subline">
 						Fully programmable lighting designed for your space.<br />
 						Secure remote management and automation available.<br />
@@ -255,5 +266,22 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			</section>
 		</main>
 		<Footer />
+		<script is:inline>
+			(() => {
+				const wordEl = document.querySelector('[data-hero-word]');
+				if (!wordEl) return;
+				const words = ['Perform', 'Last', 'Impress'];
+				let index = 0;
+
+				window.setInterval(() => {
+					index = (index + 1) % words.length;
+					wordEl.classList.add('is-swapping');
+					window.setTimeout(() => {
+						wordEl.textContent = words[index];
+						wordEl.classList.remove('is-swapping');
+					}, 190);
+				}, 2600);
+			})();
+		</script>
 	</body>
 </html>

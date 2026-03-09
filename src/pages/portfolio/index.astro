@@ -12,102 +12,72 @@ import Footer from '../../components/Footer.astro';
 			description="ATXPIXEL project beacon showcasing photography, video, and multidisciplinary demonstrations."
 		/>
 		<style>
-			@keyframes pulsePanelOutline {
-				0%,
-				100% {
-					opacity: 0.03;
-				}
-				50% {
-					opacity: 0.2;
-				}
-			}
-			@keyframes pulsePanelGrid {
-				0%,
-				100% {
-					opacity: 0.03;
-				}
-				50% {
-					opacity: 0.16;
-				}
-			}
 			.portfolio {
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.2rem, 7vw, 5rem);
+			}
+			.portfolio-shell {
+				max-width: 960px;
 				display: grid;
-				gap: 1rem;
+				gap: 1.35rem;
 			}
-			.panel {
-				position: relative;
-				overflow: hidden;
-				padding: 1.2rem;
-				border-radius: 12px;
-				border: 1px solid rgba(0, 255, 240, 0.3);
-				background: rgba(5, 10, 26, 0.65);
-				isolation: isolate;
+			.portfolio-eyebrow {
+				margin: 0;
+				font-size: 0.8rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: #8a8a8a;
 			}
-			.panel::before {
-				content: "";
-				position: absolute;
-				right: clamp(-3.2rem, -8vw, -5rem);
-				top: 50%;
-				width: clamp(320px, 42vw, 500px);
-				aspect-ratio: 1 / 1;
-				border: 3px solid rgba(190, 190, 190, 0.82);
-				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-				transform: translateY(-50%);
-				opacity: 0.2;
-				pointer-events: none;
-				z-index: -1;
-				animation: pulsePanelOutline 8.4s ease-in-out infinite;
+			.portfolio h1 {
+				margin: 0;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+				line-height: 1.12;
 			}
-			.panel::after {
-				content: "";
-				position: absolute;
-				right: clamp(-3.35rem, -8vw, -5.2rem);
-				top: 50%;
-				width: clamp(320px, 42vw, 500px);
-				aspect-ratio: 1 / 1;
-				background:
-					radial-gradient(circle, rgba(200, 200, 200, 0.78) 2px, transparent 2.5px) 0 0 / 28px 28px,
-					linear-gradient(rgba(190, 190, 190, 0.32) 2px, transparent 2px) 0 0 / 28px 28px,
-					linear-gradient(90deg, rgba(190, 190, 190, 0.32) 2px, transparent 2px) 0 0 / 28px 28px;
-				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-				transform: translateY(-50%);
-				opacity: 0.16;
-				pointer-events: none;
-				z-index: -1;
-				animation: pulsePanelGrid 8.4s ease-in-out 2.2s infinite;
+			.portfolio-description {
+				max-width: 72ch;
+				margin: 0;
+				line-height: 1.7;
+				color: #aaaaaa;
 			}
 			.links {
 				display: flex;
 				gap: 0.8rem;
 				flex-wrap: wrap;
 			}
-			.mb-8 {
-				margin-bottom: 2.25rem;
-			}
 			.links a {
 				display: inline-block;
-				padding: 0.55rem 0.9rem;
+				padding: 0.65rem 1rem;
 				border-radius: 999px;
 				text-decoration: none;
-				border: 1px solid rgba(255, 45, 158, 0.45);
-				background: rgba(255, 45, 158, 0.08);
+				border: 1px solid #3a3a3a;
+				background: transparent;
+				color: #d8d8d8;
+				font-size: 0.83rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
 			}
-			@media (max-width: 900px) {
-				.panel::before,
-				.panel::after {
-					right: -6rem;
-					width: min(80vw, 420px);
-				}
+			.links a:hover {
+				color: #f0f0f0;
+				border-color: #626262;
+				background: rgba(255, 255, 255, 0.04);
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="portfolio">
-			<section class="panel">
-				<h1 class="mb-8">Portfolio</h1>
+			<section class="portfolio-shell">
+				<p class="portfolio-eyebrow">Project Archive</p>
+				<h1>Portfolio</h1>
+				<p class="portfolio-description">
+					A selection of ATXPIXEL installations and concepts. Browse categories and view related
+					photos and project details.
+				</p>
 				<div class="links">
-					<a href="/portfolio/photos/">Browse all Samples</a>
+					<a href="/portfolio/photos/">Browse all Categories</a>
 				</div>
 			</section>
 		</main>

@@ -25,10 +25,38 @@ try {
 			description="Browse photo portfolios by subject."
 		/>
 		<style>
+			.portfolio-main {
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.2rem, 7vw, 5rem);
+			}
+			.portfolio-shell {
+				max-width: 960px;
+				display: grid;
+				gap: 1.25rem;
+			}
+			.portfolio-eyebrow {
+				margin: 0;
+				font-size: 0.8rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: #8a8a8a;
+			}
+			.portfolio-shell h1 {
+				margin: 0;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+				line-height: 1.12;
+			}
+			.portfolio-subline {
+				margin: 0;
+				max-width: 68ch;
+				color: #aaaaaa;
+				line-height: 1.7;
+			}
 			.subject-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-				gap: 0.9rem;
+				gap: 0;
 				padding: 0;
 				list-style: none;
 			}
@@ -36,28 +64,42 @@ try {
 				margin: 0;
 			}
 			.subject-grid a {
-				display: block;
-				border: 1px solid rgba(255, 255, 255, 0.08);
-				border-radius: 10px;
-				padding: 0.95rem 1rem;
-				background: rgba(10, 10, 10, 0.85);
+				display: grid;
+				grid-template-columns: 1fr auto;
+				align-items: baseline;
+				gap: 1rem;
+				border-top: 1px solid rgba(255, 255, 255, 0.09);
+				padding: 1.05rem 0.2rem;
 				text-decoration: none;
 			}
 			.subject-grid h2 {
 				margin: 0;
-				font-size: 1.1rem;
+				font-size: 1.05rem;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 580, "wdth" 106, "opsz" 28;
+				color: #e6e6e6;
 			}
 			.subject-grid p {
-				margin: 0.25rem 0 0;
-				font-size: 0.84rem;
-				color: rgb(var(--gray));
+				margin: 0;
+				font-size: 0.76rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: #888888;
+			}
+			.subject-grid a:hover h2 {
+				color: #f1f1f1;
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>Sample Categories</h1>
+		<main class="portfolio-main">
+			<section class="portfolio-shell">
+				<p class="portfolio-eyebrow">Portfolio Index</p>
+				<h1>Category Samples</h1>
+				<p class="portfolio-subline">
+					Select a category to view project types and details.
+				</p>
 			{
 				subjects.length > 0 ? (
 					<ul class="subject-grid">
@@ -79,6 +121,7 @@ try {
 					</p>
 				)
 			}
+			</section>
 		</main>
 		<Footer />
 	</body>
