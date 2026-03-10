@@ -246,6 +246,9 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		gap: 1rem;
 	}
 	nav a {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
 		padding: 1em 0.5em;
 		color: #9a9a9a;
 		border-bottom: 3px solid transparent;
@@ -253,11 +256,53 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		font-variation-settings: "wght" 500, "wdth" 95, "opsz" 12, "GRAD" 40;
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
+		transition:
+			color 170ms ease,
+			border-bottom-color 170ms ease,
+			transform 150ms ease,
+			text-shadow 170ms ease;
 	}
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent-violet);
 		color: #ededed;
+	}
+	@keyframes tab-hover-scan {
+		0% {
+			transform: translateX(-150%);
+		}
+		100% {
+			transform: translateX(150%);
+		}
+	}
+	@media (min-width: 721px) and (hover: hover) {
+		nav a::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(115deg, transparent 0%, rgba(0, 240, 255, 0.22) 46%, transparent 54%);
+			transform: translateX(-150%);
+			opacity: 0;
+			z-index: -1;
+			pointer-events: none;
+		}
+		nav a:hover,
+		nav a:focus-visible {
+			color: #f4feff;
+			border-bottom-color: var(--accent-cyan);
+			transform: translateY(-1px);
+			text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+		}
+		nav a:hover::before,
+		nav a:focus-visible::before {
+			opacity: 1;
+			animation: tab-hover-scan 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+		}
+		nav a.active:hover,
+		nav a.active:focus-visible {
+			border-bottom-color: var(--accent-violet);
+			text-shadow: 0 0 8px rgba(154, 77, 255, 0.45);
+		}
 	}
 	.internal-links {
 		display: flex;
