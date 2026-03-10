@@ -11,11 +11,19 @@ import AnimatedLogo from './AnimatedLogo.astro';
 				<span class="brand-text">ATXPIXEL</span>
 			</a>
 		</h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Welcome</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-			<HeaderLink href="/portfolio">Portfolio</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
+		<div class="tabs-carousel" data-tabs-carousel data-swipe-ignore="true">
+			<div class="tabs-arrow tabs-arrow-left" data-tabs-arrow="left" aria-hidden="true">
+				<span>&larr;</span>
+			</div>
+			<div class="internal-links" data-tabs-track>
+				<HeaderLink href="/">Welcome</HeaderLink>
+				<HeaderLink href="/about">About</HeaderLink>
+				<HeaderLink href="/portfolio">Portfolio</HeaderLink>
+				<HeaderLink href="/contact">Contact</HeaderLink>
+			</div>
+			<div class="tabs-arrow tabs-arrow-right" data-tabs-arrow="right" aria-hidden="true">
+				<span>&rarr;</span>
+			</div>
 		</div>
 	</nav>
 </header>
@@ -126,6 +134,37 @@ import AnimatedLogo from './AnimatedLogo.astro';
 			{ passive: true }
 		);
 	})();
+
+	(() => {
+		const initTabsCarousel = () => {
+			const carousel = document.querySelector('[data-tabs-carousel]');
+			const track = carousel?.querySelector('[data-tabs-track]');
+			const leftArrow = carousel?.querySelector('[data-tabs-arrow="left"]');
+			const rightArrow = carousel?.querySelector('[data-tabs-arrow="right"]');
+			if (!(track instanceof HTMLElement)) return;
+			if (track.dataset.carouselInit === 'true') return;
+			track.dataset.carouselInit = 'true';
+
+			const updateArrows = () => {
+				const maxLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+				const left = track.scrollLeft;
+				const threshold = 2;
+				const showLeft = left > threshold;
+				const showRight = left < maxLeft - threshold;
+				carousel?.classList.toggle('can-scroll-left', showLeft);
+				carousel?.classList.toggle('can-scroll-right', showRight);
+				if (leftArrow instanceof HTMLElement) leftArrow.hidden = !showLeft;
+				if (rightArrow instanceof HTMLElement) rightArrow.hidden = !showRight;
+			};
+
+			updateArrows();
+			track.addEventListener('scroll', updateArrows, { passive: true });
+			window.addEventListener('resize', updateArrows);
+		};
+
+		initTabsCarousel();
+		document.addEventListener('astro:page-load', initTabsCarousel);
+	})();
 </script>
 <style>
 	header {
@@ -188,11 +227,62 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		gap: 0.3rem;
 		flex-wrap: wrap;
 	}
+	.tabs-carousel {
+		display: contents;
+	}
+	.tabs-arrow {
+		display: none;
+	}
 	@media (max-width: 720px) {
 		nav {
 			align-items: flex-start;
 			flex-direction: column;
 			padding-bottom: 0.6rem;
+		}
+		.tabs-carousel {
+			display: grid;
+			align-items: center;
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			column-gap: 0.35rem;
+			width: 100%;
+		}
+		.tabs-arrow {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.4rem;
+			color: #8e8e8e;
+			font-size: 0.95rem;
+			opacity: 0;
+			transition: opacity 120ms ease;
+		}
+		.tabs-carousel.can-scroll-left .tabs-arrow-left,
+		.tabs-carousel.can-scroll-right .tabs-arrow-right {
+			opacity: 1;
+		}
+		.internal-links {
+			flex-wrap: nowrap;
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: calc((100% - 0.6rem) / 3);
+			overflow-x: auto;
+			overscroll-behavior-x: contain;
+			scroll-snap-type: x mandatory;
+			scroll-behavior: smooth;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			gap: 0.3rem;
+			padding-bottom: 0.15rem;
+		}
+		.internal-links::-webkit-scrollbar {
+			display: none;
+		}
+		.internal-links :global(a) {
+			text-align: center;
+			scroll-snap-align: start;
+			scroll-snap-stop: always;
+			white-space: nowrap;
+			min-width: 0;
 		}
 	}
 </style>
