@@ -157,6 +157,23 @@ import AnimatedLogo from './AnimatedLogo.astro';
 				if (rightArrow instanceof HTMLElement) rightArrow.hidden = !showRight;
 			};
 
+			const settleToNearestTab = () => {
+				if (!window.matchMedia('(max-width: 720px)').matches) return;
+				const firstLink = track.querySelector('a');
+				const secondLink = firstLink?.nextElementSibling;
+				if (!(firstLink instanceof HTMLElement) || !(secondLink instanceof HTMLElement)) return;
+				const step = secondLink.offsetLeft - firstLink.offsetLeft;
+				if (step <= 0) return;
+				const maxLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+				const snapped = Math.round(track.scrollLeft / step) * step;
+				const targetLeft = Math.max(0, Math.min(maxLeft, snapped));
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				track.scrollTo({
+					left: targetLeft,
+					behavior: prefersReducedMotion ? 'auto' : 'smooth',
+				});
+			};
+
 			const syncToActiveTab = () => {
 				if (!window.matchMedia('(max-width: 720px)').matches) return;
 				const activeTab = track.querySelector('a.active');
@@ -169,7 +186,16 @@ import AnimatedLogo from './AnimatedLogo.astro';
 
 			syncToActiveTab();
 			updateArrows();
-			track.addEventListener('scroll', updateArrows, { passive: true });
+			let settleTimer;
+			track.addEventListener(
+				'scroll',
+				() => {
+					updateArrows();
+					window.clearTimeout(settleTimer);
+					settleTimer = window.setTimeout(settleToNearestTab, 90);
+				},
+				{ passive: true }
+			);
 			window.addEventListener('resize', updateArrows);
 		};
 
@@ -265,7 +291,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 			color: #8e8e8e;
 			font-size: 0.95rem;
 			opacity: 0;
-			transition: opacity 120ms ease;
+			transition: opacity 180ms ease;
 		}
 		.tabs-carousel.can-scroll-left .tabs-arrow-left,
 		.tabs-carousel.can-scroll-right .tabs-arrow-right {
@@ -278,7 +304,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 			grid-auto-columns: calc((100% - 0.6rem) / 3);
 			overflow-x: auto;
 			overscroll-behavior-x: contain;
-			scroll-snap-type: x mandatory;
+			scroll-snap-type: x proximity;
 			scroll-behavior: smooth;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
@@ -291,7 +317,6 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		.internal-links :global(a) {
 			text-align: center;
 			scroll-snap-align: start;
-			scroll-snap-stop: always;
 			white-space: nowrap;
 			min-width: 0;
 		}
