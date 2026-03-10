@@ -194,5 +194,37 @@ import AnimatedLogo from './AnimatedLogo.astro';
 			flex-direction: column;
 			padding-bottom: 0.6rem;
 		}
+		.internal-links {
+			width: 100%;
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(0, 82%);
+			gap: 0.55rem;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			overflow-y: hidden;
+			padding: 0.12rem 0.05rem 0.22rem;
+			scroll-snap-type: x mandatory;
+			scroll-padding-left: 0.05rem;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+		}
+		.internal-links::-webkit-scrollbar {
+			display: none;
+		}
+		.internal-links a {
+			width: 100%;
+			padding: 0.72rem 0.88rem;
+			border: 1px solid #2a2a2a;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.01);
+			scroll-snap-align: start;
+			white-space: nowrap;
+		}
+		.internal-links a.active {
+			border-bottom-color: transparent;
+			border-color: #4c4c4c;
+			background: rgba(255, 255, 255, 0.04);
+		}
 	}
 </style>
