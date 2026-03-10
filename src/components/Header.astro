@@ -157,6 +157,17 @@ import AnimatedLogo from './AnimatedLogo.astro';
 				if (rightArrow instanceof HTMLElement) rightArrow.hidden = !showRight;
 			};
 
+			const syncToActiveTab = () => {
+				if (!window.matchMedia('(max-width: 720px)').matches) return;
+				const activeTab = track.querySelector('a.active');
+				if (!(activeTab instanceof HTMLElement)) return;
+				track.scrollTo({
+					left: activeTab.offsetLeft,
+					behavior: 'auto',
+				});
+			};
+
+			syncToActiveTab();
 			updateArrows();
 			track.addEventListener('scroll', updateArrows, { passive: true });
 			window.addEventListener('resize', updateArrows);
