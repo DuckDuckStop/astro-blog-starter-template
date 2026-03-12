@@ -249,6 +249,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		position: relative;
 		isolation: isolate;
 		overflow: hidden;
+		box-sizing: border-box;
 		padding: 1em 0.5em;
 		color: #9a9a9a;
 		border-bottom: 3px solid transparent;
@@ -360,10 +361,17 @@ import AnimatedLogo from './AnimatedLogo.astro';
 			display: none;
 		}
 		.internal-links :global(a) {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
 			text-align: center;
 			scroll-snap-align: start;
 			white-space: nowrap;
 			min-width: 0;
+			padding: 0.9rem 0.2rem;
+			font-size: 0.88rem;
+			letter-spacing: 0.02em;
 		}
 	}
 </style>
