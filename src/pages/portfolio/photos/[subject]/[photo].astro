@@ -108,10 +108,14 @@ const nextPhoto =
 				text-align: center;
 				font-size: 0.88rem;
 			}
-			.nav-link:focus-visible,
-			.nav-link:hover {
-				border-color: rgba(255, 255, 255, 0.34);
-				color: #f2f2f2;
+			@media (min-width: 721px) and (hover: hover) {
+				.nav-link:focus-visible,
+				.nav-link:hover {
+					border-color: var(--accent-cyan);
+					color: #f4feff;
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+				}
 			}
 			.nav-link.disabled {
 				opacity: 0.46;
@@ -142,13 +146,13 @@ const nextPhoto =
 
 					<nav class="photo-nav" aria-label="Photo navigation">
 						<a
-							class:list={['nav-link', { disabled: !prevPhoto }]}
+							class:list={['nav-link', 'desktop-hover-scan', { disabled: !prevPhoto }]}
 							href={prevPhoto ? `/portfolio/photos/${subject.slug}/${prevPhoto.slug}/` : '#'}
 						>
 							&larr; Previous Photo
 						</a>
 						<a
-							class:list={['nav-link', { disabled: !nextPhoto }]}
+							class:list={['nav-link', 'desktop-hover-scan', { disabled: !nextPhoto }]}
 							href={nextPhoto ? `/portfolio/photos/${subject.slug}/${nextPhoto.slug}/` : '#'}
 						>
 							Next Photo &rarr;

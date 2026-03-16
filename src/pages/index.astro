@@ -123,27 +123,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				text-transform: uppercase;
 				border-radius: 999px;
 				padding: 0.75rem 1.15rem;
-				transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
 			}
 			.cta-primary {
 				color: #0a0a0a;
 				background: #e8e8e8;
 				border: 1px solid #e8e8e8;
 			}
-			.cta-primary:hover {
-				background: #ffffff;
-				border-color: #ffffff;
-				color: #0a0a0a;
-			}
 			.cta-ghost {
 				color: #d8d8d8;
 				border: 1px solid #3a3a3a;
 				background: transparent;
 			}
-			.cta-ghost:hover {
-				color: #f0f0f0;
-				border-color: #626262;
-				background: rgba(255, 255, 255, 0.04);
+			@media (min-width: 721px) and (hover: hover) {
+				.cta-primary:hover,
+				.cta-primary:focus-visible {
+					background: #ffffff;
+					border-color: #ffffff;
+					color: #0a0a0a;
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.16);
+				}
+				.cta-ghost:hover,
+				.cta-ghost:focus-visible {
+					color: #f4feff;
+					border-color: var(--accent-cyan);
+					background: rgba(255, 255, 255, 0.04);
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+				}
 			}
 			.hero-motif {
 				position: absolute;
@@ -261,8 +268,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 						White-glove service and turnkey solutions available.
 					</p>
 					<div class="cta-row">
-						<a class="cta cta-primary" href="/contact">Start Project &#8594;</a>
-						<a class="cta cta-ghost" href="/portfolio">View Portfolio &#8594;</a>
+						<a class="cta cta-ghost desktop-hover-scan" href="/contact">Start Project &#8594;</a>
+						<a class="cta cta-ghost desktop-hover-scan" href="/portfolio">View Portfolio &#8594;</a>
 					</div>
 				</div>
 				<div class="hero-motif" aria-hidden="true">

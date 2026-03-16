@@ -90,6 +90,47 @@ a {
 a:hover {
 	color: var(--accent-cyan);
 }
+.desktop-hover-scan {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	transition:
+		border-color 170ms ease,
+		color 170ms ease,
+		background-color 170ms ease,
+		transform 150ms ease,
+		text-shadow 170ms ease,
+		box-shadow 170ms ease;
+}
+@keyframes desktop-hover-scan {
+	0% {
+		transform: translateX(-150%);
+	}
+	100% {
+		transform: translateX(150%);
+	}
+}
+@media (min-width: 721px) and (hover: hover) {
+	.desktop-hover-scan::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(115deg, transparent 0%, rgba(0, 240, 255, 0.22) 46%, transparent 54%);
+		transform: translateX(-150%);
+		opacity: 0;
+		z-index: -1;
+		pointer-events: none;
+	}
+	.desktop-hover-scan:hover,
+	.desktop-hover-scan:focus-visible {
+		transform: translateY(-1px);
+	}
+	.desktop-hover-scan:hover::before,
+	.desktop-hover-scan:focus-visible::before {
+		opacity: 1;
+		animation: desktop-hover-scan 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+	}
+}
 p {
 	margin-bottom: 1em;
 }

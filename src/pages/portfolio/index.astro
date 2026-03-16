@@ -74,12 +74,16 @@ import Footer from '../../components/Footer.astro';
 				font-size: 0.83rem;
 				letter-spacing: 0.08em;
 				text-transform: uppercase;
-				transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
 			}
-			.links a:hover {
-				color: #f0f0f0;
-				border-color: #626262;
-				background: rgba(255, 255, 255, 0.04);
+			@media (min-width: 721px) and (hover: hover) {
+				.links a:hover,
+				.links a:focus-visible {
+					color: #f4feff;
+					border-color: var(--accent-cyan);
+					background: rgba(255, 255, 255, 0.04);
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+				}
 			}
 			@media (max-width: 720px) {
 				.portfolio-shell {
@@ -100,7 +104,7 @@ import Footer from '../../components/Footer.astro';
 						photos and project details.
 					</p>
 					<div class="links">
-						<a href="/portfolio/photos/">Browse all Categories</a>
+						<a class="desktop-hover-scan" href="/portfolio/photos/">Browse all Categories</a>
 					</div>
 				</div>
 			</section>
