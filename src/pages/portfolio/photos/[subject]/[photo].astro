@@ -38,6 +38,24 @@ const nextPhoto =
 		/>
 		<style>
 			.photo-view {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
+				display: grid;
+			}
+			.photo-shell {
+				width: 100%;
+				display: grid;
+				gap: 1rem;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.photo-copy {
+				max-width: 1120px;
 				display: grid;
 				gap: 1rem;
 			}
@@ -99,36 +117,45 @@ const nextPhoto =
 				opacity: 0.46;
 				pointer-events: none;
 			}
+			@media (max-width: 720px) {
+				.photo-shell {
+					border-radius: 16px;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="photo-view">
-			<section class="photo-header">
-				<a class="back-link" href={`/portfolio/photos/${subject.slug}/`}>Back to {subject.label}</a>
-				<h1>{subject.label}</h1>
-				<p>{photo.caption}</p>
+			<section class="photo-shell">
+				<div class="photo-copy">
+					<section class="photo-header">
+						<a class="back-link" href={`/portfolio/photos/${subject.slug}/`}>Back to {subject.label}</a>
+						<h1>{subject.label}</h1>
+						<p>{photo.caption}</p>
+					</section>
+
+					<figure class="photo-frame">
+						<img src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)} alt={photo.caption} />
+						<figcaption>{photo.caption}</figcaption>
+					</figure>
+
+					<nav class="photo-nav" aria-label="Photo navigation">
+						<a
+							class:list={['nav-link', { disabled: !prevPhoto }]}
+							href={prevPhoto ? `/portfolio/photos/${subject.slug}/${prevPhoto.slug}/` : '#'}
+						>
+							&larr; Previous Photo
+						</a>
+						<a
+							class:list={['nav-link', { disabled: !nextPhoto }]}
+							href={nextPhoto ? `/portfolio/photos/${subject.slug}/${nextPhoto.slug}/` : '#'}
+						>
+							Next Photo &rarr;
+						</a>
+					</nav>
+				</div>
 			</section>
-
-			<figure class="photo-frame">
-				<img src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)} alt={photo.caption} />
-				<figcaption>{photo.caption}</figcaption>
-			</figure>
-
-			<nav class="photo-nav" aria-label="Photo navigation">
-				<a
-					class:list={['nav-link', { disabled: !prevPhoto }]}
-					href={prevPhoto ? `/portfolio/photos/${subject.slug}/${prevPhoto.slug}/` : '#'}
-				>
-					&larr; Previous Photo
-				</a>
-				<a
-					class:list={['nav-link', { disabled: !nextPhoto }]}
-					href={nextPhoto ? `/portfolio/photos/${subject.slug}/${nextPhoto.slug}/` : '#'}
-				>
-					Next Photo &rarr;
-				</a>
-			</nav>
 		</main>
 		<Footer />
 	</body>

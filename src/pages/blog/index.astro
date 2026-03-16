@@ -16,8 +16,22 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
+			.blog-main {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
+			}
+			.blog-shell {
+				width: 100%;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.blog-copy {
+				max-width: 960px;
 			}
 			ul {
 				display: flex;
@@ -69,6 +83,9 @@ const posts = (await getCollection('blog')).sort(
 				box-shadow: var(--box-shadow);
 			}
 			@media (max-width: 720px) {
+				.blog-shell {
+					border-radius: 16px;
+				}
 				ul {
 					gap: 0.5em;
 				}
@@ -87,9 +104,10 @@ const posts = (await getCollection('blog')).sort(
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
+		<main class="blog-main">
+			<section class="blog-shell">
+				<div class="blog-copy">
+					<ul>
 					{
 						posts.map((post) => (
 							<li>
@@ -103,7 +121,8 @@ const posts = (await getCollection('blog')).sort(
 							</li>
 						))
 					}
-				</ul>
+					</ul>
+				</div>
 			</section>
 		</main>
 		<Footer />

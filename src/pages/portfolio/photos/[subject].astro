@@ -28,10 +28,26 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 		/>
 		<style>
 			.portfolio-main {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding-left: clamp(1rem, 3vw, 2.5rem);
+				padding-right: clamp(1rem, 3vw, 2.5rem);
 				padding-top: clamp(2.2rem, 7vw, 5rem);
 				padding-bottom: clamp(2.4rem, 7vw, 5.2rem);
 			}
 			.portfolio-shell {
+				width: 100%;
+				max-width: none;
+				display: grid;
+				gap: clamp(2.2rem, 4vw, 3.4rem);
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.portfolio-copy {
 				max-width: 1120px;
 				display: grid;
 				gap: clamp(2.2rem, 4vw, 3.4rem);
@@ -148,6 +164,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				}
 				.portfolio-shell {
 					gap: 1.9rem;
+					border-radius: 16px;
 				}
 				.photo-block {
 					grid-template-columns: 1fr;
@@ -171,36 +188,38 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 		<Header />
 		<main class="portfolio-main">
 			<div class="portfolio-shell">
-				<section class="subject-header">
-					<a class="back-link" href="/portfolio/photos/">Back to all samples</a>
-					<p class="subject-eyebrow">Portfolio Category</p>
-					<h1>{subject.label}</h1>
-					{subject.subheader ? <p class="subject-subheader">{subject.subheader}</p> : null}
-				</section>
-				<ul class="photo-list">
-				{
-					subject.photos.map((photo, index) => (
-						<li>
-							<article class:list={['photo-block', { reverse: index % 2 === 1 }]}>
-								<figure class="photo-media">
-									<a class="photo-link" href={`/portfolio/photos/${subject.slug}/${photo.slug}/`}>
-										<img
-											class:list={['photo-image', { 'photo-image-focus': photo.fileName === 'Christmas Theme.png' }]}
-											src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)}
-											alt={photo.caption}
-											loading="lazy"
-										/>
-									</a>
-								</figure>
-								<div class="photo-copy">
-									<h2>{photo.caption}</h2>
-									<p>{photo.description}</p>
-								</div>
-							</article>
-						</li>
-					))
-				}
-				</ul>
+				<div class="portfolio-copy">
+					<section class="subject-header">
+						<a class="back-link" href="/portfolio/photos/">Back to all samples</a>
+						<p class="subject-eyebrow">Portfolio Category</p>
+						<h1>{subject.label}</h1>
+						{subject.subheader ? <p class="subject-subheader">{subject.subheader}</p> : null}
+					</section>
+					<ul class="photo-list">
+					{
+						subject.photos.map((photo, index) => (
+							<li>
+								<article class:list={['photo-block', { reverse: index % 2 === 1 }]}>
+									<figure class="photo-media">
+										<a class="photo-link" href={`/portfolio/photos/${subject.slug}/${photo.slug}/`}>
+											<img
+												class:list={['photo-image', { 'photo-image-focus': photo.fileName === 'Christmas Theme.png' }]}
+												src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)}
+												alt={photo.caption}
+												loading="lazy"
+											/>
+										</a>
+									</figure>
+									<div class="photo-copy">
+										<h2>{photo.caption}</h2>
+										<p>{photo.description}</p>
+									</div>
+								</article>
+							</li>
+						))
+					}
+					</ul>
+				</div>
 			</div>
 		</main>
 		<Footer />

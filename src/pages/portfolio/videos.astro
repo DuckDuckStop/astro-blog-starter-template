@@ -13,14 +13,19 @@ import Footer from '../../components/Footer.astro';
 		/>
 		<style>
 			.video-wrap {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
 				display: grid;
-				gap: 1rem;
 			}
 			.header-card {
-				padding: 1rem 1.2rem;
-				border-radius: 12px;
-				background: rgba(6, 10, 24, 0.75);
-				border: 1px solid rgba(0, 255, 240, 0.28);
+				width: 100%;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				border-radius: 18px;
+				background: #0a0a0a;
+				border: 1px solid #202020;
 			}
 			.panel {
 				padding: 1rem;
@@ -28,17 +33,27 @@ import Footer from '../../components/Footer.astro';
 				background: rgba(255, 45, 158, 0.1);
 				border: 1px solid rgba(255, 45, 158, 0.4);
 			}
+			.video-copy {
+				max-width: 960px;
+			}
+			@media (max-width: 720px) {
+				.header-card {
+					border-radius: 16px;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="video-wrap">
 			<section class="header-card">
-				<h1>Video Index</h1>
-				<p>
-					This route has been simplified to local-first video management to keep load behavior
-					predictable and avoid third-party dependency overhead.
-				</p>
+				<div class="video-copy">
+					<h1>Video Index</h1>
+					<p>
+						This route has been simplified to local-first video management to keep load behavior
+						predictable and avoid third-party dependency overhead.
+					</p>
+				</div>
 			</section>
 
 		</main>

@@ -14,10 +14,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
+			.post-main {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
 				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
+			}
+			.post-shell {
+				width: 100%;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
 			}
 			.hero-image {
 				width: 100%;
@@ -51,13 +60,18 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			@media (max-width: 720px) {
+				.post-shell {
+					border-radius: 16px;
+				}
+			}
 		</style>
 	</head>
 
 	<body>
 		<Header />
-		<main>
-			<article>
+		<main class="post-main">
+			<article class="post-shell">
 				<div class="hero-image">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
 				</div>

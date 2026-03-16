@@ -13,11 +13,28 @@ import Footer from '../../components/Footer.astro';
 		/>
 		<style>
 			.portfolio {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding-left: clamp(1rem, 3vw, 2.5rem);
+				padding-right: clamp(1rem, 3vw, 2.5rem);
 				padding-top: clamp(2.2rem, 7vw, 5rem);
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.portfolio-shell {
-				max-width: 960px;
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				display: grid;
+				gap: 1.35rem;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.portfolio-copy {
+				max-width: 980px;
 				display: grid;
 				gap: 1.35rem;
 			}
@@ -64,20 +81,27 @@ import Footer from '../../components/Footer.astro';
 				border-color: #626262;
 				background: rgba(255, 255, 255, 0.04);
 			}
+			@media (max-width: 720px) {
+				.portfolio-shell {
+					border-radius: 16px;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="portfolio">
 			<section class="portfolio-shell">
-				<p class="portfolio-eyebrow">Project Archive</p>
-				<h1>Portfolio</h1>
-				<p class="portfolio-description">
-					A selection of ATXPIXEL installations and concepts. Browse categories and view related
-					photos and project details.
-				</p>
-				<div class="links">
-					<a href="/portfolio/photos/">Browse all Categories</a>
+				<div class="portfolio-copy">
+					<p class="portfolio-eyebrow">Project Archive</p>
+					<h1>Portfolio</h1>
+					<p class="portfolio-description">
+						A selection of ATXPIXEL installations and concepts. Browse categories and view related
+						photos and project details.
+					</p>
+					<div class="links">
+						<a href="/portfolio/photos/">Browse all Categories</a>
+					</div>
 				</div>
 			</section>
 		</main>

@@ -26,10 +26,26 @@ try {
 		/>
 		<style>
 			.portfolio-main {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding-left: clamp(1rem, 3vw, 2.5rem);
+				padding-right: clamp(1rem, 3vw, 2.5rem);
 				padding-top: clamp(2.2rem, 7vw, 5rem);
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.portfolio-shell {
+				width: 100%;
+				max-width: none;
+				display: grid;
+				gap: 1.25rem;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.portfolio-copy {
 				max-width: 960px;
 				display: grid;
 				gap: 1.25rem;
@@ -90,38 +106,45 @@ try {
 			.subject-grid a:hover h2 {
 				color: #f1f1f1;
 			}
+			@media (max-width: 720px) {
+				.portfolio-shell {
+					border-radius: 16px;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="portfolio-main">
 			<section class="portfolio-shell">
-				<p class="portfolio-eyebrow">Portfolio Index</p>
-				<h1>Project Samples</h1>
-				<p class="portfolio-subline">
-					Select a category to view project types and details.
-				</p>
-			{
-				subjects.length > 0 ? (
-					<ul class="subject-grid">
-						{
-							subjects.map((subject) => (
-								<li>
-									<a href={`/portfolio/photos/${subject.slug}/`}>
-										<h2>{subject.label}</h2>
-										<p>{subject.count} photos</p>
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				) : (
-					<p>
-						No subject folders with images found yet. Add images under
-						<code>public/media/photos/&lt;subject&gt;</code> and refresh.
+				<div class="portfolio-copy">
+					<p class="portfolio-eyebrow">Portfolio Index</p>
+					<h1>Project Samples</h1>
+					<p class="portfolio-subline">
+						Select a category to view project types and details.
 					</p>
-				)
-			}
+				{
+					subjects.length > 0 ? (
+						<ul class="subject-grid">
+							{
+								subjects.map((subject) => (
+									<li>
+										<a href={`/portfolio/photos/${subject.slug}/`}>
+											<h2>{subject.label}</h2>
+											<p>{subject.count} photos</p>
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					) : (
+						<p>
+							No subject folders with images found yet. Add images under
+							<code>public/media/photos/&lt;subject&gt;</code> and refresh.
+						</p>
+					)
+				}
+				</div>
 			</section>
 		</main>
 		<Footer />
