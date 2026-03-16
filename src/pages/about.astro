@@ -13,16 +13,21 @@ import Footer from '../components/Footer.astro';
 		/>
 		<style>
 			.about-main {
-				padding: 0;
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
 			}
 			.about-shell {
 				position: relative;
 				width: 100%;
 				max-width: none;
 				margin: 0;
-				padding: clamp(1.2rem, 2vw, 1.8rem) clamp(0.1rem, 1vw, 0.2rem);
+				padding: 0;
 				overflow: hidden;
-				border-radius: 0;
+				border: 1px solid #202020;
+				border-radius: 18px;
 				color: #f2f2f2;
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				text-align: left;
@@ -36,7 +41,7 @@ import Footer from '../components/Footer.astro';
 				gap: 2.75rem;
 				align-content: center;
 				min-height: 100vh;
-				padding: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1rem, 4vw, 4rem);
+				padding: clamp(1.5rem, 4vw, 3.6rem);
 				max-width: 980px;
 			}
 			.about-bg {
@@ -187,7 +192,6 @@ import Footer from '../components/Footer.astro';
 				.about-shell {
 					min-height: auto;
 					border-radius: 16px;
-					padding: clamp(1rem, 3.8vw, 1.4rem);
 				}
 				.about-content {
 					gap: 2.5rem;
