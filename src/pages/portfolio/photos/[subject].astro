@@ -111,9 +111,10 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				transition: transform 260ms ease;
 			}
 			.photo-media img.photo-image-focus {
-				object-fit: cover;
+				object-fit: contain;
 				object-position: center;
-				transform: scale(1.04);
+				transform: scale(1);
+				background: #111111;
 			}
 			.photo-copy {
 				display: grid;
@@ -145,7 +146,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				transform: scale(1.02);
 			}
 			.photo-link:hover img.photo-image-focus {
-				transform: scale(1.07);
+				transform: scale(1.02);
 			}
 			.back-link {
 				display: inline-block;
