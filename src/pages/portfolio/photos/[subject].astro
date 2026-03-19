@@ -23,7 +23,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 <html lang="en">
 	<head>
 		<BaseHead
-			title={`${subject.label} | ATXPIXEL`}
+			title={`${subject.label} | ATX PIXEL`}
 			description={`Browse ${subject.label.toLowerCase()} portfolio photos.`}
 		/>
 		<style>
@@ -158,6 +158,13 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				color: #aaaaaa;
 				line-height: 1.68;
 			}
+			.empty-state {
+				margin: 0;
+				padding: 1rem 0.2rem 0;
+				border-top: 1px solid rgba(255, 255, 255, 0.09);
+				color: #9d9d9d;
+				line-height: 1.68;
+			}
 			@media (max-width: 720px) {
 				.portfolio-main {
 					padding-top: clamp(1.2rem, 5vw, 2rem);
@@ -196,30 +203,39 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 						<h1>{subject.label}</h1>
 						{subject.subheader ? <p class="subject-subheader">{subject.subheader}</p> : null}
 					</section>
-					<ul class="photo-list">
 					{
-						subject.photos.map((photo, index) => (
-							<li>
-								<article class:list={['photo-block', { reverse: index % 2 === 1 }]}>
-									<figure class="photo-media">
-										<a class="photo-link" href={`/portfolio/photos/${subject.slug}/${photo.slug}/`}>
-											<img
-												class:list={['photo-image', { 'photo-image-focus': photo.fileName === 'Christmas Theme.png' }]}
-												src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)}
-												alt={photo.caption}
-												loading="lazy"
-											/>
-										</a>
-									</figure>
-									<div class="photo-copy">
-										<h2>{photo.caption}</h2>
-										<p>{photo.description}</p>
-									</div>
-								</article>
-							</li>
-						))
+						subject.photos.length > 0 ? (
+							<ul class="photo-list">
+								{
+									subject.photos.map((photo, index) => (
+										<li>
+											<article class:list={['photo-block', { reverse: index % 2 === 1 }]}>
+												<figure class="photo-media">
+													<a class="photo-link" href={`/portfolio/photos/${subject.slug}/${photo.slug}/`}>
+														<img
+															class:list={[
+																'photo-image',
+																{ 'photo-image-focus': photo.fileName === 'Christmas Theme.png' }
+															]}
+															src={getPortfolioPhotoUrl(subject.dirName, photo.fileName)}
+															alt={photo.caption}
+															loading="lazy"
+														/>
+													</a>
+												</figure>
+												<div class="photo-copy">
+													<h2>{photo.caption}</h2>
+													<p>{photo.description}</p>
+												</div>
+											</article>
+										</li>
+									))
+								}
+							</ul>
+						) : (
+							<p class="empty-state">Photos for this category are coming soon.</p>
+						)
 					}
-					</ul>
 				</div>
 			</div>
 		</main>

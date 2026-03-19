@@ -8,8 +8,8 @@ import Footer from '../../components/Footer.astro';
 <html lang="en">
 	<head>
 		<BaseHead
-			title="Portfolio | ATXPIXEL"
-			description="ATXPIXEL project beacon showcasing photography, video, and multidisciplinary demonstrations."
+			title="Portfolio | ATX PIXEL"
+			description="ATX PIXEL project beacon showcasing photography, video, and multidisciplinary demonstrations."
 		/>
 		<style>
 			.portfolio {
@@ -58,13 +58,34 @@ import Footer from '../../components/Footer.astro';
 				line-height: 1.7;
 				color: #aaaaaa;
 			}
-			.links {
-				display: flex;
-				gap: 0.8rem;
-				flex-wrap: wrap;
+			.index-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1rem;
 			}
-			.links a {
+			.index-card {
+				display: grid;
+				gap: 0.8rem;
+				padding: 1.2rem;
+				border-radius: 16px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.index-card h2 {
+				margin: 0;
+				color: #ededed;
+				font-size: 1.15rem;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 106, "opsz" 36;
+			}
+			.index-card p {
+				margin: 0;
+				color: #aaaaaa;
+				line-height: 1.65;
+			}
+			.index-link {
 				display: inline-block;
+				width: fit-content;
 				padding: 0.65rem 1rem;
 				border-radius: 999px;
 				text-decoration: none;
@@ -76,8 +97,8 @@ import Footer from '../../components/Footer.astro';
 				text-transform: uppercase;
 			}
 			@media (min-width: 721px) and (hover: hover) {
-				.links a:hover,
-				.links a:focus-visible {
+				.index-link:hover,
+				.index-link:focus-visible {
 					color: #f4feff;
 					border-color: var(--accent-cyan);
 					background: rgba(255, 255, 255, 0.04);
@@ -88,6 +109,9 @@ import Footer from '../../components/Footer.astro';
 			@media (max-width: 720px) {
 				.portfolio-shell {
 					border-radius: 16px;
+				}
+				.index-grid {
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
@@ -100,11 +124,20 @@ import Footer from '../../components/Footer.astro';
 					<p class="portfolio-eyebrow">Project Archive</p>
 					<h1>Portfolio</h1>
 					<p class="portfolio-description">
-						A selection of ATXPIXEL installations and concepts. Browse categories and view related
-						photos and project details.
+						A selection of ATX PIXEL installations and concepts. Browse categories and view related
+						photos, material options, and project details.
 					</p>
-					<div class="links">
-						<a class="desktop-hover-scan" href="/portfolio/photos/">Browse all Categories</a>
+					<div class="index-grid">
+						<section class="index-card">
+							<h2>Project Samples</h2>
+							<p>Browse installation categories, example photos, and finished lighting concepts.</p>
+							<a class="index-link desktop-hover-scan" href="/portfolio/photos/">Browse Projects</a>
+						</section>
+						<section class="index-card">
+							<h2>Material Selection</h2>
+							<p>Review materials and option sets separately from the main project showcase.</p>
+							<a class="index-link desktop-hover-scan" href="/portfolio/materials/">Browse Materials</a>
+						</section>
 					</div>
 				</div>
 			</section>

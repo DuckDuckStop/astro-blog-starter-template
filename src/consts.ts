@@ -1,7 +1,7 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = "ATXPIXEL";
+export const SITE_TITLE = "ATX PIXEL";
 export const SITE_DESCRIPTION = "Build the lighting system you want.";
 export const SITE_LOGO_PRIMARY = "/branding/logo/atxpixel-logo.png";
 export const SITE_LOGO_FALLBACK = "/branding/logo/atxpixel-logo.png";

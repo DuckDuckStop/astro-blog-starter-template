@@ -2,16 +2,18 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { readPortfolioPhotoSubjects } from '../../lib/portfolioPhotos';
+import { isMaterialSelectionSubject, readPortfolioPhotoSubjects } from '../../lib/portfolioPhotos';
 
 let subjects: Array<{ slug: string; label: string; count: number }> = [];
 try {
 	const loaded = await readPortfolioPhotoSubjects();
-	subjects = loaded.map((subject) => ({
-		slug: subject.slug,
-		label: subject.label,
-		count: subject.photos.length
-	}));
+	subjects = loaded
+		.filter((subject) => !isMaterialSelectionSubject(subject))
+		.map((subject) => ({
+			slug: subject.slug,
+			label: subject.label,
+			count: subject.photos.length
+		}));
 } catch {
 	subjects = [];
 }
@@ -21,7 +23,7 @@ try {
 <html lang="en">
 	<head>
 		<BaseHead
-			title="Portfolio Categories | ATXPIXEL"
+			title="Portfolio Categories | ATX PIXEL"
 			description="Browse photo portfolios by subject."
 		/>
 		<style>
@@ -70,6 +72,40 @@ try {
 				color: #aaaaaa;
 				line-height: 1.7;
 			}
+			.section-callout {
+				display: grid;
+				gap: 0.8rem;
+				padding: 1rem 1.05rem;
+				border-radius: 14px;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.section-callout h2 {
+				margin: 0;
+				font-size: 1rem;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 640, "wdth" 106, "opsz" 30;
+			}
+			.section-callout p {
+				margin: 0;
+				color: #a9a9a9;
+				line-height: 1.65;
+				font-size: 0.95rem;
+			}
+			.section-link {
+				display: inline-block;
+				width: fit-content;
+				padding: 0.65rem 1rem;
+				border-radius: 999px;
+				text-decoration: none;
+				border: 1px solid #3a3a3a;
+				background: transparent;
+				color: #d8d8d8;
+				font-size: 0.83rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
 			.subject-grid {
 				display: grid;
 				gap: 0;
@@ -106,6 +142,16 @@ try {
 			.subject-grid a:hover h2 {
 				color: #f1f1f1;
 			}
+			@media (min-width: 721px) and (hover: hover) {
+				.section-link:hover,
+				.section-link:focus-visible {
+					color: #f4feff;
+					border-color: var(--accent-cyan);
+					background: rgba(255, 255, 255, 0.04);
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
+				}
+			}
 			@media (max-width: 720px) {
 				.portfolio-shell {
 					border-radius: 16px;
@@ -123,6 +169,16 @@ try {
 					<p class="portfolio-subline">
 						Select a category to view project types and details.
 					</p>
+					<section class="section-callout" aria-label="Material selection">
+						<h2>Looking for Material Selection?</h2>
+						<p>
+							Materials and options now live in their own section so they stay separate from the
+							main project gallery.
+						</p>
+						<a class="section-link desktop-hover-scan" href="/portfolio/materials/">
+							Open Material Selection
+						</a>
+					</section>
 				{
 					subjects.length > 0 ? (
 						<ul class="subject-grid">

@@ -1,0 +1,196 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { isMaterialSelectionSubject, readPortfolioPhotoSubjects } from '../../lib/portfolioPhotos';
+
+let subjects: Array<{ slug: string; label: string; count: number; subheader?: string }> = [];
+try {
+	const loaded = await readPortfolioPhotoSubjects();
+	subjects = loaded
+		.filter((subject) => isMaterialSelectionSubject(subject))
+		.map((subject) => ({
+			slug: subject.slug,
+			label: subject.label,
+			count: subject.photos.length,
+			subheader: subject.subheader
+		}));
+} catch {
+	subjects = [];
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Material Selection | ATX PIXEL" description="Browse materials and options." />
+		<style>
+			.portfolio-main {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding-left: clamp(1rem, 3vw, 2.5rem);
+				padding-right: clamp(1rem, 3vw, 2.5rem);
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.2rem, 7vw, 5rem);
+			}
+			.portfolio-shell {
+				width: 100%;
+				max-width: none;
+				display: grid;
+				gap: 1.25rem;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.portfolio-copy {
+				max-width: 960px;
+				display: grid;
+				gap: 1.25rem;
+			}
+			.portfolio-eyebrow {
+				margin: 0;
+				font-size: 0.8rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: #8a8a8a;
+			}
+			.portfolio-shell h1 {
+				margin: 0;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+				line-height: 1.12;
+			}
+			.portfolio-subline {
+				margin: 0;
+				max-width: 68ch;
+				color: #aaaaaa;
+				line-height: 1.7;
+			}
+			.channel-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1rem;
+				padding: 0;
+				list-style: none;
+			}
+			.channel-grid li {
+				margin: 0;
+			}
+			.channel-card {
+				display: grid;
+				gap: 1.2rem;
+				min-height: 100%;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				border-radius: 18px;
+				padding: clamp(1.2rem, 3vw, 1.6rem);
+				background:
+					radial-gradient(circle at top right, rgba(255, 72, 72, 0.12), transparent 42%),
+					linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+				text-decoration: none;
+			}
+			.channel-card:hover {
+				border-color: rgba(255, 255, 255, 0.18);
+				background:
+					radial-gradient(circle at top right, rgba(255, 72, 72, 0.16), transparent 42%),
+					linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+			}
+			.channel-label {
+				margin: 0;
+				font-size: 0.78rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: #8d8d8d;
+			}
+			.channel-card h2 {
+				margin: 0;
+				font-size: clamp(1.35rem, 4vw, 2rem);
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 720, "wdth" 110, "opsz" 32;
+				color: #e6e6e6;
+			}
+			.channel-card p {
+				margin: 0;
+				color: #a6a6a6;
+				line-height: 1.65;
+			}
+			.channel-meta {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				padding-top: 0.15rem;
+				font-size: 0.8rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #8b8b8b;
+			}
+			.channel-cta {
+				color: #f1c7c7;
+			}
+			.empty-state {
+				margin: 0;
+				color: #a6a6a6;
+				line-height: 1.7;
+			}
+			@media (max-width: 720px) {
+				.portfolio-shell {
+					border-radius: 16px;
+				}
+				.channel-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="portfolio-main">
+			<section class="portfolio-shell">
+				<div class="portfolio-copy">
+					<p class="portfolio-eyebrow">Material Index</p>
+					<h1>Material Selection</h1>
+					<p class="portfolio-subline">
+						Review material choices through two distinct channels. Pucks focuses on compact fixture options,
+						while Pixels covers programmable lighting paths built for animation, patterning, and color
+						control.
+					</p>
+					{
+						subjects.length > 0 ? (
+							<ul class="channel-grid">
+								{
+									subjects.map((subject) => (
+										<li>
+											<a class="channel-card" href={`/portfolio/photos/${subject.slug}/`}>
+												<p class="channel-label">Material Channel</p>
+												<h2>{subject.label}</h2>
+												<p>
+													{subject.subheader ??
+														'Browse available options, reference photos, and build-direction examples for this channel.'}
+												</p>
+												<div class="channel-meta">
+													<span>{subject.count} photos</span>
+													<span class="channel-cta">View Choices</span>
+												</div>
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						) : (
+							<p class="empty-state">
+								No material channels are available yet. Add images under
+								<code>public/media/photos/Pucks</code> or <code>public/media/photos/Pixels</code> and
+								refresh.
+							</p>
+						)
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
