@@ -17,6 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
+const backHref = subject.section === 'materials' ? '/portfolio/materials/' : '/portfolio/';
+const backLabel = subject.section === 'materials' ? 'Back to Materials' : 'Back to Portfolio';
 ---
 
 <!doctype html>
@@ -207,8 +209,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 			<div class="portfolio-shell">
 				<div class="portfolio-copy">
 					<section class="subject-header">
-						<a class="back-link" href="/portfolio/photos/">Back to all samples</a>
-						<p class="subject-eyebrow">Portfolio Category</p>
+						<a class="back-link" href={backHref}>{backLabel}</a>
 						<h1>{subject.label}</h1>
 						{subject.subheader ? <p class="subject-subheader">{subject.subheader}</p> : null}
 					</section>

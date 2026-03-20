@@ -15,7 +15,7 @@ const subjectDisplayOverrides: Record<
 	},
 	'Landscaping & Structural': {
 		subheader:
-			'Personalize your space with colors and lighting effects that can change with the seasons or celebrate the holidays. Expand the effects anytime to match special events or show your team spirit on game days. Or keep things simple with clean white lighting and subtle effects that improve visibility without being over the top. The choice is yours with ATX PIXEL!'
+			'With over 100 built-in programming options, this goes well beyond anything you will find in off-the-shelf kits. You are not limited to presets, you are working with a system designed for real customization. Build your own effects, refine them over time, or let us handle it. We offer ongoing programming based on your style and preferences. ATXPIXEL gives you control at every level.'
 	},
 	'Materials & Options': {
 		label: 'Materials & Options',
@@ -24,7 +24,7 @@ const subjectDisplayOverrides: Record<
 	'Pucks': {
 		label: 'Pucks',
 		subheader:
-			'Compact puck-style lighting choices focused on clean placement, tight spacing, and a refined architectural look.',
+			'Compact puck-style lighting focused on clean placement, comfortable spacing, and provides a refined architectural accent to your home.',
 		section: 'materials'
 	},
 	'Pixels': {
@@ -66,9 +66,9 @@ const toCaption = (filename: string) =>
 
 const photoCaptionOverrides: Record<string, string> = {
 	'Pucks/Moderate Density Puck install shown.jpg': 'Standard Puck install shown',
-	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Rail Color Options courtesy of Gemini',
+	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Rail Color Choices',
 	'Pixels/High density Pixel install shown.jpg': 'High Density Pixel example shown',
-	'Pixels/Pixel Track Options.jpg': 'Pixel Rail Color Options courtesy of Gemini'
+	'Pixels/Pixel Track Options.jpg': 'Pixel Rail Color Choices'
 };
 
 const photoSlugOverrides: Record<string, string> = {

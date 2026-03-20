@@ -38,6 +38,7 @@ try {
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.portfolio-shell {
+				box-sizing: border-box;
 				width: 100%;
 				max-width: none;
 				display: grid;
@@ -52,13 +53,6 @@ try {
 				display: grid;
 				gap: 1.25rem;
 			}
-			.portfolio-eyebrow {
-				margin: 0;
-				font-size: 0.8rem;
-				letter-spacing: 0.16em;
-				text-transform: uppercase;
-				color: #8a8a8a;
-			}
 			.portfolio-shell h1 {
 				margin: 0;
 				color: #ededed;
@@ -72,89 +66,92 @@ try {
 				color: #aaaaaa;
 				line-height: 1.7;
 			}
-			.section-callout {
+			.channel-grid {
 				display: grid;
-				gap: 0.8rem;
-				padding: 1rem 1.05rem;
-				border-radius: 14px;
-				border: 1px solid rgba(255, 255, 255, 0.08);
-				background: rgba(255, 255, 255, 0.02);
-			}
-			.section-callout h2 {
-				margin: 0;
-				font-size: 1rem;
-				color: #ededed;
-				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-				font-variation-settings: "wght" 640, "wdth" 106, "opsz" 30;
-			}
-			.section-callout p {
-				margin: 0;
-				color: #a9a9a9;
-				line-height: 1.65;
-				font-size: 0.95rem;
-			}
-			.section-link {
-				display: inline-block;
-				width: fit-content;
-				padding: 0.65rem 1rem;
-				border-radius: 999px;
-				text-decoration: none;
-				border: 1px solid #3a3a3a;
-				background: transparent;
-				color: #d8d8d8;
-				font-size: 0.83rem;
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-			}
-			.subject-grid {
-				display: grid;
-				gap: 0;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1rem;
 				padding: 0;
 				list-style: none;
 			}
-			.subject-grid li {
+			.channel-grid li {
 				margin: 0;
+				min-width: 0;
 			}
-			.subject-grid a {
+			.channel-card {
+				box-sizing: border-box;
 				display: grid;
-				grid-template-columns: 1fr auto;
-				align-items: baseline;
-				gap: 1rem;
-				border-top: 1px solid rgba(255, 255, 255, 0.09);
-				padding: 1.05rem 0.2rem;
+				gap: 1.2rem;
+				min-height: 100%;
+				min-width: 0;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				border-radius: 18px;
+				padding: clamp(1.2rem, 3vw, 1.6rem);
+				background:
+					radial-gradient(circle at top right, rgba(255, 72, 72, 0.12), transparent 42%),
+					linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
 				text-decoration: none;
 			}
-			.subject-grid h2 {
-				margin: 0;
-				font-size: 1.05rem;
-				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-				font-variation-settings: "wght" 700, "wdth" 106, "opsz" 28;
-				font-weight: 700;
-				color: #e6e6e6;
+			.channel-card:hover {
+				border-color: rgba(255, 255, 255, 0.18);
+				background:
+					radial-gradient(circle at top right, rgba(255, 72, 72, 0.16), transparent 42%),
+					linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 			}
-			.subject-grid p {
+			.channel-label {
 				margin: 0;
-				font-size: 0.76rem;
+				font-size: 0.78rem;
 				letter-spacing: 0.12em;
 				text-transform: uppercase;
-				color: #888888;
+				color: #8d8d8d;
 			}
-			.subject-grid a:hover h2 {
-				color: #f1f1f1;
+			.channel-card h2 {
+				margin: 0;
+				font-size: clamp(1.35rem, 4vw, 2rem);
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 720, "wdth" 110, "opsz" 32;
+				color: #e6e6e6;
+				overflow-wrap: anywhere;
 			}
-			@media (min-width: 721px) and (hover: hover) {
-				.section-link:hover,
-				.section-link:focus-visible {
-					color: #f4feff;
-					border-color: var(--accent-cyan);
-					background: rgba(255, 255, 255, 0.04);
-					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
-					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
-				}
+			.channel-card p {
+				margin: 0;
+				color: #a6a6a6;
+				line-height: 1.65;
+			}
+			.channel-meta {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 1rem;
+				padding-top: 0.15rem;
+				font-size: 0.8rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #8b8b8b;
+			}
+			.channel-count {
+				font-size: 0.8rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #8b8b8b;
+			}
+			.channel-cta {
+				color: #f1c7c7;
 			}
 			@media (max-width: 720px) {
 				.portfolio-shell {
 					border-radius: 16px;
+				}
+				.channel-grid {
+					grid-template-columns: 1fr;
+				}
+				.channel-card {
+					gap: 1rem;
+					padding: 1.1rem;
+				}
+				.channel-meta {
+					align-items: flex-start;
+					gap: 0.45rem 0.9rem;
 				}
 			}
 		</style>
@@ -164,36 +161,29 @@ try {
 		<main class="portfolio-main">
 			<section class="portfolio-shell">
 				<div class="portfolio-copy">
-					<p class="portfolio-eyebrow">Portfolio Index</p>
 					<h1>Project Samples</h1>
 					<p class="portfolio-subline">
 						Select a category to view project types and details.
 					</p>
-					<section class="section-callout" aria-label="Material selection">
-						<h2>Looking for Material Selection?</h2>
-						<p>
-							Materials and options now live in their own section so they stay separate from the
-							main project gallery.
-						</p>
-						<a class="section-link desktop-hover-scan" href="/portfolio/materials/">
-							Open Material Selection
-						</a>
-					</section>
 				{
-					subjects.length > 0 ? (
-						<ul class="subject-grid">
-							{
-								subjects.map((subject) => (
-									<li>
-										<a href={`/portfolio/photos/${subject.slug}/`}>
-											<h2>{subject.label}</h2>
-											<p>{subject.count} photos</p>
-										</a>
-									</li>
-								))
-							}
-						</ul>
-					) : (
+						subjects.length > 0 ? (
+							<ul class="channel-grid">
+								{
+									subjects.map((subject) => (
+										<li>
+											<a class="channel-card" href={`/portfolio/photos/${subject.slug}/`}>
+												<p class="channel-label">Project Category</p>
+												<h2>{subject.label}</h2>
+												<div class="channel-meta">
+													<span class="channel-count">{subject.count} photos</span>
+													<span class="channel-cta">View Samples</span>
+												</div>
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						) : (
 						<p>
 							No subject folders with images found yet. Add images under
 							<code>public/media/photos/&lt;subject&gt;</code> and refresh.
