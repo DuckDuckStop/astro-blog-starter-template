@@ -67,6 +67,7 @@ const toCaption = (filename: string) =>
 const photoCaptionOverrides: Record<string, string> = {
 	'Pucks/Moderate Density Puck install shown.jpg': 'Standard Puck install shown',
 	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Rail Color Choices',
+	'Landscaping & Structural/Valentines Heartbeat Effect.gif': 'Valentine Heartbeat Effect',
 	'Pixels/High density Pixel install shown.jpg': 'High Density Pixel example shown',
 	'Pixels/Pixel Track Options.jpg': 'Pixel Rail Color Choices'
 };
