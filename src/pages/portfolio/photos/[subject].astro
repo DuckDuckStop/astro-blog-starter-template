@@ -38,6 +38,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				padding-bottom: clamp(2.4rem, 7vw, 5.2rem);
 			}
 			.portfolio-shell {
+				box-sizing: border-box;
 				width: 100%;
 				max-width: none;
 				display: grid;
@@ -51,6 +52,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				max-width: 1120px;
 				display: grid;
 				gap: clamp(2.2rem, 4vw, 3.4rem);
+				min-width: 0;
 			}
 			.subject-header {
 				display: grid;
@@ -79,6 +81,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 			}
 			.photo-list li {
 				margin: 0;
+				min-width: 0;
 			}
 			.photo-block {
 				display: grid;
@@ -87,6 +90,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				align-items: start;
 				border-top: 1px solid rgba(255, 255, 255, 0.09);
 				padding-top: clamp(1.5rem, 2.6vw, 2.2rem);
+				min-width: 0;
 			}
 			.photo-block.reverse .photo-media {
 				order: 2;
@@ -96,6 +100,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 			}
 			.photo-media {
 				margin: 0;
+				min-width: 0;
 				border-radius: 10px;
 				overflow: hidden;
 				background: #111111;
@@ -122,6 +127,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				gap: 0.72rem;
 				padding: 0.2rem 0;
 				max-width: 34ch;
+				min-width: 0;
 			}
 			.photo-copy h2 {
 				margin: 0;
@@ -130,6 +136,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				color: #e7e7e7;
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 620, "wdth" 108, "opsz" 36;
+				overflow-wrap: anywhere;
 			}
 			.photo-copy p {
 				margin: 0;
@@ -137,6 +144,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				line-height: 1.7;
 				color: #a8a8a8;
 				font-variation-settings: "wght" 430, "wdth" 100, "opsz" 18;
+				overflow-wrap: anywhere;
 			}
 			.photo-link {
 				display: block;
@@ -173,6 +181,7 @@ const { subject } = Astro.props as { subject: PortfolioPhotoSubject };
 				.portfolio-shell {
 					gap: 1.9rem;
 					border-radius: 16px;
+					padding: 1.2rem;
 				}
 				.photo-block {
 					grid-template-columns: 1fr;
