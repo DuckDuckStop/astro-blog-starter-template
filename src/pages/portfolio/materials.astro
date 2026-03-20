@@ -36,6 +36,7 @@ try {
 				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.portfolio-shell {
+				box-sizing: border-box;
 				width: 100%;
 				max-width: none;
 				display: grid;
@@ -79,11 +80,14 @@ try {
 			}
 			.channel-grid li {
 				margin: 0;
+				min-width: 0;
 			}
 			.channel-card {
+				box-sizing: border-box;
 				display: grid;
 				gap: 1.2rem;
 				min-height: 100%;
+				min-width: 0;
 				border: 1px solid rgba(255, 255, 255, 0.1);
 				border-radius: 18px;
 				padding: clamp(1.2rem, 3vw, 1.6rem);
@@ -111,6 +115,7 @@ try {
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 720, "wdth" 110, "opsz" 32;
 				color: #e6e6e6;
+				overflow-wrap: anywhere;
 			}
 			.channel-card p {
 				margin: 0;
@@ -121,6 +126,7 @@ try {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
+				flex-wrap: wrap;
 				gap: 1rem;
 				padding-top: 0.15rem;
 				font-size: 0.8rem;
@@ -142,6 +148,14 @@ try {
 				}
 				.channel-grid {
 					grid-template-columns: 1fr;
+				}
+				.channel-card {
+					gap: 1rem;
+					padding: 1.1rem;
+				}
+				.channel-meta {
+					align-items: flex-start;
+					gap: 0.45rem 0.9rem;
 				}
 			}
 		</style>
