@@ -1,0 +1,87 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Pricing | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			.pricing-wrap {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				margin: 0;
+				padding: clamp(2.2rem, 7vw, 5rem) clamp(1rem, 3vw, 2.5rem);
+			}
+			.pricing-panel {
+				box-sizing: border-box;
+				width: 100%;
+				max-width: none;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
+			}
+			.pricing-copy {
+				max-width: 980px;
+				display: grid;
+				gap: 1.1rem;
+			}
+			.back-link {
+				display: inline-block;
+				width: fit-content;
+			}
+			.pricing-copy h1 {
+				margin: 0;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
+				line-height: 1.12;
+			}
+			.pricing-copy p {
+				margin: 0;
+				max-width: 72ch;
+				color: #aaaaaa;
+				line-height: 1.7;
+			}
+			.pricing-note {
+				display: grid;
+				gap: 0.8rem;
+				padding: 1rem 1.05rem;
+				border-radius: 14px;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.pricing-note p {
+				max-width: none;
+			}
+			@media (max-width: 720px) {
+				.pricing-panel {
+					border-radius: 16px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="pricing-wrap">
+			<section class="pricing-panel">
+				<div class="pricing-copy">
+					<a class="back-link" href="/contact/">Back to Contact</a>
+					<h1>Pricing</h1>
+					<p>General starting points for single-story professional installations.</p>
+					<section class="pricing-note">
+						<p>50' single story professional installs start at $3500 plus tax.</p>
+						<p>Every install includes 2 year parts warranty and basic support.</p>
+						<p>Automation and turnkey programming packages extra.</p>
+					</section>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

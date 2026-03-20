@@ -20,6 +20,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 				<HeaderLink href="/about">About</HeaderLink>
 				<HeaderLink href="/portfolio">Portfolio</HeaderLink>
 				<HeaderLink href="/contact">Contact</HeaderLink>
+				<HeaderLink href="/pricing">Pricing</HeaderLink>
 			</div>
 			<div class="tabs-arrow tabs-arrow-right" data-tabs-arrow="right" aria-hidden="true">
 				<span>&rarr;</span>
@@ -56,7 +57,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 
 		const resolveTarget = (direction) => {
 			const path = normalizePath(window.location.pathname);
-			const topLevel = ['/', '/about', '/portfolio', '/contact'];
+			const topLevel = ['/', '/about', '/portfolio', '/contact', '/pricing'];
 
 			// /portfolio/photos/:subject/:photo
 			if (/^\/portfolio\/photos\/[^/]+\/[^/]+$/.test(path)) {

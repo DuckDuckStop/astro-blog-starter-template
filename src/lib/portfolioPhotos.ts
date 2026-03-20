@@ -24,13 +24,13 @@ const subjectDisplayOverrides: Record<
 	'Pucks': {
 		label: 'Pucks',
 		subheader:
-			'Compact puck-style lighting focused on clean placement, comfortable spacing, and provides a refined architectural accent to your home.',
+			'Compact puck-style lighting focused on clean placement, comfortable spacing, and provides a refined architectural accent to your space.',
 		section: 'materials'
 	},
 	'Pixels': {
 		label: 'Pixels',
 		subheader:
-			'Pixel-based lighting choices built for animation, pattern control, and more expressive color movement across a layout.',
+			'Pixel-based lighting choices built for animation, pattern control, and more expressive color movement across a layout. We work with you to translate your vision into a system that performs exactly how you expect.',
 		section: 'materials'
 	}
 };
@@ -94,13 +94,13 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
 		'A rhythmic heartbeat animation pulses through red and pink tones across the yard, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit any occasion, anytime.',
 	'Pucks/Moderate Density Puck install shown.jpg':
-		'Standard puck design set within a modular aluminum track system. The configuration that drove early adoption and is straightforward, dependable, and still hard to beat.',
+		'Standard puck design in a modular aluminum track system - proven, reliable, and highly effective.\n\nConfigurable puck densities are available to match your desired look (30-day lead time per order).\n\nThese can technically run advanced animations, only 24V systems integrate with xLights and Light-O-Rama for fully synchronized, show-grade effects. We can consult on upgrading & modernizing any LED system.',
 	'Pucks/Puck_Rails_Example_Pack.jpg':
-		'Puck Tracks shown are standard configuration with 4" spacing.',
+		'Puck Rail color choices shown use our standard configuration with 4-inch spacing between light nodes.',
 	'Pixels/High density Pixel install shown.jpg':
 		'Higher density means brighter options and more vivid animations. Definitely decide if you want to boost curb appeal during the holidays!',
 	'Pixels/Pixel Track Options.jpg':
-		'Pixel Tracks shown are standard configuration. Higher and lower density options are available with a 30-day lead time per registered order.'
+		'The Pixel Tracks shown reflect our standard configuration. Alternate densities are available to suit different visual goals, with a 30-day lead time per registered order.\n\nFor high-performance shows, our 24V systems support integration with xLights and Light-O-Rama, enabling fully synchronized, show-grade effects.'
 };
 
 const getPhotoDescription = (dirName: string, fileName: string, caption: string) => {
