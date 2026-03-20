@@ -104,13 +104,6 @@ try {
 					radial-gradient(circle at top right, rgba(255, 72, 72, 0.16), transparent 42%),
 					linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 			}
-			.channel-label {
-				margin: 0;
-				font-size: 0.78rem;
-				letter-spacing: 0.12em;
-				text-transform: uppercase;
-				color: #8d8d8d;
-			}
 			.channel-card h2 {
 				margin: 0;
 				font-size: clamp(1.35rem, 4vw, 2rem);
@@ -183,7 +176,6 @@ try {
 									subjects.map((subject) => (
 										<li>
 											<a class="channel-card" href={`/portfolio/photos/${subject.slug}/`}>
-												<p class="channel-label">Material Channel</p>
 												<h2>{subject.label}</h2>
 												<p>
 													{subject.subheader ??
