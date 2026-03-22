@@ -30,7 +30,7 @@ const subjectDisplayOverrides: Record<
 	'Pixels': {
 		label: 'Pixels',
 		subheader:
-			'Pixel-based lighting choices built for animation, pattern control, and more expressive color movement across a layout. We work with you to translate your vision into a system that performs exactly how you expect.',
+			'Pixel-based track systems often built for animation, pattern control, and more expressive color movement across a layout. We work with you to translate your vision into a system that performs exactly how you expect.',
 		section: 'materials'
 	}
 };
@@ -66,10 +66,10 @@ const toCaption = (filename: string) =>
 
 const photoCaptionOverrides: Record<string, string> = {
 	'Pucks/Moderate Density Puck install shown.jpg': 'Puck Tracks',
-	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Rail Color Choices',
+	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Track standard options',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif': 'Valentine Heartbeat Effect',
-	'Pixels/High density Pixel install shown.jpg': 'High Density Pixel example shown',
-	'Pixels/Pixel Track Options.jpg': 'Pixel Rail Color Choices'
+	'Pixels/High density Pixel install shown.jpg': 'Pixel Tracks',
+	'Pixels/Pixel Track Options.jpg': 'Pixel Track standard options'
 };
 
 const photoSlugOverrides: Record<string, string> = {
@@ -94,11 +94,11 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
 		'A rhythmic heartbeat animation pulses through red and pink tones across the yard, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit any occasion, anytime.',
 	'Pucks/Moderate Density Puck install shown.jpg':
-		'Standard puck track lighting in a modular aluminum track. Proven, reliable, and fits any build. The configuration shown is readily available and installs without delay. Alternative spacing options are available, with alternate colors outside the standards shown. We can work with your existing system or add new sections that match your current look.',
+		'Individual, evenly spaced LED modules housed in a clean aluminum track. This is the traditional approach - simple, structured, and built for a consistent architectural look.\n\nProven, reliable, and fits cleanly on most homes. The configuration shown is readily available and installs without delay.\n\nAlternate spacing and color options also available. We can expertly match and expand existing track systems.',
 	'Pucks/Puck_Rails_Example_Pack.jpg':
-		'Puck Rail color choices shown use our standard configuration with 4-inch spacing between light nodes.',
+		'The Puck Tracks shown reflect our standard configuration. Alternate densities are available to suit different visual goals, with a 30-day lead time per registered order. For high-performance shows, our 24V systems support integration with xLights and Light-O-Rama, enabling fully synchronized, show-grade effects.',
 	'Pixels/High density Pixel install shown.jpg':
-		'Higher density means brighter options and more vivid animations. Definitely decide if you want to boost curb appeal during the holidays!',
+		'Densely spaced, individually addressable LEDs within a track. This is the modern approach - designed for movement, effects, and full control over every point of light.\n\nPixel tracks allow for dynamic patterns, animations, and fully programmable scenes. Track density can be adjusted to match the look you are after.\n\nThe examples shown reflect common configurations, but each system can be tailored to fit the structure and style of the home.',
 	'Pixels/Pixel Track Options.jpg':
 		'The Pixel Tracks shown reflect our standard configuration. Alternate densities are available to suit different visual goals, with a 30-day lead time per registered order.\n\nFor high-performance shows, our 24V systems support integration with xLights and Light-O-Rama, enabling fully synchronized, show-grade effects.'
 };
