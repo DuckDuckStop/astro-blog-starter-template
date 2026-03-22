@@ -50,18 +50,43 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			}
 			.pricing-note {
 				margin: 0;
-				padding: 1rem 1.05rem 1rem 2.2rem;
-				list-style: disc;
+				padding: 1rem 1.05rem 1rem 1.2rem;
 				display: grid;
 				gap: 0.9rem;
 				border-radius: 14px;
 				border: 1px solid rgba(255, 255, 255, 0.08);
 				background: rgba(255, 255, 255, 0.02);
 			}
-			.pricing-note li {
+			.pricing-note-header {
+				display: grid;
+				gap: 0.45rem;
+				padding-left: 0.2rem;
+			}
+			.pricing-starting-point {
+				margin: 0;
+				color: #ededed;
+				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+				font-variation-settings: "wght" 620, "wdth" 106, "opsz" 28;
+				line-height: 1.25;
+			}
+			.pricing-features {
+				margin: 0;
+				padding: 0 0 0 1.35rem;
+				list-style: disc;
+				display: grid;
+				gap: 0.9rem;
+			}
+			.pricing-features li {
 				max-width: none;
 				color: #aaaaaa;
 				line-height: 1.7;
+			}
+			.pricing-feature-label {
+				margin: 0;
+				font-size: 0.82rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: #8d8d8d;
 			}
 			@media (max-width: 720px) {
 				.pricing-panel {
@@ -77,13 +102,18 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				<div class="pricing-copy">
 					<a class="back-link" href="/contact/">Back to Contact</a>
 					<h1>Pricing</h1>
-					<p>General starting points</p>
-					<ul class="pricing-note">
-						<li>50' single-story professional installations start at $3,500</li>
-						<li>Clean, modular, adaptable, quality installation standard</li>
-						<li>5 year parts warranty and support standard</li>
-						<li>Automation packages available</li>
-					</ul>
+					<div class="pricing-note">
+						<div class="pricing-note-header">
+							<p class="pricing-starting-point">50' single-story installs start at $3,500</p>
+							<p class="pricing-feature-label">Standard Features Included</p>
+						</div>
+						<ul class="pricing-features">
+							<li>Clean, modular install</li>
+							<li>Custom colors and animations</li>
+							<li>5-year parts warranty and support</li>
+							<li>Simple app control</li>
+						</ul>
+					</div>
 				</div>
 			</section>
 		</main>
