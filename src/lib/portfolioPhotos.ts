@@ -94,7 +94,7 @@ const photoDescriptionOverrides: Record<string, string> = {
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif':
 		'A rhythmic heartbeat animation pulses through red and pink tones across the yard, creating a synchronized wave of gentle motion and warmth. Colors can be customized to suit any occasion, anytime.',
 	'Pucks/Moderate Density Puck install shown.jpg':
-		'Standard puck design in a modular aluminum track system - proven, reliable, and highly effective.\n\nConfigurable puck densities are available to match your desired look (30-day lead time per order).\n\nThese can technically run advanced animations, only 24V systems integrate with xLights and Light-O-Rama for fully synchronized, show-grade effects. We can consult on upgrading & modernizing any LED system.',
+		'Standard puck lighting in a modular aluminum track. Proven, reliable, and fits well on most installs. The configuration shown is readily available and installs without delay.\n\nIf you want a different look, alternate puck spacing can be built to order with a typical 30-day lead time. These systems handle basic animations, but for full show-style effects, our 24V setups support xLights and Light-O-Rama.\n\nWe also upgrade and refine existing LED systems if you are working with an earlier setup.',
 	'Pucks/Puck_Rails_Example_Pack.jpg':
 		'Puck Rail color choices shown use our standard configuration with 4-inch spacing between light nodes.',
 	'Pixels/High density Pixel install shown.jpg':
