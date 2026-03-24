@@ -65,11 +65,11 @@ const toCaption = (filename: string) =>
 		.trim();
 
 const photoCaptionOverrides: Record<string, string> = {
-	'Pucks/Moderate Density Puck install shown.jpg': 'Puck Tracks',
-	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Track standard options',
+	'Pucks/Moderate Density Puck install shown.jpg': 'Puck Track System',
+	'Pucks/Puck_Rails_Example_Pack.jpg': 'Puck Track options',
 	'Landscaping & Structural/Valentines Heartbeat Effect.gif': 'Valentine Heartbeat Effect',
-	'Pixels/High density Pixel install shown.jpg': 'Pixel Tracks',
-	'Pixels/Pixel Track Options.jpg': 'Pixel Track standard options'
+	'Pixels/High density Pixel install shown.jpg': 'Pixel Track System',
+	'Pixels/Pixel Track Options.jpg': 'Pixel Track options'
 };
 
 const photoSlugOverrides: Record<string, string> = {

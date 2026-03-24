@@ -124,8 +124,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.9rem;
+				min-width: 0;
 			}
 			.cta {
+				box-sizing: border-box;
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
@@ -136,6 +138,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				text-transform: uppercase;
 				border-radius: 999px;
 				padding: 0.75rem 1.15rem;
+				max-width: 100%;
+				min-width: 0;
+				text-align: center;
 			}
 			.cta-primary {
 				color: #0a0a0a;
@@ -289,6 +294,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				.cta {
 					width: 100%;
 					padding: 0.85rem 1rem;
+					white-space: normal;
 				}
 				.hero-motif-2,
 				.hero-motif-3 {
