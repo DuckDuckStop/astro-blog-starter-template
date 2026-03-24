@@ -30,6 +30,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				max-width: 980px;
 				display: grid;
 				gap: 1.1rem;
+				min-width: 0;
 			}
 			.back-link {
 				display: inline-block;
@@ -41,12 +42,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
 				line-height: 1.12;
+				overflow-wrap: anywhere;
 			}
 			.pricing-copy p {
 				margin: 0;
 				max-width: 72ch;
 				color: #aaaaaa;
 				line-height: 1.7;
+				overflow-wrap: anywhere;
 			}
 			.pricing-note {
 				margin: 0;
@@ -71,6 +74,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 620, "wdth" 106, "opsz" 28;
 				line-height: 1.25;
+				overflow-wrap: anywhere;
 			}
 			.pricing-features {
 				margin: 0;
@@ -78,11 +82,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				list-style: disc;
 				display: grid;
 				gap: 0.9rem;
+				min-width: 0;
 			}
 			.pricing-features li {
 				max-width: none;
 				color: #aaaaaa;
 				line-height: 1.7;
+				overflow-wrap: anywhere;
 			}
 			.pricing-feature-label {
 				margin: 0;
@@ -90,6 +96,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				letter-spacing: 0.12em;
 				text-transform: uppercase;
 				color: #8d8d8d;
+				overflow-wrap: anywhere;
 			}
 			@media (max-width: 720px) {
 				.pricing-panel {

@@ -37,6 +37,7 @@ import Footer from '../../components/Footer.astro';
 				max-width: 980px;
 				display: grid;
 				gap: 1.35rem;
+				min-width: 0;
 			}
 			.portfolio-eyebrow {
 				margin: 0;
@@ -51,12 +52,14 @@ import Footer from '../../components/Footer.astro';
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
 				line-height: 1.12;
+				overflow-wrap: anywhere;
 			}
 			.portfolio-description {
 				max-width: 72ch;
 				margin: 0;
 				line-height: 1.7;
 				color: #aaaaaa;
+				overflow-wrap: anywhere;
 			}
 			.index-grid {
 				display: grid;
@@ -66,6 +69,7 @@ import Footer from '../../components/Footer.astro';
 			.index-card {
 				display: grid;
 				gap: 0.8rem;
+				min-width: 0;
 				padding: 1.2rem;
 				border-radius: 16px;
 				border: 1px solid rgba(255, 255, 255, 0.1);
@@ -77,11 +81,13 @@ import Footer from '../../components/Footer.astro';
 				font-size: 1.15rem;
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 650, "wdth" 106, "opsz" 36;
+				overflow-wrap: anywhere;
 			}
 			.index-card p {
 				margin: 0;
 				color: #aaaaaa;
 				line-height: 1.65;
+				overflow-wrap: anywhere;
 			}
 			.index-link {
 				display: inline-block;
@@ -95,6 +101,7 @@ import Footer from '../../components/Footer.astro';
 				font-size: 0.83rem;
 				letter-spacing: 0.08em;
 				text-transform: uppercase;
+				overflow-wrap: anywhere;
 			}
 			@media (min-width: 721px) and (hover: hover) {
 				.index-link:hover,

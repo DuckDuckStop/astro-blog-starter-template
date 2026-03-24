@@ -60,6 +60,7 @@ const backLabel = subject.section === 'materials' ? 'Back to Materials' : 'Back 
 				display: grid;
 				gap: 0.95rem;
 				max-width: 76ch;
+				min-width: 0;
 			}
 			.subject-eyebrow {
 				margin: 0;
@@ -74,6 +75,7 @@ const backLabel = subject.section === 'materials' ? 'Back to Materials' : 'Back 
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
 				line-height: 1.12;
+				overflow-wrap: anywhere;
 			}
 			.photo-list {
 				display: grid;
@@ -167,6 +169,7 @@ const backLabel = subject.section === 'materials' ? 'Back to Materials' : 'Back 
 				margin: 0;
 				color: #aaaaaa;
 				line-height: 1.68;
+				overflow-wrap: anywhere;
 			}
 			.empty-state {
 				margin: 0;
@@ -174,6 +177,7 @@ const backLabel = subject.section === 'materials' ? 'Back to Materials' : 'Back 
 				border-top: 1px solid rgba(255, 255, 255, 0.09);
 				color: #9d9d9d;
 				line-height: 1.68;
+				overflow-wrap: anywhere;
 			}
 			@media (max-width: 720px) {
 				.portfolio-main {

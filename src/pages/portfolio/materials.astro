@@ -50,6 +50,7 @@ try {
 				max-width: 960px;
 				display: grid;
 				gap: 1.25rem;
+				min-width: 0;
 			}
 			.nav-links {
 				display: flex;
@@ -66,12 +67,14 @@ try {
 				font-family: "Roboto Flex", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 				font-variation-settings: "wght" 650, "wdth" 110, "opsz" 48;
 				line-height: 1.12;
+				overflow-wrap: anywhere;
 			}
 			.portfolio-subline {
 				margin: 0;
 				max-width: 68ch;
 				color: #aaaaaa;
 				line-height: 1.7;
+				overflow-wrap: anywhere;
 			}
 			.channel-grid {
 				display: grid;
@@ -116,6 +119,7 @@ try {
 				margin: 0;
 				color: #a6a6a6;
 				line-height: 1.65;
+				overflow-wrap: anywhere;
 			}
 			.channel-meta {
 				display: flex;
@@ -123,6 +127,7 @@ try {
 				justify-content: space-between;
 				flex-wrap: wrap;
 				gap: 1rem;
+				min-width: 0;
 				padding-top: 0.15rem;
 				font-size: 0.8rem;
 				letter-spacing: 0.08em;
@@ -131,11 +136,13 @@ try {
 			}
 			.channel-cta {
 				color: #f1c7c7;
+				overflow-wrap: anywhere;
 			}
 			.empty-state {
 				margin: 0;
 				color: #a6a6a6;
 				line-height: 1.7;
+				overflow-wrap: anywhere;
 			}
 			@media (max-width: 720px) {
 				.portfolio-shell {
