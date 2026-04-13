@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 ---
 
 <!doctype html>
@@ -72,6 +72,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				display: inline-block;
 				margin-top: 0.2rem;
 			}
+			.contact-actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.9rem;
+				margin-top: 1.5rem;
+			}
+			.contact-action {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.8rem 1.1rem;
+				border-radius: 999px;
+				text-decoration: none;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				font-size: 0.85rem;
+				font-weight: 600;
+			}
+			.contact-action-primary {
+				color: #0a0a0a;
+				background: #e8e8e8;
+				border: 1px solid #e8e8e8;
+			}
+			.contact-action-secondary {
+				color: #d8d8d8;
+				background: transparent;
+				border: 1px solid #3a3a3a;
+			}
 			@media (max-width: 720px) {
 				.contact-panel {
 					border-radius: 16px;
@@ -97,6 +125,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 							instagram.com/atxpixel
 						</a>
 					</p>
+					<div class="contact-actions">
+						<a
+							class="contact-action contact-action-primary desktop-hover-scan"
+							href={STOREFRONT_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Open Storefront &#8599;
+						</a>
+						<a class="contact-action contact-action-secondary desktop-hover-scan" href="/pricing/">
+							View Pricing &#8594;
+						</a>
+					</div>
 				</div>
 			</section>
 		</main>

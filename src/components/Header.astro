@@ -2,6 +2,7 @@
 import HeaderLink from './HeaderLink.astro';
 import AnimatedLogo from './AnimatedLogo.astro';
 import BrandWordmark from './BrandWordmark.astro';
+import { STOREFRONT_URL } from '../consts';
 ---
 
 <header>
@@ -22,6 +23,7 @@ import BrandWordmark from './BrandWordmark.astro';
 				<HeaderLink href="/portfolio">Portfolio</HeaderLink>
 				<HeaderLink href="/contact">Contact</HeaderLink>
 				<HeaderLink href="/pricing">Pricing</HeaderLink>
+				<HeaderLink href={STOREFRONT_URL} target="_blank" rel="noopener noreferrer">Shop</HeaderLink>
 			</div>
 			<div class="tabs-arrow tabs-arrow-right" data-tabs-arrow="right" aria-hidden="true">
 				<span>&rarr;</span>

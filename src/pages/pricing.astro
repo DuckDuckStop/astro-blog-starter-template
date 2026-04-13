@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 ---
 
 <!doctype html>
@@ -68,6 +68,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			.pricing-spacer {
 				height: 1.15rem;
 			}
+			.pricing-actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.9rem;
+				margin-top: 1rem;
+			}
+			.pricing-link {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.8rem 1.1rem;
+				border-radius: 999px;
+				text-decoration: none;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				font-size: 0.85rem;
+				font-weight: 600;
+			}
+			.pricing-link-primary {
+				color: #0a0a0a;
+				background: #e8e8e8;
+				border: 1px solid #e8e8e8;
+			}
+			.pricing-link-secondary {
+				color: #d8d8d8;
+				background: transparent;
+				border: 1px solid #3a3a3a;
+			}
 			.pricing-starting-point {
 				margin: 0;
 				color: #ededed;
@@ -114,7 +142,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					<h1>Pricing</h1>
 					<div class="pricing-note">
 						<div class="pricing-note-header">
-							<p class="pricing-starting-point">50 linear feet starts at $3500</p>
+							<p class="pricing-starting-point">50 linear feet installed, starts at $3500</p>
 							<div class="pricing-spacer" aria-hidden="true"></div>
 							<p class="pricing-feature-label">Standard Features Included</p>
 						</div>
@@ -124,6 +152,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 							<li>Simple app control and automation</li>
 							<li>5-year parts warranty and support</li>
 						</ul>
+						<div class="pricing-actions">
+							<a
+								class="pricing-link pricing-link-primary desktop-hover-scan"
+								href={STOREFRONT_URL}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Open Storefront &#8599;
+							</a>
+							<a class="pricing-link pricing-link-secondary desktop-hover-scan" href="/contact/">
+								Request a Quote &#8594;
+							</a>
+						</div>
 					</div>
 				</div>
 			</section>

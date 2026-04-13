@@ -5,6 +5,7 @@ export const SITE_TITLE = "ATX PIXEL";
 export const SITE_DESCRIPTION = "Build the lighting system you want.";
 export const SITE_LOGO_PRIMARY = "/branding/logo/atxpixel-logo.png";
 export const SITE_LOGO_FALLBACK = "/branding/logo/atxpixel-logo.png";
+export const STOREFRONT_URL = "https://shop.atxpixel.com";
 
 export const HOME_EYEBROW = "ATX PIXEL";
 export const HOME_HEADLINE = "Programmable Architectural Lighting Systems";

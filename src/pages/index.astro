@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 ---
 
 <!doctype html>
@@ -317,6 +317,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 						<li>Trim light repair and consulting standard.</li>
 					</ul>
 					<div class="cta-row">
+						<a
+							class="cta cta-primary desktop-hover-scan"
+							href={STOREFRONT_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Visit Storefront &#8599;
+						</a>
 						<a class="cta cta-ghost desktop-hover-scan" href="/contact">Start Project &#8594;</a>
 						<a class="cta cta-ghost desktop-hover-scan" href="/portfolio">View Portfolio &#8594;</a>
 					</div>
