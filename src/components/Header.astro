@@ -1,6 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import AnimatedLogo from './AnimatedLogo.astro';
+import BrandWordmark from './BrandWordmark.astro';
 ---
 
 <header>
@@ -8,7 +9,7 @@ import AnimatedLogo from './AnimatedLogo.astro';
 		<h2>
 			<a class="brand" href="/">
 				<AnimatedLogo />
-				<span class="brand-text">ATX PIXEL</span>
+				<BrandWordmark />
 			</a>
 		</h2>
 		<div class="tabs-carousel" data-tabs-carousel data-swipe-ignore="true">
@@ -225,13 +226,8 @@ import AnimatedLogo from './AnimatedLogo.astro';
 	.brand :global(.animated-logo) {
 		flex: 0 0 auto;
 	}
-	.brand .brand-text {
-		font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-		font-weight: 700;
-		letter-spacing: normal;
-		line-height: 1.15;
-		text-transform: uppercase;
-		color: #ededed;
+	.brand :global(.brand-wordmark) {
+		flex: 0 1 auto;
 	}
 
 	h2 a,
