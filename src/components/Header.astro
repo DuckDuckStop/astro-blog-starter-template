@@ -42,8 +42,7 @@ import { STOREFRONT_URL } from '../consts';
 			target="_blank"
 			rel="noopener noreferrer"
 			data-shop-entry
-			aria-hidden="true"
-			tabindex="-1"
+			hidden
 		>
 			Enter Shop
 		</a>
@@ -59,7 +58,7 @@ import { STOREFRONT_URL } from '../consts';
 			return stripped || '/';
 		};
 
-		const storeHref = ${JSON.stringify(STOREFRONT_URL)};
+		const storeHref = document.querySelector('[data-nav-key="store"]')?.getAttribute('href') || '';
 		const topLevel = [
 			{ key: 'welcome', href: '/' },
 			{ key: 'about', href: '/about' },
@@ -104,9 +103,7 @@ import { STOREFRONT_URL } from '../consts';
 			}
 			if (shopEntry instanceof HTMLElement) {
 				const shopSelected = activeKey === 'store';
-				shopEntry.classList.toggle('visible', shopSelected);
-				shopEntry.setAttribute('aria-hidden', String(!shopSelected));
-				shopEntry.tabIndex = shopSelected ? 0 : -1;
+				shopEntry.hidden = !shopSelected;
 			}
 			const activeTab = tabsTrack?.querySelector(`[data-nav-key="${activeKey}"]`);
 			if (activeTab instanceof HTMLElement && tabsTrack instanceof HTMLElement) {
@@ -401,15 +398,11 @@ import { STOREFRONT_URL } from '../consts';
 		flex-wrap: wrap;
 	}
 	.shop-entry-button {
+		display: none;
 		align-items: center;
 		justify-content: center;
 		padding: 0.75rem 1rem;
 		margin-left: auto;
-		max-height: 0;
-		opacity: 0;
-		overflow: hidden;
-		pointer-events: none;
-		transform: translateY(-0.35rem);
 		border: 1px solid var(--accent-cyan);
 		border-radius: 999px;
 		background:
@@ -421,18 +414,9 @@ import { STOREFRONT_URL } from '../consts';
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
 		box-shadow: 0 0 18px rgba(0, 240, 255, 0.16);
-		transition:
-			opacity 180ms ease,
-			transform 220ms ease,
-			max-height 220ms ease,
-			margin-top 220ms ease,
-			box-shadow 180ms ease;
 	}
-	.shop-entry-button.visible {
-		max-height: 3.5rem;
-		opacity: 1;
-		pointer-events: auto;
-		transform: translateY(0);
+	.shop-entry-button:not([hidden]) {
+		display: inline-flex;
 	}
 	.tabs-carousel {
 		display: contents;
@@ -448,19 +432,8 @@ import { STOREFRONT_URL } from '../consts';
 		}
 		.shop-entry-button {
 			width: 100%;
-			margin-top: 0;
+			margin-top: 0.25rem;
 			margin-left: 0;
-			padding-inline: 1.1rem;
-			justify-content: space-between;
-			letter-spacing: 0.18em;
-		}
-		.shop-entry-button::after {
-			content: "\2197";
-			font-size: 0.95rem;
-			line-height: 1;
-		}
-		.shop-entry-button.visible {
-			margin-top: 0.35rem;
 		}
 		.tabs-carousel {
 			display: grid;
