@@ -18,17 +18,35 @@ import { STOREFRONT_URL } from '../consts';
 				<span>&larr;</span>
 			</div>
 			<div class="internal-links" data-tabs-track>
-				<HeaderLink href="/">Welcome</HeaderLink>
-				<HeaderLink href="/about">About</HeaderLink>
-				<HeaderLink href="/portfolio">Portfolio</HeaderLink>
-				<HeaderLink href="/contact">Contact</HeaderLink>
-				<HeaderLink href="/pricing">Pricing</HeaderLink>
-				<HeaderLink href={STOREFRONT_URL} target="_blank" rel="noopener noreferrer">Shop</HeaderLink>
+				<HeaderLink href="/" data-nav-key="welcome">Welcome</HeaderLink>
+				<HeaderLink href="/about" data-nav-key="about">About</HeaderLink>
+				<HeaderLink href="/portfolio" data-nav-key="portfolio">Portfolio</HeaderLink>
+				<HeaderLink href="/contact" data-nav-key="contact">Contact</HeaderLink>
+				<HeaderLink href="/pricing" data-nav-key="pricing">Pricing</HeaderLink>
+				<HeaderLink
+					href={STOREFRONT_URL}
+					data-nav-key="store"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Shop
+				</HeaderLink>
 			</div>
 			<div class="tabs-arrow tabs-arrow-right" data-tabs-arrow="right" aria-hidden="true">
 				<span>&rarr;</span>
 			</div>
 		</div>
+		<a
+			class="shop-entry-button"
+			href={STOREFRONT_URL}
+			target="_blank"
+			rel="noopener noreferrer"
+			data-shop-entry
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			Enter Shop
+		</a>
 	</nav>
 </header>
 <script is:inline>
@@ -41,6 +59,20 @@ import { STOREFRONT_URL } from '../consts';
 			return stripped || '/';
 		};
 
+		const storeHref = ${JSON.stringify(STOREFRONT_URL)};
+		const topLevel = [
+			{ key: 'welcome', href: '/' },
+			{ key: 'about', href: '/about' },
+			{ key: 'portfolio', href: '/portfolio' },
+			{ key: 'contact', href: '/contact' },
+			{ key: 'pricing', href: '/pricing' },
+			{ key: 'store', href: storeHref, external: true },
+		];
+		const shopEntry = document.querySelector('[data-shop-entry]');
+		const tabsTrack = document.querySelector('[data-tabs-track]');
+		const topLevelLinks = Array.from(document.querySelectorAll('[data-nav-key]'));
+		let selectedTopLevelKey = null;
+
 		const toPathFromUrl = (value) => {
 			if (!value) return null;
 			try {
@@ -50,17 +82,60 @@ import { STOREFRONT_URL } from '../consts';
 			}
 		};
 
+		const getCurrentTopLevelKey = () => {
+			const path = normalizePath(window.location.pathname);
+			if (path === '/') return 'welcome';
+			const match = topLevel.find((entry) => !entry.external && entry.href === path);
+			return match?.key || null;
+		};
+
+		const syncSelectedTab = () => {
+			const currentTopLevelKey = getCurrentTopLevelKey();
+			const activeKey = selectedTopLevelKey || currentTopLevelKey;
+			for (const link of topLevelLinks) {
+				if (!(link instanceof HTMLElement)) continue;
+				const isActive = link.dataset.navKey === activeKey;
+				link.classList.toggle('active', isActive);
+				if (isActive) {
+					link.setAttribute('aria-current', 'page');
+				} else {
+					link.removeAttribute('aria-current');
+				}
+			}
+			if (shopEntry instanceof HTMLElement) {
+				const shopSelected = activeKey === 'store';
+				shopEntry.classList.toggle('visible', shopSelected);
+				shopEntry.setAttribute('aria-hidden', String(!shopSelected));
+				shopEntry.tabIndex = shopSelected ? 0 : -1;
+			}
+			const activeTab = tabsTrack?.querySelector(`[data-nav-key="${activeKey}"]`);
+			if (activeTab instanceof HTMLElement && tabsTrack instanceof HTMLElement) {
+				tabsTrack.scrollTo({ left: activeTab.offsetLeft, behavior: 'smooth' });
+			}
+		};
+
 		const goTo = (href) => {
+			if (!href) return false;
+			const isStorefront = href === storeHref;
+			if (isStorefront) {
+				selectedTopLevelKey = 'store';
+				syncSelectedTab();
+				return true;
+			}
 			const targetPath = toPathFromUrl(href);
 			if (!targetPath) return false;
-			if (targetPath === normalizePath(window.location.pathname)) return false;
+			if (targetPath === normalizePath(window.location.pathname)) {
+				selectedTopLevelKey = null;
+				syncSelectedTab();
+				return false;
+			}
+			selectedTopLevelKey = null;
 			window.location.href = targetPath;
 			return true;
 		};
 
 		const resolveTarget = (direction) => {
 			const path = normalizePath(window.location.pathname);
-			const topLevel = ['/', '/about', '/portfolio', '/contact', '/pricing'];
 
 			// /portfolio/photos/:subject/:photo
 			if (/^\/portfolio\/photos\/[^/]+\/[^/]+$/.test(path)) {
@@ -92,14 +167,31 @@ import { STOREFRONT_URL } from '../consts';
 				return '/about';
 			}
 
-			const topIndex = topLevel.indexOf(path);
+			const currentTopLevelKey = selectedTopLevelKey || getCurrentTopLevelKey();
+			const topIndex = topLevel.findIndex((entry) => entry.key === currentTopLevelKey);
 			if (topIndex >= 0) {
-				if (direction === 'left') return topLevel[topIndex + 1] || null;
-				return topLevel[topIndex - 1] || null;
+				if (direction === 'left') return topLevel[topIndex + 1]?.href || null;
+				return topLevel[topIndex - 1]?.href || null;
 			}
 
 			return null;
 		};
+
+		for (const link of topLevelLinks) {
+			if (!(link instanceof HTMLAnchorElement)) continue;
+			link.addEventListener('click', (event) => {
+				if (link.dataset.navKey !== 'store') {
+					selectedTopLevelKey = null;
+					return;
+				}
+				if (!window.matchMedia('(max-width: 720px)').matches) return;
+				event.preventDefault();
+				selectedTopLevelKey = 'store';
+				syncSelectedTab();
+			});
+		}
+
+		syncSelectedTab();
 
 		let startX = 0;
 		let startY = 0;
@@ -241,6 +333,7 @@ import { STOREFRONT_URL } from '../consts';
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
+		flex-wrap: wrap;
 	}
 	nav a {
 		position: relative;
@@ -307,6 +400,40 @@ import { STOREFRONT_URL } from '../consts';
 		gap: 0.3rem;
 		flex-wrap: wrap;
 	}
+	.shop-entry-button {
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 1rem;
+		margin-left: auto;
+		max-height: 0;
+		opacity: 0;
+		overflow: hidden;
+		pointer-events: none;
+		transform: translateY(-0.35rem);
+		border: 1px solid var(--accent-cyan);
+		border-radius: 999px;
+		background:
+			linear-gradient(135deg, rgba(0, 240, 255, 0.18), rgba(154, 77, 255, 0.22)),
+			rgba(10, 12, 21, 0.92);
+		color: #f4feff;
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		box-shadow: 0 0 18px rgba(0, 240, 255, 0.16);
+		transition:
+			opacity 180ms ease,
+			transform 220ms ease,
+			max-height 220ms ease,
+			margin-top 220ms ease,
+			box-shadow 180ms ease;
+	}
+	.shop-entry-button.visible {
+		max-height: 3.5rem;
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	}
 	.tabs-carousel {
 		display: contents;
 	}
@@ -318,6 +445,22 @@ import { STOREFRONT_URL } from '../consts';
 			align-items: flex-start;
 			flex-direction: column;
 			padding-bottom: 0.6rem;
+		}
+		.shop-entry-button {
+			width: 100%;
+			margin-top: 0;
+			margin-left: 0;
+			padding-inline: 1.1rem;
+			justify-content: space-between;
+			letter-spacing: 0.18em;
+		}
+		.shop-entry-button::after {
+			content: "\2197";
+			font-size: 0.95rem;
+			line-height: 1;
+		}
+		.shop-entry-button.visible {
+			margin-top: 0.35rem;
 		}
 		.tabs-carousel {
 			display: grid;
