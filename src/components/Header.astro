@@ -403,9 +403,10 @@ import { STOREFRONT_URL } from '../consts';
 		justify-content: center;
 		padding: 0.75rem 1rem;
 		margin-left: auto;
+		position: relative;
+		isolation: isolate;
 		overflow: visible;
-		border: 1px solid var(--accent-cyan);
-		border-bottom-width: 1px;
+		border: 0;
 		border-radius: 999px;
 		background:
 			linear-gradient(135deg, rgba(0, 240, 255, 0.18), rgba(154, 77, 255, 0.22)),
@@ -417,9 +418,15 @@ import { STOREFRONT_URL } from '../consts';
 		text-transform: uppercase;
 		transform: none;
 		text-shadow: none;
-		box-shadow:
-			0 0 18px rgba(0, 240, 255, 0.16),
-			inset 0 0 0 1px rgba(0, 240, 255, 0.72);
+		box-shadow: 0 0 14px rgba(0, 240, 255, 0.12);
+	}
+	.shop-entry-button::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border: 2px solid var(--accent-cyan);
+		border-radius: inherit;
+		pointer-events: none;
 	}
 	.shop-entry-button:not([hidden]) {
 		display: inline-flex;
