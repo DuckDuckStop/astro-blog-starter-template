@@ -116,13 +116,27 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 					<p class="instagram-note">
 						Start the conversation
 						<br />
-						<a href="mailto:info@atxpixel.com">info@atxpixel.com</a>
+						<a
+							href="#"
+							data-obfuscated-link="email"
+							aria-label="Email ATX PIXEL"
+							rel="nofollow"
+						>
+							<span data-obfuscated-label="email">Email us</span>
+						</a>
 						<br />
 						<br />
 						Follow our micro projects on Instagram.
 						<br />
-						<a class="instagram-link" href="https://instagram.com/atxpixel" target="_blank" rel="noopener noreferrer">
-							instagram.com/atxpixel
+						<a
+							class="instagram-link"
+							href="#"
+							data-obfuscated-link="instagram"
+							target="_blank"
+							rel="noopener noreferrer nofollow"
+							aria-label="Visit ATX PIXEL on Instagram"
+						>
+							<span data-obfuscated-label="instagram">Instagram</span>
 						</a>
 					</p>
 					<div class="contact-actions">
@@ -142,5 +156,38 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 			</section>
 		</main>
 		<Footer />
+		<script is:inline>
+			(() => {
+				const decode = (codes) => String.fromCharCode(...codes);
+				const email = decode([105, 110, 102, 111, 64, 97, 116, 120, 112, 105, 120, 101, 108, 46, 99, 111, 109]);
+				const instagramUrl = decode([
+					104, 116, 116, 112, 115, 58, 47, 47, 105, 110, 115, 116, 97, 103, 114, 97, 109, 46, 99, 111, 109, 47,
+					97, 116, 120, 112, 105, 120, 101, 108,
+				]);
+				const targets = [
+					{
+						key: 'email',
+						href: `mailto:${email}`,
+						label: email,
+					},
+					{
+						key: 'instagram',
+						href: instagramUrl,
+						label: instagramUrl.replace(/^https?:\/\//, ''),
+					},
+				];
+
+				for (const target of targets) {
+					const link = document.querySelector(`[data-obfuscated-link="${target.key}"]`);
+					const label = document.querySelector(`[data-obfuscated-label="${target.key}"]`);
+					if (link instanceof HTMLAnchorElement) {
+						link.href = target.href;
+					}
+					if (label instanceof HTMLElement) {
+						label.textContent = target.label;
+					}
+				}
+			})();
+		</script>
 	</body>
 </html>
