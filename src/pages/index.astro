@@ -10,6 +10,42 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			@keyframes pulseRedMotif {
+				0%,
+				100% {
+					opacity: 0.06;
+				}
+				50% {
+					opacity: 0.45;
+				}
+			}
+			@keyframes pulseBlueMotif {
+				0%,
+				100% {
+					opacity: 0.06;
+				}
+				50% {
+					opacity: 0.45;
+				}
+			}
+			@keyframes pulseBaseOutline {
+				0%,
+				100% {
+					opacity: 0.34;
+				}
+				50% {
+					opacity: 0.78;
+				}
+			}
+			@keyframes pulseBaseGrid {
+				0%,
+				100% {
+					opacity: 0.3;
+				}
+				50% {
+					opacity: 0.68;
+				}
+			}
 			.welcome-wrap {
 				box-sizing: border-box;
 				width: 100%;
@@ -17,68 +53,77 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 				margin: 0;
 				padding-left: clamp(1rem, 3vw, 2.5rem);
 				padding-right: clamp(1rem, 3vw, 2.5rem);
-				padding-top: clamp(1.4rem, 5vw, 3.2rem);
-				padding-bottom: clamp(1.8rem, 6vw, 4rem);
-			}
-			.storefront-shell {
-				display: grid;
-				gap: 1.1rem;
+				padding-top: clamp(2.2rem, 7vw, 5rem);
+				padding-bottom: clamp(2.2rem, 7vw, 5rem);
 			}
 			.hero {
 				box-sizing: border-box;
 				position: relative;
+				overflow: hidden;
 				display: grid;
-				grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-				gap: clamp(1.2rem, 2vw, 2rem);
-				align-items: stretch;
-				border: 1px solid var(--border-subtle);
-				border-radius: var(--radius-card);
-				padding: clamp(1.25rem, 3vw, 2rem);
-				background:
-					linear-gradient(180deg, rgba(21, 25, 29, 0.96), rgba(12, 15, 18, 0.98)),
-					var(--surface-1);
-				box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+				grid-template-columns: minmax(0, 1.05fr) minmax(220px, 0.75fr);
+				gap: clamp(1.4rem, 3vw, 3rem);
+				align-items: center;
+				border: 1px solid #202020;
+				border-radius: 18px;
+				padding: clamp(1.5rem, 4vw, 3.6rem);
+				background: #0a0a0a;
 			}
 			.eyebrow {
-				font-size: 0.76rem;
-				letter-spacing: 0.12em;
+				font-size: 0.82rem;
+				letter-spacing: 0.17em;
 				text-transform: uppercase;
-				color: #98a2ad;
-				margin-bottom: 0.8rem;
+				color: #8a8a8a;
+				margin-bottom: 0.95rem;
 			}
 			.hero h1 {
-				color: #f3f5f7;
-				max-width: 12ch;
-				margin-bottom: 0.85rem;
+				color: #ededed;
+				max-width: 14ch;
+				margin-bottom: 1rem;
+			}
+			.hero-word {
+				display: inline-block;
+				min-width: 7ch;
+				transition: opacity 180ms ease, transform 180ms ease;
+			}
+			.hero-word.is-swapping {
+				opacity: 0;
+				transform: translateY(0.2em);
 			}
 			.subline {
-				max-width: 58ch;
-				font-size: 0.98rem;
-				color: #a6afb8;
-				margin-bottom: 1.25rem;
+				max-width: 60ch;
+				font-size: 1.05rem;
+				color: #9a9a9a;
+				margin-bottom: 1.8rem;
 			}
-			.hero-meta {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.55rem;
-				margin: 0 0 1.3rem;
+			.hero-points {
+				display: grid;
+				gap: 0.4rem;
+				margin: 0 0 1.8rem;
 				padding: 0;
 				list-style: none;
+				color: #9a9a9a;
+				font-size: 1.05rem;
 			}
-			.hero-meta li {
-				padding: 0.45rem 0.7rem;
-				border: 1px solid var(--border-subtle);
-				border-radius: 999px;
-				background: rgba(255, 255, 255, 0.02);
-				color: #cbd2d8;
-				font-size: 0.74rem;
-				letter-spacing: 0.08em;
+			.hero-points li {
+				white-space: nowrap;
+			}
+			.audience-signal {
+				color: #cecece;
+				font-size: 0.95rem;
+				line-height: 1.8;
+				letter-spacing: 0.045em;
 				text-transform: uppercase;
+				margin-bottom: 2rem;
+			}
+			.audience-signal .amp {
+				color: #8a8a8a;
+				padding: 0 0.2rem;
 			}
 			.cta-row {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.75rem;
+				gap: 0.9rem;
 				min-width: 0;
 			}
 			.cta {
@@ -87,172 +132,160 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 				align-items: center;
 				justify-content: center;
 				text-decoration: none;
-				font-size: 0.84rem;
-				font-weight: 500;
-				letter-spacing: 0.06em;
+				font-size: 0.9rem;
+				font-weight: 600;
+				letter-spacing: 0.05em;
 				text-transform: uppercase;
-				border-radius: var(--radius-control);
-				padding: 0.8rem 1.05rem;
+				border-radius: 999px;
+				padding: 0.75rem 1.15rem;
 				max-width: 100%;
 				min-width: 0;
 				text-align: center;
-				border: 1px solid transparent;
-				transition:
-					background-color 160ms ease,
-					border-color 160ms ease,
-					color 160ms ease,
-					transform 160ms ease,
-					box-shadow 160ms ease;
 			}
 			.cta-primary {
-				color: #f4f7f8;
-				background: #1a2126;
-				border-color: rgba(24, 212, 223, 0.72);
+				color: #0a0a0a;
+				background: #e8e8e8;
+				border: 1px solid #e8e8e8;
 			}
 			.cta-ghost {
-				color: #d9dee2;
-				border-color: var(--border-strong);
+				color: #d8d8d8;
+				border: 1px solid #3a3a3a;
 				background: transparent;
 			}
 			@media (min-width: 721px) and (hover: hover) {
 				.cta-primary:hover,
 				.cta-primary:focus-visible {
-					background: #20292f;
-					border-color: var(--accent-cyan);
-					color: #ffffff;
-					box-shadow: 0 0 0 1px rgba(24, 212, 223, 0.1);
+					background: #ffffff;
+					border-color: #ffffff;
+					color: #0a0a0a;
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.16);
 				}
 				.cta-ghost:hover,
 				.cta-ghost:focus-visible {
-					color: #f4f7f8;
+					color: #f4feff;
 					border-color: var(--accent-cyan);
-					background: rgba(255, 255, 255, 0.03);
+					background: rgba(255, 255, 255, 0.04);
+					text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+					box-shadow: 0 0 18px rgba(0, 240, 255, 0.12);
 				}
 			}
-			.hero-panel {
-				display: grid;
-				gap: 0.9rem;
-				padding: 1rem;
-				border: 1px solid var(--border-subtle);
-				border-radius: calc(var(--radius-card) - 2px);
+			.hero-motif {
+				position: absolute;
+				inset: 0;
+				width: auto;
+				height: auto;
+				z-index: 0;
+				pointer-events: none;
+				isolation: isolate;
+			}
+			.hero-motif-2 {
+				position: absolute;
+				inset: -120%;
+				z-index: 2;
+				transform: translate(-10%, -2%) rotate(-22.5deg) scale(4);
+				transform-origin: center;
+				opacity: 0.45;
+				pointer-events: none;
+				animation: pulseRedMotif 7.2s ease-in-out infinite;
+			}
+			.hero-motif-3 {
+				position: absolute;
+				inset: -120%;
+				z-index: 2;
+				transform: translate(-10%, -2%) rotate(22.5deg) scale(4);
+				transform-origin: center;
+				opacity: 0.45;
+				pointer-events: none;
+				animation: pulseBlueMotif 7.2s ease-in-out 2.1s infinite;
+			}
+			.hero-motif-2::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 3px solid rgba(218, 74, 74, 0.38);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+			}
+			.hero-motif-2::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
 				background:
-					linear-gradient(180deg, rgba(18, 22, 26, 0.96), rgba(12, 15, 18, 0.98)),
-					var(--surface-2);
+					radial-gradient(circle, rgba(235, 110, 110, 0.42) 2px, transparent 2.5px) 0 0 / 32px 32px,
+					linear-gradient(rgba(218, 86, 86, 0.2) 3px, transparent 3px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(218, 86, 86, 0.2) 3px, transparent 3px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 			}
-			.hero-panel-label {
-				font-size: 0.72rem;
-				letter-spacing: 0.11em;
-				text-transform: uppercase;
-				color: #97a1aa;
+			.hero-motif-3::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 3px solid rgba(88, 144, 235, 0.38);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 			}
-			.hero-panel-title {
-				margin: 0;
-				font-size: clamp(1.25rem, 3vw, 1.8rem);
-				line-height: 1.2;
-				color: #f4f7f8;
+			.hero-motif-3::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				background:
+					radial-gradient(circle, rgba(132, 180, 248, 0.42) 2px, transparent 2.5px) 0 0 / 32px 32px,
+					linear-gradient(rgba(104, 156, 236, 0.2) 3px, transparent 3px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(104, 156, 236, 0.2) 3px, transparent 3px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 			}
-			.hero-panel-copy {
-				margin: 0;
-				font-size: 0.92rem;
-				line-height: 1.55;
-				color: #a7b0b8;
+			.hero-motif::before {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				border: 1px solid rgba(190, 190, 190, 0.14);
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				z-index: 1;
+				opacity: 0.78;
+				animation: pulseBaseOutline 8s ease-in-out infinite;
 			}
-			.hero-specs {
-				display: grid;
-				gap: 0.75rem;
-			}
-			.hero-spec {
-				display: grid;
-				gap: 0.18rem;
-				padding-top: 0.75rem;
-				border-top: 1px solid var(--border-subtle);
-			}
-			.hero-spec dt {
-				margin: 0;
-				font-size: 0.72rem;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: #8e98a3;
-			}
-			.hero-spec dd {
-				margin: 0;
-				color: #eef2f4;
-				font-size: 0.95rem;
-			}
-			.metrics-grid {
-				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-				gap: 1rem;
-			}
-			.metric-card {
-				padding: 0.95rem 1rem;
-				border: 1px solid var(--border-subtle);
-				border-radius: var(--radius-card);
-				background: var(--surface-1);
-			}
-			.metric-label {
-				display: block;
-				margin-bottom: 0.25rem;
-				font-size: 0.72rem;
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: #97a0ab;
-			}
-			.metric-value {
-				display: block;
-				color: #f3f5f7;
-				font-size: 1rem;
-				line-height: 1.4;
-			}
-			.collections-strip {
-				display: grid;
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-				gap: 1rem;
-			}
-			.collection-card {
-				padding: 1rem;
-				border: 1px solid var(--border-subtle);
-				border-radius: var(--radius-card);
-				background: var(--surface-1);
-			}
-			.collection-card h2 {
-				margin-bottom: 0.5rem;
-				font-size: 1.25rem;
-				line-height: 1.2;
-			}
-			.collection-card p {
-				margin: 0 0 0.9rem;
-				color: #a6afb8;
-				font-size: 0.92rem;
-			}
-			.collection-card a {
-				color: #eef2f4;
-				text-decoration: none;
-				font-size: 0.8rem;
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-			}
-			.collection-card a:hover {
-				color: var(--accent-cyan);
+			.hero-motif::after {
+				content: "";
+				position: absolute;
+				inset: 14%;
+				background:
+					linear-gradient(rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
+					linear-gradient(90deg, rgba(180, 180, 180, 0.04) 1px, transparent 1px) 0 0 / 32px 32px;
+				clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+				z-index: 1;
+				opacity: 0.68;
+				animation: pulseBaseGrid 8s ease-in-out 1.6s infinite;
 			}
 			@media (max-width: 920px) {
 				.hero {
 					grid-template-columns: 1fr;
 				}
-				.metrics-grid,
-				.collections-strip {
-					grid-template-columns: 1fr;
+				.hero h1 {
+					max-width: none;
+				}
+				.hero-motif-2 {
+					inset: -140%;
+				}
+				.hero-motif-3 {
+					inset: -140%;
 				}
 			}
 			@media (max-width: 720px) {
 				.welcome-wrap {
-					padding-top: 1rem;
-					padding-bottom: 1.4rem;
+					padding-top: clamp(1.2rem, 5vw, 2rem);
+					padding-bottom: clamp(1.4rem, 6vw, 2.4rem);
 				}
 				.hero {
 					border-radius: 16px;
 					padding: 1.2rem;
 					gap: 1.1rem;
+				}
+				.hero-points {
+					font-size: 0.88rem;
+					gap: 0.55rem;
+					margin-bottom: 1.25rem;
+				}
+				.hero-points li {
+					white-space: normal;
 				}
 				.cta-row {
 					flex-direction: column;
@@ -263,95 +296,62 @@ import { SITE_TITLE, SITE_DESCRIPTION, STOREFRONT_URL } from '../consts';
 					padding: 0.85rem 1rem;
 					white-space: normal;
 				}
+				.hero-motif-2,
+				.hero-motif-3 {
+					inset: -165%;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main class="welcome-wrap">
-			<div class="storefront-shell">
-				<section class="hero">
-					<div>
-						<p class="eyebrow">ATX PIXEL</p>
-						<h1>Lighting systems built to look clean and run every day.</h1>
-						<p class="subline">
-							The main site now leans toward the storefront: cleaner structure, quieter styling, and a
-							more product-led presentation for permanent trim lighting, repairs, and custom installs.
-						</p>
-						<ul class="hero-meta" aria-label="Key benefits">
-							<li>Trim light installs</li>
-							<li>Repairs and upgrades</li>
-							<li>Control system guidance</li>
-						</ul>
-						<div class="cta-row">
-							<a
-								class="cta cta-primary desktop-hover-scan"
-								href={STOREFRONT_URL}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Visit Storefront &#8599;
-							</a>
-							<a class="cta cta-ghost desktop-hover-scan" href="/contact">Start Project &#8594;</a>
-							<a class="cta cta-ghost desktop-hover-scan" href="/portfolio">View Portfolio &#8594;</a>
-						</div>
+			<section class="hero">
+				<div style="position: relative; z-index: 3;">
+					<h1>
+						Trim Lights Built to <span class="hero-word" data-hero-word>Perform</span>
+					</h1>
+					<ul class="hero-points" aria-label="Key benefits">
+						<li>Fully programmed LED lighting designed for your space.</li>
+						<li>Secure remote management and automation options.</li>
+						<li>Trim light repair and consulting come standard.</li>
+					</ul>
+					<div class="cta-row">
+						<a
+							class="cta cta-primary desktop-hover-scan"
+							href={STOREFRONT_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Visit Storefront &#8599;
+						</a>
+						<a class="cta cta-ghost desktop-hover-scan" href="/contact">Start Project &#8594;</a>
+						<a class="cta cta-ghost desktop-hover-scan" href="/portfolio">View Portfolio &#8594;</a>
 					</div>
-					<aside class="hero-panel" aria-label="Service overview">
-						<span class="hero-panel-label">Service Overview</span>
-						<h2 class="hero-panel-title">Built like a storefront, not a landing-page experiment.</h2>
-						<p class="hero-panel-copy">
-							We install and support programmable exterior lighting with a cleaner, more modular system
-							approach that matches the shop experience.
-						</p>
-						<dl class="hero-specs">
-							<div class="hero-spec">
-								<dt>Best fit</dt>
-								<dd>Homeowners and builders who want a polished permanent system.</dd>
-							</div>
-							<div class="hero-spec">
-								<dt>Coverage</dt>
-								<dd>Austin area installs, troubleshooting, upgrades, and planning support.</dd>
-							</div>
-							<div class="hero-spec">
-								<dt>Shop connection</dt>
-								<dd>Controllers, kits, and accessories follow the same visual language.</dd>
-							</div>
-						</dl>
-					</aside>
-				</section>
-				<section class="metrics-grid" aria-label="Business highlights">
-					<div class="metric-card">
-						<span class="metric-label">Focus</span>
-						<span class="metric-value">Permanent trim lighting and programmable control systems.</span>
-					</div>
-					<div class="metric-card">
-						<span class="metric-label">Support</span>
-						<span class="metric-value">Repairs, dead-pixel replacement, upgrades, and consulting.</span>
-					</div>
-					<div class="metric-card">
-						<span class="metric-label">Experience</span>
-						<span class="metric-value">A cleaner transition between marketing pages and storefront products.</span>
-					</div>
-				</section>
-				<section class="collections-strip" aria-label="Primary site paths">
-					<article class="collection-card">
-						<h2>Projects</h2>
-						<p>Browse completed work and lighting concepts with a simpler catalog-style structure.</p>
-						<a href="/portfolio">Open portfolio &#8594;</a>
-					</article>
-					<article class="collection-card">
-						<h2>Planning</h2>
-						<p>Use the contact and pricing pages as the guided path into a real installation discussion.</p>
-						<a href="/pricing">View pricing &#8594;</a>
-					</article>
-					<article class="collection-card">
-						<h2>Shop</h2>
-						<p>Move into the storefront for controllers, kits, accessories, and future product expansion.</p>
-						<a href={STOREFRONT_URL} target="_blank" rel="noopener noreferrer">Open shop &#8599;</a>
-					</article>
-				</section>
-			</div>
+				</div>
+				<div class="hero-motif" aria-hidden="true">
+					<div class="hero-motif-2"></div>
+					<div class="hero-motif-3"></div>
+				</div>
+			</section>
 		</main>
 		<Footer />
+		<script is:inline>
+			(() => {
+				const wordEl = document.querySelector('[data-hero-word]');
+				if (!wordEl) return;
+				const words = ['Perform', 'Last', 'Impress'];
+				let index = 0;
+
+				window.setInterval(() => {
+					index = (index + 1) % words.length;
+					wordEl.classList.add('is-swapping');
+					window.setTimeout(() => {
+						wordEl.textContent = words[index];
+						wordEl.classList.remove('is-swapping');
+					}, 190);
+				}, 2600);
+			})();
+		</script>
 	</body>
 </html>
