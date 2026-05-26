@@ -1,22 +1,7 @@
----
+﻿---
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { isMaterialSelectionSubject, readPortfolioPhotoSubjects } from '../../lib/portfolioPhotos';
-
-let subjects: Array<{ slug: string; label: string; count: number }> = [];
-try {
-	const loaded = await readPortfolioPhotoSubjects();
-	subjects = loaded
-		.filter((subject) => !isMaterialSelectionSubject(subject))
-		.map((subject) => ({
-			slug: subject.slug,
-			label: subject.label,
-			count: subject.photos.length
-		}));
-} catch {
-	subjects = [];
-}
 ---
 
 <!doctype html>
@@ -176,36 +161,18 @@ try {
 					<a class="back-link" href="/portfolio/">Back to Portfolio</a>
 					<h1>Project Samples</h1>
 					<p class="portfolio-subline">
-						Select a category to view project types and details.
-					</p>
-				{
-						subjects.length > 0 ? (
-							<ul class="channel-grid">
-								{
-									subjects.map((subject) => (
-										<li>
-											<a class="channel-card" href={`/portfolio/photos/${subject.slug}/`}>
-												<p class="channel-label">Project Category</p>
-												<h2>{subject.label}</h2>
-												<div class="channel-meta">
-													<span class="channel-count">{subject.count} photos</span>
-													<span class="channel-cta">View Samples</span>
-												</div>
-											</a>
-										</li>
-									))
-								}
-							</ul>
-						) : (
-						<p>
-							No subject folders with images found yet. Add images under
-							<code>public/media/photos/&lt;subject&gt;</code> and refresh.
-						</p>
-					)
-				}
-				</div>
+This section is currently under construction while ATX PIXEL builds out portfolio samples. Please check back soon for curated project categories and photo collections.
+</p>
+<p>
+Thanks for your patience. The Portfolio Samples page will be available once more content is ready.
+</p>
+</div>
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+
+
+
